@@ -6,6 +6,7 @@ import com.siatsenko.movieland.entity.Movie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,7 @@ public class JdbcMovieDao implements MovieDao {
     private String allMovieSql;
     private String randomMovieSql;
     private MovieRowMapper movieRowMapper;
+    private int randomCount;
 
     @Override
     public List<Movie> getAll() {
@@ -29,7 +31,7 @@ public class JdbcMovieDao implements MovieDao {
 
     @Override
     public List<Movie> getRandom() {
-        List<Movie> movies = jdbcTemplate.query(randomMovieSql, movieRowMapper);
+        List<Movie> movies = jdbcTemplate.query(randomMovieSql, movieRowMapper, randomCount);
         log.trace("GetRandom finished and return movies: {}", movies);
         return movies;
     }
@@ -54,4 +56,8 @@ public class JdbcMovieDao implements MovieDao {
         this.movieRowMapper = movieRowMapper;
     }
 
+    @Value("${random.count:5}")
+    public void setRandomCount(int randomCount) {
+        this.randomCount = randomCount;
+    }
 }
