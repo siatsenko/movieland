@@ -12,16 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@ResponseBody
-@RestController("movieController")
+@RestController
 public class MovieController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private MovieService movieService;
-
-    @Autowired
-    public void setMovieService(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getAll() throws JsonProcessingException {
@@ -32,8 +26,13 @@ public class MovieController {
         String moviesJson = objectMapper.writeValueAsString(movies);
 
         log.info("Movie is received");
-        log.debug("Movie is received. moviesJson: {}", moviesJson);
+        log.trace("Movie is received. moviesJson: {}", moviesJson);
         return moviesJson;
+    }
+
+    @Autowired
+    public void setMovieService(MovieService movieService) {
+        this.movieService = movieService;
     }
 
 }

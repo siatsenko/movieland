@@ -3,13 +3,13 @@ package com.siatsenko.movieland.entity;
 import java.util.Objects;
 
 public class Movie {
-    int id;
-    String nameRussian;
-    String nameNative;
-    String yearOfRelease;
-    double rating;
-    double price;
-    String picturePath;
+    private int id;
+    private String nameRussian;
+    private String nameNative;
+    private String yearOfRelease;
+    private double rating;
+    private double price;
+    private String picturePath;
 
     public int getId() {
         return id;

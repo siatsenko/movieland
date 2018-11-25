@@ -11,13 +11,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("MovieDao")
+@Repository
 public class JdbcMovieDao implements MovieDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String getAllSql;
+    private String allMovieSql;
     private MovieRowMapper movieRowMapper;
+
+    @Override
+    public List<Movie> getAll() {
+        List<Movie> movies = jdbcTemplate.query(allMovieSql, movieRowMapper);
+        log.trace("GetAll finished and return movies: {}", movies);
+        return movies;
+    }
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -25,24 +32,13 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Autowired
-    public void setGetAllSql(String getAllSql) {
-        this.getAllSql = getAllSql;
+    public void setAllMovieSql(String allMovieSql) {
+        this.allMovieSql = allMovieSql;
     }
 
     @Autowired
     public void setMovieRowMapper(MovieRowMapper movieRowMapper) {
         this.movieRowMapper = movieRowMapper;
-    }
-
-    @Override
-    public List<Movie> getAll() {
-        log.info("GetAll started");
-
-        List<Movie> movies = jdbcTemplate.query(getAllSql, movieRowMapper);
-
-        log.info("GetAll finished");
-        log.debug("GetAll finished and return movies: {}", movies);
-        return movies;
     }
 
 }
