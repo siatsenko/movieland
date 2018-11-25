@@ -7,6 +7,7 @@ import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class MovieController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private MovieService movieService;
+    private int randomCount;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getAll() throws JsonProcessingException {
@@ -33,6 +35,11 @@ public class MovieController {
     @Autowired
     public void setMovieService(MovieService movieService) {
         this.movieService = movieService;
+    }
+
+    @Value("${random.count:3}")
+    public void setRandomCount(int randomCount) {
+        this.randomCount = randomCount;
     }
 
 }
