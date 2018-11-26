@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Repository("movieRowWrapper")
+@Repository
 public class MovieRowMapper implements RowMapper<Movie> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MovieRowMapper.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public Movie mapRow(ResultSet resultSet, int rowId) throws SQLException {
@@ -24,7 +24,7 @@ public class MovieRowMapper implements RowMapper<Movie> {
         movie.setPrice(resultSet.getDouble("price"));
         movie.setPicturePath(resultSet.getString("picture_path"));
 
-        LOGGER.trace("mapRow finished and return movie: {}", movie);
+        logger.trace("mapRow finished and return movie: {}", movie);
         return movie;
     }
 }

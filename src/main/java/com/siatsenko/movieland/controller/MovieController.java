@@ -12,23 +12,23 @@ import java.util.List;
 
 @RestController
 public class MovieController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieService movieService;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Movie> getAll() {
-        LOGGER.info("Sending request to get all movies");
+        logger.info("Sending request to get all movies");
         List<Movie> movies = movieService.getAll();
-        LOGGER.debug("Returning {} movies", movies.size());
+        logger.debug("Returning {} movies", movies.size());
         return movies;
     }
 
     @RequestMapping(path = "/movie/random", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Movie> getRandom() {
-        LOGGER.info("Sending request to get random movies");
+        logger.info("Sending request to get random movies");
         List<Movie> movies = movieService.getRandom();
-        LOGGER.debug("Returning {} movies", movies.size());
+        logger.debug("Returning {} movies", movies.size());
         return movies;
     }
 

@@ -12,21 +12,21 @@ import java.util.List;
 
 @Service
 public class DefaultMovieService implements MovieService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultMovieService.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieDao movieDao;
 
     @Override
     public List<Movie> getAll() {
         List<Movie> movies = movieDao.getAll();
-        LOGGER.trace("getAll finished and return movies: {}", movies);
+        logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
 
     @Override
     public List<Movie> getRandom() {
         List<Movie> movies = movieDao.getRandom();
-        LOGGER.trace("getRandom finished and return movies: {}", movies);
+        logger.trace("getRandom finished and return movies: {}", movies);
         return movies;
     }
 
