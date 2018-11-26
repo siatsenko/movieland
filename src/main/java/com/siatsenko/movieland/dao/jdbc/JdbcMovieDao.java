@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class JdbcMovieDao implements MovieDao {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcMovieDao.class);
 
     private JdbcTemplate jdbcTemplate;
     private String allMovieSql;
@@ -25,14 +25,14 @@ public class JdbcMovieDao implements MovieDao {
     @Override
     public List<Movie> getAll() {
         List<Movie> movies = jdbcTemplate.query(allMovieSql, movieRowMapper);
-        log.trace("GetAll finished and return movies: {}", movies);
+        LOGGER.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
 
     @Override
     public List<Movie> getRandom() {
         List<Movie> movies = jdbcTemplate.query(randomMovieSql, movieRowMapper, randomCount);
-        log.trace("GetRandom finished and return movies: {}", movies);
+        LOGGER.trace("getRandom finished and return movies: {}", movies);
         return movies;
     }
 

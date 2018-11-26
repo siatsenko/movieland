@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 @Repository("movieRowWrapper")
 public class MovieRowMapper implements RowMapper<Movie> {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieRowMapper.class);
 
     @Override
     public Movie mapRow(ResultSet resultSet, int rowId) throws SQLException {
@@ -24,7 +24,7 @@ public class MovieRowMapper implements RowMapper<Movie> {
         movie.setPrice(resultSet.getDouble("price"));
         movie.setPicturePath(resultSet.getString("picture_path"));
 
-        log.trace("MapRow finished and return movie: {}", movie);
+        LOGGER.trace("mapRow finished and return movie: {}", movie);
         return movie;
     }
 }

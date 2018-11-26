@@ -1,7 +1,5 @@
 package com.siatsenko.movieland.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
@@ -14,19 +12,24 @@ import java.util.List;
 
 @RestController
 public class MovieController {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieController.class);
+
     private MovieService movieService;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Movie> getAll() {
-        log.info("Sending request to get all movies");
-        return movieService.getAll();
+        LOGGER.info("Sending request to get all movies");
+        List<Movie> movies = movieService.getAll();
+        LOGGER.debug("Returning {} movies", movies.size());
+        return movies;
     }
 
     @RequestMapping(path = "/movie/random", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Movie> getRandom() {
-        log.info("Sending request to get random movies");
-        return movieService.getRandom();
+        LOGGER.info("Sending request to get random movies");
+        List<Movie> movies = movieService.getRandom();
+        LOGGER.debug("Returning {} movies", movies.size());
+        return movies;
     }
 
     @Autowired
