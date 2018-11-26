@@ -18,21 +18,15 @@ public class MovieController {
     private MovieService movieService;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getAll() throws JsonProcessingException {
+    public List<Movie> getAll() {
         log.info("Sending request to get all movies");
-        List<Movie> movies = movieService.getAll();
-        log.info("Movies is received");
-        log.debug("Movies is received. moviesJson: {}", new ObjectMapper().writeValueAsString(movies));
-        return movies;
+        return movieService.getAll();
     }
 
     @RequestMapping(path = "/movie/random", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getRandom() throws JsonProcessingException {
+    public List<Movie> getRandom() {
         log.info("Sending request to get random movies");
-        List<Movie> movies = movieService.getRandom();
-        log.info("Movies is received");
-        log.debug("Movies is received. moviesJson: {}", new ObjectMapper().writeValueAsString(movies));
-        return movies;
+        return movieService.getRandom();
     }
 
     @Autowired
