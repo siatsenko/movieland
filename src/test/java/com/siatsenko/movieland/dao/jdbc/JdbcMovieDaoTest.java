@@ -21,8 +21,8 @@ public class JdbcMovieDaoTest {
             List<Movie> movies = JDBC_MOVIE_DAO.getAll();
 
             assertEquals(movies.size(), 4);
-            Movie movieFirst = movies.get(0);
 
+            Movie movieFirst = movies.get(0);
             assertEquals(movieFirst.getId(), 1);
             assertEquals(movieFirst.getNameRussian(), "Побег из Шоушенка");
             assertEquals(movieFirst.getNameNative(), "The Shawshank Redemption");
