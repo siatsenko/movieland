@@ -13,4 +13,10 @@ CREATE TABLE genre
 (
     id INTEGER IDENTITY PRIMARY KEY,
     name VARCHAR(50)
-)
+);
+
+CREATE TABLE movie_genre
+(
+    movie_id INTEGER,
+    genre_id INTEGER
+);

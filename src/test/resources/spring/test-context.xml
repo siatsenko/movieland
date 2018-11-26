@@ -26,6 +26,15 @@
         <constructor-arg value="SELECT * FROM v_movies order by 1 limit ?;"/>
     </bean>
 
+    <bean id="movieByGenreIdSql" class="java.lang.String">
+        <constructor-arg value="
+        select vm.*
+          from v_movies vm
+               inner join movie_genre mg
+                  on vm.id = mg.movie_id
+         where mg.genre_id = ?;"/>
+    </bean>
+
     <bean id="movieRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper">
     </bean>
 
@@ -33,6 +42,7 @@
         <property name="movieRowMapper" ref="movieRowMapper"/>
         <property name="allMovieSql" ref="allMovieSql"/>
         <property name="randomMovieSql" ref="randomMovieSql"/>
+        <property name="movieByGenreIdSql" ref="movieByGenreIdSql"/>
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
         <property name="randomCount" value="2"/>
     </bean>
