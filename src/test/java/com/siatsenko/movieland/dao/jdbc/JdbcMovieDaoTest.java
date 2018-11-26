@@ -13,16 +13,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class JdbcMovieDaoTest {
+    private static final ApplicationContext CONTEXT = new  ClassPathXmlApplicationContext("spring/test-context.xml");
+    private static final JdbcMovieDao JDBC_MOVIE_DAO = (JdbcMovieDao) CONTEXT.getBean("jdbcMovieDao");
 
     @Test
-    public void getAll() throws IOException {
+    public void getAll() {
+            List<Movie> movies = JDBC_MOVIE_DAO.getAll();
 
-            ApplicationContext context = new  ClassPathXmlApplicationContext("spring/test-context.xml");
-
-            JdbcMovieDao jdbcMovieDao = (JdbcMovieDao) context.getBean("jdbcMovieDao");
-            List<Movie> movies = jdbcMovieDao.getAll();
-
-            assertEquals(movies.size(), 2);
+            assertEquals(movies.size(), 4);
             Movie movieFirst = movies.get(0);
 
             assertEquals(movieFirst.getId(), 1);
@@ -41,7 +39,12 @@ public class JdbcMovieDaoTest {
             assertEquals(movieSecond.getRating(), 8.9, 0.000001);
             assertEquals(movieSecond.getPrice(), 134.67, 0.000001);
             assertEquals(movieSecond.getPicturePath(), "https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg");
-
     }
 
+        @Test
+        public void getRandom() {
+                List<Movie> movies = JDBC_MOVIE_DAO.getRandom();
+
+                assertEquals(movies.size(), 2);
+        }
 }

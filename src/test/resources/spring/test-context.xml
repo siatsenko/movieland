@@ -18,6 +18,10 @@
         <constructor-arg value="SELECT * FROM v_movies;"/>
     </bean>
 
+    <bean id="randomMovieSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM v_movies order by 1 limit ?;"/>
+    </bean>
+
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="DataSource" ref="dataSource"/>
     </bean>
@@ -28,7 +32,9 @@
     <bean id="jdbcMovieDao" class="com.siatsenko.movieland.dao.jdbc.JdbcMovieDao">
         <property name="movieRowMapper" ref="movieRowMapper"/>
         <property name="allMovieSql" ref="allMovieSql"/>
+        <property name="randomMovieSql" ref="randomMovieSql"/>
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="randomCount" value="2"/>
     </bean>
 
 </beans>
