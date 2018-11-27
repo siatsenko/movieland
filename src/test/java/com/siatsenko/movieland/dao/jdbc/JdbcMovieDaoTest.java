@@ -50,6 +50,15 @@ public class JdbcMovieDaoTest {
         assertEquals(movies.size(), 2);
     }
 
+    @Test
+    public void getByGenreId() {
+        List<Movie> movies1 = jdbcMovieDao.getByGenreId(1);
+        assertEquals(movies1.size(), 4);
+
+        List<Movie> movies2 = jdbcMovieDao.getByGenreId(2);
+        assertEquals(movies2.size(), 2);
+    }
+
     @Autowired
     public void setJdbcMovieDao(JdbcMovieDao jdbcMovieDao) {
         this.jdbcMovieDao = jdbcMovieDao;
