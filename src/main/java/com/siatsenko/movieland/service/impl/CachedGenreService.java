@@ -7,61 +7,46 @@ import com.siatsenko.movieland.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 
+@EnableScheduling
 @Service("primaryGenreService")
 public class CachedGenreService implements GenreService, CachedService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private List<Genre> cacheGenres;
 
-    private GenreDao genreDao;
+    private volatile GenreDao genreDao;
 
     @Override
     public List<Genre> getAll() {
         logger.debug("getAll: start");
-        if (!isValid()) {
-            logger.debug("getAll: not Valid");
-            start();
-        }
         List<Genre> result = new LinkedList<>();
-        synchronized (cacheGenres) {
-            logger.debug("getAll: synchronized block");
             for (Genre cacheGenre : cacheGenres) {
                 try {
                     result.add((Genre) cacheGenre.clone());
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();
                 }
-            }
         }
+        logger.trace("start finished and return result: {}", result);
         return result;
     }
 
     @Override
     @PostConstruct
-    public Object start() {
-        cacheGenres = genreDao.getAll();
-        logger.trace("start finished and return cacheGenres: {}", cacheGenres);
-        return cacheGenres;
-    }
-
-    @Override
+    @Scheduled(fixedDelay = 4*60*1000, initialDelay = 4*60*1000)
     public Object refresh() {
+        logger.debug("refresh: start");
         List<Genre> result = genreDao.getAll();
-        synchronized (cacheGenres) {
             cacheGenres = result;
-        }
         return result;
-    }
-
-    @Override
-    public boolean isValid() {
-        return cacheGenres != null;
     }
 
     @Autowired
