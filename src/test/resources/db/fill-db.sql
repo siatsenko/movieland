@@ -39,3 +39,34 @@ insert into v_movies (id,name_russian,name_native,year_of_release,rating,price,p
 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg'
 );
 --------------------------------------------------------------------
+insert into genre (id,name) values (1,'драма');
+insert into genre (id,name) values (2,'криминал');
+insert into genre (id,name) values (3,'фэнтези');
+insert into genre (id,name) values (4,'детектив');
+insert into genre (id,name) values (5,'мелодрама');
+insert into genre (id,name) values (6,'биография');
+insert into genre (id,name) values (7,'комедия');
+insert into genre (id,name) values (8,'фантастика');
+insert into genre (id,name) values (9,'боевик');
+insert into genre (id,name) values (10,'триллер');
+insert into genre (id,name) values (11,'приключения');
+insert into genre (id,name) values (12,'аниме');
+insert into genre (id,name) values (13,'мультфильм');
+insert into genre (id,name) values (14,'семейный');
+insert into genre (id,name) values (15,'вестерн');
+--------------------------------------------------------------------
+insert into movie_genre (movie_id,genre_id) values (1,	1);
+insert into movie_genre (movie_id,genre_id) values (1,	2);
+insert into movie_genre (movie_id,genre_id) values (2,	1);
+insert into movie_genre (movie_id,genre_id) values (2,	2);
+insert into movie_genre (movie_id,genre_id) values (2,	3);
+insert into movie_genre (movie_id,genre_id) values (2,	4);
+insert into movie_genre (movie_id,genre_id) values (3,	1);
+insert into movie_genre (movie_id,genre_id) values (3,	7);
+insert into movie_genre (movie_id,genre_id) values (3,	11);
+insert into movie_genre (movie_id,genre_id) values (3,	15);
+insert into movie_genre (movie_id,genre_id) values (4,	1);
+insert into movie_genre (movie_id,genre_id) values (4,	11);
+insert into movie_genre (movie_id,genre_id) values (4,	15);
+--------------------------------------------------------------------
+

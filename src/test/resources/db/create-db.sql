@@ -8,3 +8,15 @@ CREATE TABLE v_movies
     price DECIMAL(10,2),
     picture_path VARCHAR(1000)
 );
+
+CREATE TABLE genre
+(
+    id INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE movie_genre
+(
+    movie_id INTEGER,
+    genre_id INTEGER
+);
