@@ -28,12 +28,12 @@ public class CachedGenreService implements GenreService, CachedService {
     public List<Genre> getAll() {
         logger.debug("getAll: start");
         List<Genre> result = new LinkedList<>();
-            for (Genre cacheGenre : cacheGenres) {
-                try {
-                    result.add((Genre) cacheGenre.clone());
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
+        for (Genre cacheGenre : cacheGenres) {
+            try {
+                result.add((Genre) cacheGenre.clone());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         }
         logger.trace("start finished and return result: {}", result);
         return result;
@@ -41,11 +41,11 @@ public class CachedGenreService implements GenreService, CachedService {
 
     @Override
     @PostConstruct
-    @Scheduled(fixedDelay = 4*60*1000, initialDelay = 4*60*1000)
+    @Scheduled(fixedDelay = 4 * 60 * 1000, initialDelay = 4 * 60 * 1000)
     public Object refresh() {
         logger.debug("refresh: start");
         List<Genre> result = genreDao.getAll();
-            cacheGenres = result;
+        cacheGenres = result;
         return result;
     }
 
