@@ -15,6 +15,10 @@
         <constructor-arg value="SELECT * FROM v_movies order by random() limit ?;"/>
     </bean>
 
+    <bean id="allGenreSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM genre;"/>
+    </bean>
+
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="${dbcp2.driverClassName}"/>
         <property name="url" value="${dbcp2.url}"/>
