@@ -19,6 +19,7 @@ public class JdbcMovieDao implements MovieDao {
     private JdbcTemplate jdbcTemplate;
     private String allMovieSql;
     private String randomMovieSql;
+    private String movieByGenreIdSql;
     private MovieRowMapper movieRowMapper;
     private int randomCount;
 
@@ -36,6 +37,13 @@ public class JdbcMovieDao implements MovieDao {
         return movies;
     }
 
+    @Override
+    public List<Movie> getByGenreId(int genreId) {
+        List<Movie> movies = jdbcTemplate.query(movieByGenreIdSql, movieRowMapper, genreId);
+        logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
+        return movies;
+    }
+
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -49,6 +57,11 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     public void setRandomMovieSql(String randomMovieSql) {
         this.randomMovieSql = randomMovieSql;
+    }
+
+    @Autowired
+    public void setMovieByGenreIdSql(String movieByGenreIdSql) {
+        this.movieByGenreIdSql = movieByGenreIdSql;
     }
 
     @Autowired

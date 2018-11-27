@@ -55,4 +55,18 @@ insert into genre (id,name) values (13,'мультфильм');
 insert into genre (id,name) values (14,'семейный');
 insert into genre (id,name) values (15,'вестерн');
 --------------------------------------------------------------------
+insert into movie_genre (movie_id,genre_id) values (1,	1);
+insert into movie_genre (movie_id,genre_id) values (1,	2);
+insert into movie_genre (movie_id,genre_id) values (2,	1);
+insert into movie_genre (movie_id,genre_id) values (2,	2);
+insert into movie_genre (movie_id,genre_id) values (2,	3);
+insert into movie_genre (movie_id,genre_id) values (2,	4);
+insert into movie_genre (movie_id,genre_id) values (3,	1);
+insert into movie_genre (movie_id,genre_id) values (3,	7);
+insert into movie_genre (movie_id,genre_id) values (3,	11);
+insert into movie_genre (movie_id,genre_id) values (3,	15);
+insert into movie_genre (movie_id,genre_id) values (4,	1);
+insert into movie_genre (movie_id,genre_id) values (4,	11);
+insert into movie_genre (movie_id,genre_id) values (4,	15);
+--------------------------------------------------------------------
 

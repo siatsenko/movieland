@@ -1,8 +1,6 @@
 package com.siatsenko.movieland.controller;
 
-import com.siatsenko.movieland.entity.Genre;
 import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.service.GenreService;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +28,14 @@ public class MovieController {
     public List<Movie> getRandom() {
         logger.info("Sending request to get random movies");
         List<Movie> movies = movieService.getRandom();
+        logger.debug("Returning {} movies", movies.size());
+        return movies;
+    }
+
+    @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Movie> getByGenreId(@PathVariable("genreId") int genreId) {
+        logger.info("Sending request to get movies by genreId : {}", genreId);
+        List<Movie> movies = movieService.getByGenreId(genreId);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }

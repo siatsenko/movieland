@@ -5,13 +5,9 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
-import java.io.*;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -52,6 +48,15 @@ public class JdbcMovieDaoTest {
         List<Movie> movies = jdbcMovieDao.getRandom();
 
         assertEquals(movies.size(), 2);
+    }
+
+    @Test
+    public void getByGenreId() {
+        List<Movie> movies1 = jdbcMovieDao.getByGenreId(1);
+        assertEquals(movies1.size(), 4);
+
+        List<Movie> movies2 = jdbcMovieDao.getByGenreId(2);
+        assertEquals(movies2.size(), 2);
     }
 
     @Autowired

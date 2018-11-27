@@ -30,6 +30,13 @@ public class DefaultMovieService implements MovieService {
         return movies;
     }
 
+    @Override
+    public List<Movie> getByGenreId(int genreId) {
+        List<Movie> movies = movieDao.getByGenreId(genreId);
+        logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
+        return movies;
+    }
+
     @Autowired
     public void setMovieDao(MovieDao movieDao) {
         this.movieDao = movieDao;

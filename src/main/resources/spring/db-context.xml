@@ -15,6 +15,15 @@
         <constructor-arg value="SELECT * FROM v_movies order by random() limit ?;"/>
     </bean>
 
+    <bean id="movieByGenreIdSql" class="java.lang.String">
+        <constructor-arg value="
+        select vm.*
+          from v_movies vm
+               inner join movie_genre mg
+                  on vm.id = mg.movie_id
+         where mg.genre_id = ?;"/>
+    </bean>
+
     <bean id="allGenreSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM genre;"/>
     </bean>
