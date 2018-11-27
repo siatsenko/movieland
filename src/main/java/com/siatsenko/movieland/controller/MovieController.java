@@ -33,7 +33,7 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getMovieByGenreId(@PathVariable("genreId") int genreId) {
+    public List<Movie> getByGenreId(@PathVariable("genreId") int genreId) {
         logger.info("Sending request to get movies by genreId : {}", genreId);
         List<Movie> movies = movieService.getByGenreId(genreId);
         logger.debug("Returning {} movies", movies.size());
