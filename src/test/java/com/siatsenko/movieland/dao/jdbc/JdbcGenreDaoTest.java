@@ -2,20 +2,24 @@ package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.entity.Genre;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(value = "/spring/test-context.xml")
 public class JdbcGenreDaoTest {
-    private static final ApplicationContext CONTEXT = new ClassPathXmlApplicationContext("spring/test-context.xml");
-    private static final JdbcGenreDao JDBC_GENRE_DAO = (JdbcGenreDao) CONTEXT.getBean("jdbcGenreDao");
+
+    private JdbcGenreDao jdbcGenreDao;
 
     @Test
     public void getAll() {
-        List<Genre> genres = JDBC_GENRE_DAO.getAll();
+        List<Genre> genres = jdbcGenreDao.getAll();
 
         assertEquals(genres.size(), 15);
 
@@ -26,5 +30,10 @@ public class JdbcGenreDaoTest {
         Genre genreSecond = genres.get(1);
         assertEquals(genreSecond.getId(), 2);
         assertEquals(genreSecond.getName(), "криминал");
+    }
+
+    @Autowired
+    public void setJdbcGenreDao(JdbcGenreDao jdbcGenreDao) {
+        this.jdbcGenreDao = jdbcGenreDao;
     }
 }
