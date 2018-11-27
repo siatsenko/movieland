@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.entity;
 
-public class Genre {
+public class Genre implements Cloneable{
     private int id;
     private String name;
 
@@ -18,6 +18,10 @@ public class Genre {
 
     public String getName() {
         return name;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return (Genre)super.clone();
     }
 
     @Override
