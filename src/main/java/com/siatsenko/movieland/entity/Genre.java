@@ -1,15 +1,12 @@
 package com.siatsenko.movieland.entity;
 
-public class Genre implements Cloneable{
+public final class Genre {
     private int id;
     private String name;
 
-    public void setId(int id) {
+    public Genre(int id, String name) {
         this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.name = new String(name);
     }
 
     public int getId() {
@@ -20,10 +17,6 @@ public class Genre implements Cloneable{
         return name;
     }
 
-    public Object clone() throws CloneNotSupportedException {
-        return (Genre)super.clone();
-    }
-
     @Override
     public String toString() {
         return "Genre{" +
@@ -31,4 +24,5 @@ public class Genre implements Cloneable{
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

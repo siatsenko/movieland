@@ -28,7 +28,6 @@ public class GenreController {
     }
 
     @Autowired
-    @Qualifier("primaryGenreService")
     public void setGenreService(GenreService genreService) {
         this.genreService = genreService;
     }
