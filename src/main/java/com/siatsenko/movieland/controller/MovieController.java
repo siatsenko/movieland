@@ -1,13 +1,11 @@
 package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.util.RequestParams;
 import com.siatsenko.movieland.service.MovieService;
-import com.sun.javafx.collections.MappingChange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +22,8 @@ public class MovieController {
     public List<Movie> getAll(@RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get all movies");
         logger.debug("Sending request to get all movies {}", queryMap.toString());
-        List<Movie> movies = movieService.getAll(queryMap);
+        String order = RequestParams.getOrder(queryMap);
+        List<Movie> movies = movieService.getAll(order);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }
@@ -38,9 +37,10 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getByGenreId(@PathVariable("genreId") int genreId) {
+    public List<Movie> getByGenreId(@PathVariable("genreId") int genreId, @RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get movies by genreId : {}", genreId);
-        List<Movie> movies = movieService.getByGenreId(genreId);
+        String order = RequestParams.getOrder(queryMap);
+        List<Movie> movies = movieService.getByGenreId(genreId, order);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }

@@ -1,20 +1,17 @@
 package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.GenreDao;
-import com.siatsenko.movieland.dao.jdbc.mapper.GenreRowMapper;
 import com.siatsenko.movieland.entity.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Repository

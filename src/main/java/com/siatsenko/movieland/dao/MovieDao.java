@@ -3,14 +3,13 @@ package com.siatsenko.movieland.dao;
 import com.siatsenko.movieland.entity.Movie;
 
 import java.util.List;
-import java.util.Map;
 
 public interface MovieDao {
 
-    List<Movie> getAll(Map<String, String> queryMap);
+    List<Movie> getAll(String order);
 
     List<Movie> getRandom();
 
-    List<Movie> getByGenreId(int genreId);
+    List<Movie> getByGenreId(int genreId, String order);
 
 }

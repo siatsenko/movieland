@@ -63,18 +63,7 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="orderReplace" class="java.lang.String">
-        <constructor-arg value="/*ORDER BY*/"/>
-    </bean>
-
-    <util:list id="allowedFields" value-type="java.lang.String">
-        <value>rating</value>
-        <value>price</value>
-    </util:list>
-
     <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">
-        <property name="allowedFields" ref="allowedFields"/>
-        <property name="orderReplace" ref="orderReplace"/>
     </bean>
 
 </beans>

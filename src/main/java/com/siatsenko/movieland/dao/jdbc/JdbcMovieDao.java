@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class JdbcMovieDao implements MovieDao {
@@ -27,9 +26,8 @@ public class JdbcMovieDao implements MovieDao {
     private SqlBuilder sqlBuilder;
 
     @Override
-    public List<Movie> getAll(Map<String, String> queryMap) {
-//        String map = queryMap.toString();
-        String query = sqlBuilder.setOrder(allMovieSql, queryMap);
+    public List<Movie> getAll(String order) {
+        String query = sqlBuilder.setOrder(allMovieSql, order);
         logger.trace("getAll used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper);
         logger.trace("getAll finished and return movies: {}", movies);
@@ -44,8 +42,10 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId) {
-        List<Movie> movies = jdbcTemplate.query(movieByGenreIdSql, movieRowMapper, genreId);
+    public List<Movie> getByGenreId(int genreId, String order) {
+        String query = sqlBuilder.setOrder(movieByGenreIdSql, order);
+        logger.trace("getByGenreId used query: {}", query);
+        List<Movie> movies = jdbcTemplate.query(query, movieRowMapper, genreId);
         logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
         return movies;
     }
