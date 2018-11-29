@@ -8,17 +8,17 @@ public class SortTypeTest {
 
 
     @Test
-    public void isValid() {
+    public void contains() {
 
-        assertTrue(SortType.isValid("ASC"));
-        assertTrue(SortType.isValid("asc"));
-        assertTrue(SortType.isValid("Asc"));
-        assertTrue(SortType.isValid("DESC"));
-        assertTrue(SortType.isValid("desc"));
-        assertTrue(SortType.isValid("Desc"));
+        assertTrue(SortType.contains("ASC"));
+        assertTrue(SortType.contains("asc"));
+        assertTrue(SortType.contains("Asc"));
+        assertTrue(SortType.contains("DESC"));
+        assertTrue(SortType.contains("desc"));
+        assertTrue(SortType.contains("Desc"));
 
-        assertFalse(SortType.isValid("ASCc"));
-        assertFalse(SortType.isValid("Assi"));
+        assertFalse(SortType.contains("ASCc"));
+        assertFalse(SortType.contains("Assi"));
 
     }
 }

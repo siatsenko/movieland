@@ -28,7 +28,7 @@ public class JdbcMovieDao implements MovieDao {
 
     @Override
     public List<Movie> getAll(Map<String, String> queryMap) {
-        String map = queryMap.toString();
+//        String map = queryMap.toString();
         String query = sqlBuilder.setOrder(allMovieSql, queryMap);
         logger.trace("getAll used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper);

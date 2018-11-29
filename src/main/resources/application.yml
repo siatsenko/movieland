@@ -10,6 +10,8 @@ dbcp2:
   maxOpenPreparedStatements: 100
 # Count for random movies
 random.count: 3
+#Common scheduler
+scheduler.pool-size: 5
 #Scheduled tasks
 scheduled.genre:
   fixedDelay: 14400000
