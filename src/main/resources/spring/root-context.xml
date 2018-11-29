@@ -26,6 +26,6 @@
 
     <task:annotation-driven scheduler="movielandScheduler"/>
 
-    <task:scheduler id="movielandScheduler"/>
+    <task:scheduler id="movielandScheduler" pool-size="${scheduler.pool-size}"/>
 
 </beans>
