@@ -1,15 +1,12 @@
 package com.siatsenko.movieland.entity;
 
-public class Genre {
+public final class Genre {
     private int id;
     private String name;
 
-    public void setId(int id) {
+    public Genre(int id, String name) {
         this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.name = new String(name);
     }
 
     public int getId() {
@@ -27,4 +24,5 @@ public class Genre {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

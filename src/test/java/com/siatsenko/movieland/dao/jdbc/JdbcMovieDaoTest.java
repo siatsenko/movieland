@@ -20,7 +20,7 @@ public class JdbcMovieDaoTest {
 
     @Test
     public void getAll() {
-        List<Movie> movies = jdbcMovieDao.getAll();
+        List<Movie> movies = jdbcMovieDao.getAll(null);
 
         assertEquals(movies.size(), 4);
 

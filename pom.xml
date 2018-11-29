@@ -62,6 +62,13 @@
             <version>2.9.7</version>
         </dependency>
 
+        <!-- YAML properties -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.23</version>
+        </dependency>
+
         <!-- Logs -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
