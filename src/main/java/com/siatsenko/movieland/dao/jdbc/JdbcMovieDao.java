@@ -2,6 +2,7 @@ package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper;
+import com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder;
 import com.siatsenko.movieland.entity.Movie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class JdbcMovieDao implements MovieDao {
@@ -22,10 +24,14 @@ public class JdbcMovieDao implements MovieDao {
     private String movieByGenreIdSql;
     private MovieRowMapper movieRowMapper;
     private int randomCount;
+    private SqlBuilder sqlBuilder;
 
     @Override
-    public List<Movie> getAll() {
-        List<Movie> movies = jdbcTemplate.query(allMovieSql, movieRowMapper);
+    public List<Movie> getAll(Map<String, String> queryMap) {
+//        String map = queryMap.toString();
+        String query = sqlBuilder.setOrder(allMovieSql, queryMap);
+        logger.trace("getAll used query: {}", query);
+        List<Movie> movies = jdbcTemplate.query(query, movieRowMapper);
         logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
@@ -73,4 +79,10 @@ public class JdbcMovieDao implements MovieDao {
     public void setRandomCount(int randomCount) {
         this.randomCount = randomCount;
     }
+
+    @Autowired
+    public void setSqlBuilder(SqlBuilder sqlBuilder) {
+        this.sqlBuilder = sqlBuilder;
+    }
+
 }

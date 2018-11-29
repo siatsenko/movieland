@@ -6,6 +6,7 @@ import com.siatsenko.movieland.entity.Genre;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,7 +22,8 @@ import java.util.List;
 public class CachedGenreDao implements GenreDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private JdbcGenreDao jdbcGenreDao;
+    @Qualifier("jdbcGenreDao")
+    private GenreDao jdbcGenreDao;
 
     private volatile List<Genre> cacheGenres;
 
@@ -44,7 +46,7 @@ public class CachedGenreDao implements GenreDao {
     }
 
     @Autowired
-    public void setJdbcGenreDao(JdbcGenreDao jdbcGenreDao) {
+    public void setJdbcGenreDao(GenreDao jdbcGenreDao) {
         this.jdbcGenreDao = jdbcGenreDao;
     }
 }
