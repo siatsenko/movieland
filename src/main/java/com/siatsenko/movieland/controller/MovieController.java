@@ -2,6 +2,7 @@ package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.service.MovieService;
+import com.sun.javafx.collections.MappingChange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MovieController {
@@ -19,9 +21,10 @@ public class MovieController {
     private MovieService movieService;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getAll() {
+    public List<Movie> getAll(@RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get all movies");
-        List<Movie> movies = movieService.getAll();
+        logger.debug("Sending request to get all movies {}", queryMap.toString());
+        List<Movie> movies = movieService.getAll(queryMap);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }

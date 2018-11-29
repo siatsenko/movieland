@@ -14,3 +14,5 @@ random.count: 3
 scheduled.genre:
   fixedDelay: 14400000
   initialDelay: 14400000
+#Sql builder
+sql.orderReplace: "/*ORDER BY*/"

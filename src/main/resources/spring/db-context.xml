@@ -5,20 +5,21 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="allMovieSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM v_movies;"/>
+        <constructor-arg value="SELECT * FROM v_movies /*ORDER BY*/;"/>
     </bean>
 
     <bean id="randomMovieSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM v_movies order by random() limit ?;"/>
+        <constructor-arg value="SELECT * FROM v_movies ORDER BY random() limit ?;"/>
     </bean>
 
     <bean id="movieByGenreIdSql" class="java.lang.String">
         <constructor-arg value="
-        select vm.*
-          from v_movies vm
+        SELECT vm.*
+          FROM v_movies vm
                inner join movie_genre mg
                   on vm.id = mg.movie_id
-         where mg.genre_id = ?;"/>
+         WHERE mg.genre_id = ?
+         /*ORDER BY*/ ;"/>
     </bean>
 
     <bean id="allGenreSql" class="java.lang.String">

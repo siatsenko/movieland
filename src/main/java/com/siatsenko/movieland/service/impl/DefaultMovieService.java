@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DefaultMovieService implements MovieService {
@@ -17,8 +18,8 @@ public class DefaultMovieService implements MovieService {
     private MovieDao movieDao;
 
     @Override
-    public List<Movie> getAll() {
-        List<Movie> movies = movieDao.getAll();
+    public List<Movie> getAll(Map<String, String> queryMap) {
+        List<Movie> movies = movieDao.getAll(queryMap);
         logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
