@@ -66,4 +66,7 @@
     <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">
     </bean>
 
+    <bean id="requestParamsService" class="com.siatsenko.movieland.service.impl.DefaultMovieRequestParamsService">
+    </bean>
+
 </beans>

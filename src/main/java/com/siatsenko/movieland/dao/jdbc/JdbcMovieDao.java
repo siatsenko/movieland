@@ -4,6 +4,7 @@ import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper;
 import com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder;
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.RequestParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class JdbcMovieDao implements MovieDao {
     private SqlBuilder sqlBuilder;
 
     @Override
-    public List<Movie> getAll(String order) {
-        String query = sqlBuilder.setOrder(allMovieSql, order);
+    public List<Movie> getAll(RequestParams requestParams) {
+        String query = sqlBuilder.setOrder(allMovieSql, requestParams);
         logger.trace("getAll used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper);
         logger.trace("getAll finished and return movies: {}", movies);
@@ -42,8 +43,8 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId, String order) {
-        String query = sqlBuilder.setOrder(movieByGenreIdSql, order);
+    public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
+        String query = sqlBuilder.setOrder(movieByGenreIdSql, requestParams);
         logger.trace("getByGenreId used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper, genreId);
         logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
