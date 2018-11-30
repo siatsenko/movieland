@@ -2,6 +2,7 @@ package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.RequestParams;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DefaultMovieService implements MovieService {
@@ -18,8 +18,8 @@ public class DefaultMovieService implements MovieService {
     private MovieDao movieDao;
 
     @Override
-    public List<Movie> getAll(Map<String, String> queryMap) {
-        List<Movie> movies = movieDao.getAll(queryMap);
+    public List<Movie> getAll(RequestParams requestParams) {
+        List<Movie> movies = movieDao.getAll(requestParams);
         logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
@@ -32,8 +32,8 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId) {
-        List<Movie> movies = movieDao.getByGenreId(genreId);
+    public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
+        List<Movie> movies = movieDao.getByGenreId(genreId, requestParams);
         logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
         return movies;
     }

@@ -1,7 +1,5 @@
 package com.siatsenko.movieland.entity;
 
-import java.util.Objects;
-
 public class Movie {
     private int id;
     private String nameRussian;

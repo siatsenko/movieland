@@ -1,15 +1,15 @@
 package com.siatsenko.movieland.service;
 
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.RequestParams;
 
 import java.util.List;
-import java.util.Map;
 
 public interface MovieService {
 
-    List<Movie> getAll(Map<String, String> queryMap);
+    List<Movie> getAll(RequestParams requestParams);
 
     List<Movie> getRandom();
 
-    List<Movie> getByGenreId(int genreId);
+    List<Movie> getByGenreId(int genreId, RequestParams requestParams);
 }
