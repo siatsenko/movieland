@@ -30,8 +30,8 @@ public class JdbcMovieDao implements MovieDao {
     private String movieByIdSql;
 
     @Override
-    public List<Movie> getAll(RequestParams requestParams) {
-        String query = sqlBuilder.setOrder(allMoviesSql, requestParams);
+    public List<Movie> getAll(RequestParameters requestParameters) {
+        String query = sqlBuilder.setOrder(allMoviesSql, requestParameters);
         logger.trace("getAll used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper);
         logger.trace("getAll finished and return movies: {}", movies);
@@ -46,8 +46,8 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
-        String query = sqlBuilder.setOrder(moviesByGenreIdSql, requestParams);
+    public List<Movie> getByGenreId(int genreId, RequestParameters requestParameters) {
+        String query = sqlBuilder.setOrder(moviesByGenreIdSql, requestParameters);
         logger.trace("getByGenreId used query: {}", query);
         List<Movie> movies = jdbcTemplate.query(query, movieRowMapper, genreId);
         logger.trace("getByGenreId({}) finished and return movies: {}", genreId, movies);

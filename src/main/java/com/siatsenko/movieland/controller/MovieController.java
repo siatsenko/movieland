@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.RequestParams;
+import com.siatsenko.movieland.entity.RequestParameters;
 import com.siatsenko.movieland.service.RequestParamsService;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
@@ -25,8 +25,8 @@ public class MovieController {
     public List<Movie> getAll(@RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get all movies");
         logger.debug("Sending request to get all movies {}", queryMap.toString());
-        RequestParams requestParams = requestParamsService.setSortings(queryMap);
-        List<Movie> movies = movieService.getAll(requestParams);
+        RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
+        List<Movie> movies = movieService.getAll(requestParameters);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }
@@ -42,8 +42,8 @@ public class MovieController {
     @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Movie> getByGenreId(@PathVariable("genreId") int genreId, @RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get movies by genreId : {}", genreId);
-        RequestParams requestParams = requestParamsService.setSortings(queryMap);
-        List<Movie> movies = movieService.getByGenreId(genreId, requestParams);
+        RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
+        List<Movie> movies = movieService.getByGenreId(genreId, requestParameters);
         logger.debug("Returning {} movies", movies.size());
         return movies;
     }

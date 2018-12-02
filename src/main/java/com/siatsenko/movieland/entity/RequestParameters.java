@@ -2,11 +2,11 @@ package com.siatsenko.movieland.entity;
 
 import java.util.LinkedHashMap;
 
-public class RequestParams {
+public class RequestParameters {
 
     LinkedHashMap<String, SortType> sortings;
 
-    public RequestParams() {
+    public RequestParameters() {
         sortings = new LinkedHashMap<String, SortType>();
     }
 

@@ -2,7 +2,7 @@ package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.RequestParams;
+import com.siatsenko.movieland.entity.RequestParameters;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +18,8 @@ public class DefaultMovieService implements MovieService {
     private MovieDao movieDao;
 
     @Override
-    public List<Movie> getAll(RequestParams requestParams) {
-        List<Movie> movies = movieDao.getAll(requestParams);
+    public List<Movie> getAll(RequestParameters requestParameters) {
+        List<Movie> movies = movieDao.getAll(requestParameters);
         logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
@@ -32,8 +32,8 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
-        List<Movie> movies = movieDao.getByGenreId(genreId, requestParams);
+    public List<Movie> getByGenreId(int genreId, RequestParameters requestParameters) {
+        List<Movie> movies = movieDao.getByGenreId(genreId, requestParameters);
         logger.trace("getByGenreId({}) finished and return movies: {}", genreId, movies);
         return movies;
     }
