@@ -4,6 +4,7 @@ CREATE TABLE v_movies
     name_russian VARCHAR(50),
     name_native VARCHAR(50),
     year_of_release VARCHAR(50),
+    description VARCHAR(1000),
     rating DECIMAL(10,1),
     price DECIMAL(10,2),
     picture_path VARCHAR(1000)

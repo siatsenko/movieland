@@ -5,31 +5,69 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="allMovieSql" class="java.lang.String">
+<!--Movies-->
+    <bean id="allMoviesSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM v_movies /*ORDER BY*/;"/>
     </bean>
 
-    <bean id="randomMovieSql" class="java.lang.String">
+    <bean id="randomMoviesSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM v_movies ORDER BY random() limit ?;"/>
     </bean>
 
-    <bean id="movieByGenreIdSql" class="java.lang.String">
+    <bean id="moviesByGenreIdSql" class="java.lang.String">
         <constructor-arg value="
         SELECT vm.*
           FROM v_movies vm
-               inner join movie_genre mg
-                  on vm.id = mg.movie_id
+               INNER JOIN movie_genre mg
+                  ON vm.id = mg.movie_id
          WHERE mg.genre_id = ?
          /*ORDER BY*/ ;"/>
     </bean>
 
-    <bean id="allGenreSql" class="java.lang.String">
+    <bean id="movieByIdSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM v_movies WHERE id = ?;"/>
+    </bean>
+
+<!--Genres    -->
+    <bean id="allGenresSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM genre;"/>
     </bean>
 
-    <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">
+    <bean id="genresByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT g.*
+          FROM movie_genre mg
+               INNER JOIN genre g
+                  ON mg.genre_id = g.id
+         WHERE movie_id = ?;"/>
     </bean>
 
+<!--Reviews    -->
+    <bean id="reviewsByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="SELECT r.* FROM review r WHERE r.movie_id = ?;"/>
+    </bean>
+
+<!--Users    -->
+    <bean id="usersByReviewIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT u.*
+          FROM review r
+               INNER JOIN users u
+                 ON r.user_id = u.id
+         WHERE r.id = ?;"/>
+    </bean>
+
+<!--Countries    -->
+    <bean id="countriesByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT c.*
+          FROM movie_country mc
+               INNER JOIN country c
+        	     ON mc.country_id = c.id
+         WHERE movie_id = ?;"/>
+    </bean>
+
+<!--DB-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="${dbcp2.driverClassName}"/>
         <property name="url" value="${dbcp2.url}"/>
@@ -39,6 +77,13 @@
         <property name="minIdle" value="${dbcp2.minIdle}"/>
         <property name="maxIdle" value="${dbcp2.maxIdle}"/>
         <property name="maxOpenPreparedStatements" value="${dbcp2.maxOpenPreparedStatements}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">
     </bean>
 
 </beans>

@@ -34,7 +34,14 @@ public class DefaultMovieService implements MovieService {
     @Override
     public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
         List<Movie> movies = movieDao.getByGenreId(genreId, requestParams);
-        logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
+        logger.trace("getByGenreId({}) finished and return movies: {}", genreId, movies);
+        return movies;
+    }
+
+    @Override
+    public List<Movie> getById(int id) {
+        List<Movie> movies = movieDao.getById(id);
+        logger.trace("getById({}) finished and return movies: {}", id, movies);
         return movies;
     }
 

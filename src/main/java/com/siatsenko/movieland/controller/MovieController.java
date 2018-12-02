@@ -48,6 +48,14 @@ public class MovieController {
         return movies;
     }
 
+    @RequestMapping(path = "/movie/{movieId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Movie> getById(@PathVariable("movieId") int id) {
+        logger.info("Sending request to get movie by id : {}", id);
+        List<Movie> movies = movieService.getById(id);
+        logger.debug("Returning {} movies", movies.size());
+        return movies;
+    }
+
     @Autowired
     public void setMovieService(MovieService movieService) {
         this.movieService = movieService;
