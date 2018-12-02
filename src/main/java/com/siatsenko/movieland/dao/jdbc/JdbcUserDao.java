@@ -23,7 +23,7 @@ public class JdbcUserDao implements UserDao {
     public User getByReviewId(int reviewId) {
         List<User> users = jdbcTemplate.query(usersByReviewIdSql, userRowMapper, reviewId);
         User user = null;
-        if (users.size()>0) {
+        if (users.size() > 0) {
             user = users.get(0);
         }
         logger.trace("getByReviewId({}) finished and return users: {}", reviewId, user);

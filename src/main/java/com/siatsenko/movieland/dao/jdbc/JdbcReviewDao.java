@@ -1,7 +1,6 @@
 package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.ReviewDao;
-import com.siatsenko.movieland.dao.jdbc.mapper.CountryRowMapper;
 import com.siatsenko.movieland.dao.jdbc.mapper.ReviewRowMapper;
 import com.siatsenko.movieland.entity.Review;
 import com.siatsenko.movieland.entity.User;

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class UserRowMapper  implements RowMapper<User> {
+public class UserRowMapper implements RowMapper<User> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
@@ -19,7 +19,7 @@ public class UserRowMapper  implements RowMapper<User> {
         String name = resultSet.getString("name");
         String email = resultSet.getString("email");
         String nick = resultSet.getString("nick");
-        User user = new User(id, name,email,nick);
+        User user = new User(id, name, email, nick);
 
         logger.trace("mapRow finished and return user: {}", user);
         return user;

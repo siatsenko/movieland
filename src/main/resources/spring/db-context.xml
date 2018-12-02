@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-<!--Movies-->
+    <!--Movies-->
     <bean id="allMoviesSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM v_movies /*ORDER BY*/;"/>
     </bean>
@@ -28,7 +28,7 @@
         <constructor-arg value="SELECT * FROM v_movies WHERE id = ?;"/>
     </bean>
 
-<!--Genres    -->
+    <!--Genres    -->
     <bean id="allGenresSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM genre;"/>
     </bean>
@@ -42,12 +42,12 @@
          WHERE movie_id = ?;"/>
     </bean>
 
-<!--Reviews    -->
+    <!--Reviews    -->
     <bean id="reviewsByMovieIdSql" class="java.lang.String">
         <constructor-arg value="SELECT r.* FROM review r WHERE r.movie_id = ?;"/>
     </bean>
 
-<!--Users    -->
+    <!--Users    -->
     <bean id="usersByReviewIdSql" class="java.lang.String">
         <constructor-arg value="
         SELECT u.*
@@ -57,7 +57,7 @@
          WHERE r.id = ?;"/>
     </bean>
 
-<!--Countries    -->
+    <!--Countries    -->
     <bean id="countriesByMovieIdSql" class="java.lang.String">
         <constructor-arg value="
         SELECT c.*
@@ -67,7 +67,7 @@
          WHERE movie_id = ?;"/>
     </bean>
 
-<!--DB-->
+    <!--DB-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="${dbcp2.driverClassName}"/>
         <property name="url" value="${dbcp2.url}"/>

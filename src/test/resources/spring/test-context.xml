@@ -18,7 +18,7 @@
     </bean>
 
     <bean id="randomMoviesSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM v_movies ORDER BY random() limit ?;"/>
+        <constructor-arg value="SELECT * FROM v_movies order by 1 limit ?;"/>
     </bean>
 
     <bean id="moviesByGenreIdSql" class="java.lang.String">
@@ -52,7 +52,7 @@
         <property name="movieByIdSql" ref="movieByIdSql"/>
     </bean>
 
-<!--Genres    -->
+    <!--Genres    -->
     <bean id="allGenresSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM genre;"/>
     </bean>
