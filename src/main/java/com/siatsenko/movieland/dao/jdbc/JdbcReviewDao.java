@@ -3,7 +3,6 @@ package com.siatsenko.movieland.dao.jdbc;
 import com.siatsenko.movieland.dao.ReviewDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.ReviewRowMapper;
 import com.siatsenko.movieland.entity.Review;
-import com.siatsenko.movieland.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,10 @@ public class JdbcReviewDao implements ReviewDao {
     private JdbcTemplate jdbcTemplate;
     private String reviewsByMovieIdSql;
     private ReviewRowMapper reviewRowMapper;
-    private JdbcUserDao jdbcUserDao;
 
     @Override
     public List<Review> getByMovieId(int movieId) {
         List<Review> reviews = jdbcTemplate.query(reviewsByMovieIdSql, reviewRowMapper, movieId);
-        for (Review review : reviews) {
-            User user = jdbcUserDao.getByReviewId(review.getId());
-            review.setUser(user);
-        }
         logger.trace("getByMovieId({}) finished and return reviews: {}", movieId, reviews);
         return reviews;
     }
@@ -47,8 +41,4 @@ public class JdbcReviewDao implements ReviewDao {
         this.reviewRowMapper = reviewRowMapper;
     }
 
-    @Autowired
-    public void setJdbcUserDao(JdbcUserDao jdbcUserDao) {
-        this.jdbcUserDao = jdbcUserDao;
-    }
 }

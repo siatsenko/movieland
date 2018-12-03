@@ -57,6 +57,15 @@
          WHERE r.id = ?;"/>
     </bean>
 
+    <bean id="usersByReviewIdsSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT r.id as review_id, u.*
+          FROM review r
+               INNER JOIN users u
+                 ON r.user_id = u.id
+         WHERE r.id IN ( SELECT UNNEST(?) );"/>
+    </bean>
+
     <!--Countries    -->
     <bean id="countriesByMovieIdSql" class="java.lang.String">
         <constructor-arg value="

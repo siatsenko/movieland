@@ -1,6 +1,7 @@
 package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.MovieDao;
+import com.siatsenko.movieland.dao.jdbc.mapper.MovieDetailRowMapper;
 import com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper;
 import com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder;
 import com.siatsenko.movieland.entity.*;
@@ -21,9 +22,7 @@ public class JdbcMovieDao implements MovieDao {
     private SqlBuilder sqlBuilder;
     private int randomCount;
     private MovieRowMapper movieRowMapper;
-    private JdbcCountryDao jdbcCountryDao;
-    private JdbcGenreDao jdbcGenreDao;
-    private JdbcReviewDao jdbcReviewDao;
+    private MovieDetailRowMapper movieDetailRowMapper;
     private String allMoviesSql;
     private String randomMoviesSql;
     private String moviesByGenreIdSql;
@@ -55,21 +54,15 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public List<Movie> getById(int id) {
-        List<Movie> movies = jdbcTemplate.query(movieByIdSql, movieRowMapper, id);
-
-        for (Movie movie : movies) {
-            List<Country> countries = jdbcCountryDao.getByMovieId(movie.getId());
-            List<Genre> genres = jdbcGenreDao.getByMovieId(movie.getId());
-            List<Review> reviews = jdbcReviewDao.getByMovieId(movie.getId());
-
-            movie.setCountries(countries);
-            movie.setGenres(genres);
-            movie.setReviews(reviews);
+    public Movie getById(int id) {
+        Movie movie = null;
+        List<Movie> movies = jdbcTemplate.query(movieByIdSql, movieDetailRowMapper, id);
+        if (movies.size() > 0) {
+            movie = movies.get(0);
         }
 
-        logger.trace("getById({}) finished and return movies: {}", id, movies);
-        return movies;
+        logger.trace("getById({}) finished and return movies: {}", id, movie);
+        return movie;
     }
 
     @Autowired
@@ -113,17 +106,7 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Autowired
-    public void setJdbcCountryDao(JdbcCountryDao jdbcCountryDao) {
-        this.jdbcCountryDao = jdbcCountryDao;
-    }
-
-    @Autowired
-    public void setJdbcGenreDao(JdbcGenreDao jdbcGenreDao) {
-        this.jdbcGenreDao = jdbcGenreDao;
-    }
-
-    @Autowired
-    public void setJdbcReviewDao(JdbcReviewDao jdbcReviewDao) {
-        this.jdbcReviewDao = jdbcReviewDao;
+    public void setMovieDetailRowMapper(MovieDetailRowMapper movieDetailRowMapper) {
+        this.movieDetailRowMapper = movieDetailRowMapper;
     }
 }

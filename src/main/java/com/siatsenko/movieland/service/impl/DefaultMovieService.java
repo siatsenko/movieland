@@ -39,10 +39,10 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public List<Movie> getById(int id) {
-        List<Movie> movies = movieDao.getById(id);
-        logger.trace("getById({}) finished and return movies: {}", id, movies);
-        return movies;
+    public Movie getById(int id) {
+        Movie movie = movieDao.getById(id);
+        logger.trace("getById({}) finished and return movies: {}", id, movie);
+        return movie;
     }
 
     @Autowired

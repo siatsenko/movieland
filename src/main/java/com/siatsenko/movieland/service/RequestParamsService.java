@@ -1,6 +1,5 @@
 package com.siatsenko.movieland.service;
 
-
 import com.siatsenko.movieland.entity.RequestParameters;
 
 import java.util.Map;

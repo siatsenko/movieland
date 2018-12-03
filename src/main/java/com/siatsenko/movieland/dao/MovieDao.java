@@ -13,5 +13,6 @@ public interface MovieDao {
 
     List<Movie> getByGenreId(int genreId, RequestParameters requestParameters);
 
-    List<Movie> getById(int id);
+    Movie getById(int id);
+
 }

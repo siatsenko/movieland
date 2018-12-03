@@ -29,12 +29,6 @@ public class JdbcReviewDaoTest {
         assertEquals(review.getId(), 4);
         assertEquals(review.getText(), "Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах. Особенно я люблю когда при экранизации литературного произведение из него в силу специфики кинематографа исчезает ирония и появляется некий сверхреализм, обязанный удерживать зрителя у экрана каждую отдельно взятую секунду. ");
 
-        User user = review.getUser();
-        assertEquals(user.getId(), 1);
-        assertEquals(user.getName(), "Рональд Рейнольдс");
-        assertEquals(user.getEmail(), "ronald.reynolds66@example.com");
-        assertEquals(user.getNick(), "paco");
-
     }
 
     @Autowired

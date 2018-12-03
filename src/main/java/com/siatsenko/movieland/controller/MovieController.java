@@ -2,8 +2,7 @@ package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.entity.RequestParameters;
-import com.siatsenko.movieland.service.RequestParamsService;
-import com.siatsenko.movieland.service.MovieService;
+import com.siatsenko.movieland.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,9 @@ public class MovieController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieService movieService;
+    private GenreService genreService;
+    private CountryService countryService;
+    private ReviewService reviewService;
 
     private RequestParamsService requestParamsService;
 
@@ -49,11 +51,14 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/{movieId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Movie> getById(@PathVariable("movieId") int id) {
+    public Movie getById(@PathVariable("movieId") int id) {
         logger.info("Sending request to get movie by id : {}", id);
-        List<Movie> movies = movieService.getById(id);
-        logger.debug("Returning {} movies", movies.size());
-        return movies;
+        Movie movie = movieService.getById(id);
+        genreService.enrich(movie);
+        countryService.enrich(movie);
+        reviewService.enrich(movie);
+        logger.debug("Returning {} movie", movie);
+        return movie;
     }
 
     @Autowired
@@ -64,5 +69,20 @@ public class MovieController {
     @Autowired
     public void setRequestParamsService(RequestParamsService requestParamsService) {
         this.requestParamsService = requestParamsService;
+    }
+
+    @Autowired
+    public void setGenreService(GenreService genreService) {
+        this.genreService = genreService;
+    }
+
+    @Autowired
+    public void setCountryService(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    @Autowired
+    public void setReviewService(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 }

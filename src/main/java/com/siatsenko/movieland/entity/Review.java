@@ -11,6 +11,11 @@ public class Review {
         this.text = text;
     }
 
+    public Review(int id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }

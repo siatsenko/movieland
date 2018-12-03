@@ -33,5 +33,4 @@ public class DefaultMovieRequestParamsService implements RequestParamsService {
         return setSortings(requestParameters, queryMap);
     }
 
-
 }

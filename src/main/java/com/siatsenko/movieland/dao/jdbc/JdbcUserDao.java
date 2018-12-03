@@ -1,7 +1,8 @@
 package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.UserDao;
-import com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper;
+import com.siatsenko.movieland.dao.jdbc.mapper.ReviewUserRowMapper;
+import com.siatsenko.movieland.entity.Review;
 import com.siatsenko.movieland.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,25 +10,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class JdbcUserDao implements UserDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String usersByReviewIdSql;
-    private UserRowMapper userRowMapper;
+    private String usersByReviewIdsSql;
+    private ReviewUserRowMapper reviewUserRowMapper;
 
     @Override
-    public User getByReviewId(int reviewId) {
-        List<User> users = jdbcTemplate.query(usersByReviewIdSql, userRowMapper, reviewId);
-        User user = null;
-        if (users.size() > 0) {
-            user = users.get(0);
+    public Map<Integer, User> getByReviewIds(List<Integer> reviewIds) {
+        int[] idList = reviewIds.stream().mapToInt(Integer::intValue).toArray();
+        List<Review> reviews = jdbcTemplate.query(usersByReviewIdsSql, reviewUserRowMapper, idList);
+        Map<Integer, User> map = new HashMap<>();
+        for (Review review : reviews) {
+            map.put(review.getId(), review.getUser());
         }
-        logger.trace("getByReviewId({}) finished and return users: {}", reviewId, user);
-        return user;
+        logger.debug("getByReviewIds({}) finished and return users: {}", reviewIds, map);
+        return map;
     }
 
     @Autowired
@@ -36,12 +40,12 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Autowired
-    public void setUsersByReviewIdSql(String usersByReviewIdSql) {
-        this.usersByReviewIdSql = usersByReviewIdSql;
+    public void setUsersByReviewIdsSql(String usersByReviewIdsSql) {
+        this.usersByReviewIdsSql = usersByReviewIdsSql;
     }
 
     @Autowired
-    public void setUserRowMapper(UserRowMapper userRowMapper) {
-        this.userRowMapper = userRowMapper;
+    public void setReviewUserRowMapper(ReviewUserRowMapper reviewUserRowMapper) {
+        this.reviewUserRowMapper = reviewUserRowMapper;
     }
 }
