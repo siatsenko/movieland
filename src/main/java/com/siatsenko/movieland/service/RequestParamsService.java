@@ -1,14 +1,13 @@
 package com.siatsenko.movieland.service;
 
-
-import com.siatsenko.movieland.entity.RequestParams;
+import com.siatsenko.movieland.entity.RequestParameters;
 
 import java.util.Map;
 
 public interface RequestParamsService {
 
-    RequestParams setSortings(RequestParams requestParams, Map<String, String> queryMap);
+    RequestParameters setSortings(RequestParameters requestParameters, Map<String, String> queryMap);
 
-    RequestParams setSortings(Map<String, String> queryMap);
+    RequestParameters setSortings(Map<String, String> queryMap);
 
 }

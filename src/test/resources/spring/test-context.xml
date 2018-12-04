@@ -12,6 +12,142 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <!--Movies-->
+    <bean id="allMoviesSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM v_movies /*ORDER BY*/;"/>
+    </bean>
+
+    <bean id="randomMoviesSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM v_movies order by 1 limit ?;"/>
+    </bean>
+
+    <bean id="moviesByGenreIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT vm.*
+          FROM v_movies vm
+               INNER JOIN movie_genre mg
+                  ON vm.id = mg.movie_id
+         WHERE mg.genre_id = ?
+         /*ORDER BY*/ ;"/>
+    </bean>
+
+    <bean id="movieByIdSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM v_movies WHERE id = ?;"/>
+    </bean>
+
+    <bean id="movieRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper">
+    </bean>
+
+    <bean id="movieDetailRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.MovieDetailRowMapper">
+    </bean>
+
+    <bean id="jdbcMovieDao" class="com.siatsenko.movieland.dao.jdbc.JdbcMovieDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="sqlBuilder" ref="sqlBuilder"/>
+        <property name="randomCount" value="2"/>
+        <property name="movieRowMapper" ref="movieRowMapper"/>
+        <!--<property name="jdbcCountryDao" ref="jdbcCountryDao"/>-->
+        <!--<property name="jdbcGenreDao" ref="jdbcGenreDao"/>-->
+        <!--<property name="jdbcReviewDao" ref="jdbcReviewDao"/>-->
+        <property name="allMoviesSql" ref="allMoviesSql"/>
+        <property name="randomMoviesSql" ref="randomMoviesSql"/>
+        <property name="moviesByGenreIdSql" ref="moviesByGenreIdSql"/>
+        <property name="movieByIdSql" ref="movieByIdSql"/>
+    </bean>
+
+    <!--Genres    -->
+    <bean id="allGenresSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM genre;"/>
+    </bean>
+
+    <bean id="genresByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT g.*
+          FROM movie_genre mg
+               INNER JOIN genre g
+                  ON mg.genre_id = g.id
+         WHERE movie_id = ?;"/>
+    </bean>
+
+    <bean id="genreRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.GenreRowMapper">
+    </bean>
+
+    <bean id="jdbcGenreDao" class="com.siatsenko.movieland.dao.jdbc.JdbcGenreDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="genreRowMapper" ref="genreRowMapper"/>
+        <property name="allGenresSql" ref="allGenresSql"/>
+        <property name="genresByMovieIdSql" ref="genresByMovieIdSql"/>
+    </bean>
+
+    <!--Reviews    -->
+    <bean id="reviewsByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="SELECT r.* FROM review r WHERE r.movie_id = ?;"/>
+    </bean>
+
+    <bean id="reviewRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.ReviewRowMapper">
+    </bean>
+
+    <bean id="jdbcReviewDao" class="com.siatsenko.movieland.dao.jdbc.JdbcReviewDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="reviewRowMapper" ref="reviewRowMapper"/>
+        <property name="reviewsByMovieIdSql" ref="reviewsByMovieIdSql"/>
+        <!--<property name="jdbcUserDao" ref="jdbcUserDao"/>-->
+    </bean>
+
+    <!--Users    -->
+    <bean id="usersByReviewIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT u.*
+          FROM review r
+               INNER JOIN users u
+                 ON r.user_id = u.id
+         WHERE r.id = ?;"/>
+    </bean>
+
+    <bean id="usersByReviewIdsSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT r.id as review_id, u.*
+          FROM review r
+               INNER JOIN users u
+                 ON r.user_id = u.id
+         WHERE r.id = ? ;"/>
+    </bean>
+
+    <bean id="userRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper">
+    </bean>
+
+    <bean id="userDetailRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserDetailRowMapper">
+    </bean>
+
+    <bean id="reviewUserRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.ReviewUserRowMapper">
+    </bean>
+
+    <bean id="jdbcUserDao" class="com.siatsenko.movieland.dao.jdbc.JdbcUserDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="reviewUserRowMapper" ref="reviewUserRowMapper"/>
+        <property name="usersByReviewIdsSql" ref="usersByReviewIdsSql"/>
+    </bean>
+
+    <!--Countries    -->
+    <bean id="countriesByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT c.*
+          FROM movie_country mc
+               INNER JOIN country c
+        	     ON mc.country_id = c.id
+         WHERE movie_id = ?;"/>
+    </bean>
+
+    <bean id="countryRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.CountryRowMapper">
+    </bean>
+
+    <bean id="jdbcCountryDao" class="com.siatsenko.movieland.dao.jdbc.JdbcCountryDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="countryRowMapper" ref="countryRowMapper"/>
+        <property name="countriesByMovieIdSql" ref="countriesByMovieIdSql"/>
+    </bean>
+
+    <!--DB-->
     <jdbc:embedded-database id="dataSource" type="HSQL">
         <jdbc:script location="classpath:db/create-db.sql"/>
         <jdbc:script location="classpath:db/fill-db.sql"/>
@@ -19,48 +155,6 @@
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="DataSource" ref="dataSource"/>
-    </bean>
-
-    <bean id="allMovieSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM v_movies;"/>
-    </bean>
-
-    <bean id="randomMovieSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM v_movies order by 1 limit ?;"/>
-    </bean>
-
-    <bean id="movieByGenreIdSql" class="java.lang.String">
-        <constructor-arg value="
-        select vm.*
-          from v_movies vm
-               inner join movie_genre mg
-                  on vm.id = mg.movie_id
-         where mg.genre_id = ?;"/>
-    </bean>
-
-    <bean id="movieRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper">
-    </bean>
-
-    <bean id="jdbcMovieDao" class="com.siatsenko.movieland.dao.jdbc.JdbcMovieDao">
-        <property name="movieRowMapper" ref="movieRowMapper"/>
-        <property name="allMovieSql" ref="allMovieSql"/>
-        <property name="randomMovieSql" ref="randomMovieSql"/>
-        <property name="movieByGenreIdSql" ref="movieByGenreIdSql"/>
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-        <property name="randomCount" value="2"/>
-    </bean>
-
-    <bean id="allGenreSql" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM genre;"/>
-    </bean>
-
-    <bean id="genreRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.GenreRowMapper">
-    </bean>
-
-    <bean id="jdbcGenreDao" class="com.siatsenko.movieland.dao.jdbc.JdbcGenreDao">
-        <property name="genreRowMapper" ref="genreRowMapper"/>
-        <property name="allGenreSql" ref="allGenreSql"/>
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
     <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">

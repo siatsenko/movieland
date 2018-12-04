@@ -1,7 +1,5 @@
 package com.siatsenko.movieland.dao.jdbc.sql;
 
-import com.siatsenko.movieland.entity.RequestParams;
-import com.siatsenko.movieland.entity.SortType;
 import com.siatsenko.movieland.service.RequestParamsService;
 import com.siatsenko.movieland.service.impl.DefaultMovieRequestParamsService;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -53,12 +50,12 @@ public class SqlBuilderTest {
     public void setOrder() {
         RequestParamsService requestParamsService = new DefaultMovieRequestParamsService();
 
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsRating)), "SELECT * FROM v_movies ORDER BY rating asc");
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsPrice)), "SELECT * FROM v_movies ORDER BY price desc");
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsBoth)), "SELECT * FROM v_movies ORDER BY price asc, rating desc");
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsWrongField)), "SELECT * FROM v_movies ORDER BY price asc");
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsWrongSort)), "SELECT * FROM v_movies ORDER BY rating desc");
-        assertEquals(sqlBuilder.setOrder(QUERY,requestParamsService.setSortings(paramsWrongBoth)), "SELECT * FROM v_movies /*ORDER BY*/");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsRating)), "SELECT * FROM v_movies ORDER BY rating asc");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsPrice)), "SELECT * FROM v_movies ORDER BY price desc");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsBoth)), "SELECT * FROM v_movies ORDER BY price asc, rating desc");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongField)), "SELECT * FROM v_movies ORDER BY price asc");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongSort)), "SELECT * FROM v_movies ORDER BY rating desc");
+        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongBoth)), "SELECT * FROM v_movies /*ORDER BY*/");
     }
 
     @Autowired

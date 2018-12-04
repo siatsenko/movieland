@@ -2,8 +2,11 @@ package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.RequestParams;
+import com.siatsenko.movieland.entity.RequestParameters;
+import com.siatsenko.movieland.service.CountryService;
+import com.siatsenko.movieland.service.GenreService;
 import com.siatsenko.movieland.service.MovieService;
+import com.siatsenko.movieland.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +19,13 @@ public class DefaultMovieService implements MovieService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieDao movieDao;
+    private GenreService genreService;
+    private CountryService countryService;
+    private ReviewService reviewService;
 
     @Override
-    public List<Movie> getAll(RequestParams requestParams) {
-        List<Movie> movies = movieDao.getAll(requestParams);
+    public List<Movie> getAll(RequestParameters requestParameters) {
+        List<Movie> movies = movieDao.getAll(requestParameters);
         logger.trace("getAll finished and return movies: {}", movies);
         return movies;
     }
@@ -32,10 +38,20 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public List<Movie> getByGenreId(int genreId, RequestParams requestParams) {
-        List<Movie> movies = movieDao.getByGenreId(genreId, requestParams);
-        logger.trace("getByGenreId genreId: {} finished and return movies: {}", genreId, movies);
+    public List<Movie> getByGenreId(int genreId, RequestParameters requestParameters) {
+        List<Movie> movies = movieDao.getByGenreId(genreId, requestParameters);
+        logger.trace("getByGenreId({}) finished and return movies: {}", genreId, movies);
         return movies;
+    }
+
+    @Override
+    public Movie getById(int id) {
+        Movie movie = movieDao.getById(id);
+        genreService.enrich(movie);
+        countryService.enrich(movie);
+        reviewService.enrich(movie);
+        logger.trace("getById({}) finished and return movies: {}", id, movie);
+        return movie;
     }
 
     @Autowired
@@ -43,4 +59,18 @@ public class DefaultMovieService implements MovieService {
         this.movieDao = movieDao;
     }
 
+    @Autowired
+    public void setGenreService(GenreService genreService) {
+        this.genreService = genreService;
+    }
+
+    @Autowired
+    public void setCountryService(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    @Autowired
+    public void setReviewService(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 }

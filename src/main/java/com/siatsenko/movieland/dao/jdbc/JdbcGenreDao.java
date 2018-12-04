@@ -16,13 +16,21 @@ public class JdbcGenreDao implements GenreDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String allGenreSql;
     private GenreRowMapper genreRowMapper;
+    private String allGenresSql;
+    private String genresByMovieIdSql;
 
     @Override
     public List<Genre> getAll() {
-        List<Genre> genres = jdbcTemplate.query(allGenreSql, genreRowMapper);
+        List<Genre> genres = jdbcTemplate.query(allGenresSql, genreRowMapper);
         logger.trace("getAll finished and return genres: {}", genres);
+        return genres;
+    }
+
+    @Override
+    public List<Genre> getByMovieId(int movieId) {
+        List<Genre> genres = jdbcTemplate.query(genresByMovieIdSql, genreRowMapper, movieId);
+        logger.trace("getByMovieId({}) finished and return genres: {}", movieId, genres);
         return genres;
     }
 
@@ -32,12 +40,17 @@ public class JdbcGenreDao implements GenreDao {
     }
 
     @Autowired
-    public void setAllGenreSql(String allGenreSql) {
-        this.allGenreSql = allGenreSql;
+    public void setGenreRowMapper(GenreRowMapper genreRowMapper) {
+        this.genreRowMapper = genreRowMapper;
     }
 
     @Autowired
-    public void setGenreRowMapper(GenreRowMapper genreRowMapper) {
-        this.genreRowMapper = genreRowMapper;
+    public void setAllGenresSql(String allGenresSql) {
+        this.allGenresSql = allGenresSql;
+    }
+
+    @Autowired
+    public void setGenresByMovieIdSql(String genresByMovieIdSql) {
+        this.genresByMovieIdSql = genresByMovieIdSql;
     }
 }
