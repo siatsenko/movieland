@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 public class SortTypeTest {
 
-
     @Test
     public void contains() {
 

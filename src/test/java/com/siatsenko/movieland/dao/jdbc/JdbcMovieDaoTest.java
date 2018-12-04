@@ -52,10 +52,10 @@ public class JdbcMovieDaoTest {
 
     @Test
     public void getByGenreId() {
-        List<Movie> movies1 = jdbcMovieDao.getByGenreId(1);
+        List<Movie> movies1 = jdbcMovieDao.getByGenreId(1, null);
         assertEquals(movies1.size(), 4);
 
-        List<Movie> movies2 = jdbcMovieDao.getByGenreId(2);
+        List<Movie> movies2 = jdbcMovieDao.getByGenreId(2, null);
         assertEquals(movies2.size(), 2);
     }
 

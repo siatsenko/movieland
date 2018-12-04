@@ -1,16 +1,18 @@
 package com.siatsenko.movieland.dao;
 
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.RequestParameters;
 
 import java.util.List;
-import java.util.Map;
 
 public interface MovieDao {
 
-    List<Movie> getAll(Map<String, String> queryMap);
+    List<Movie> getAll(RequestParameters requestParameters);
 
     List<Movie> getRandom();
 
-    List<Movie> getByGenreId(int genreId);
+    List<Movie> getByGenreId(int genreId, RequestParameters requestParameters);
+
+    Movie getById(int id);
 
 }

@@ -1,15 +1,19 @@
 package com.siatsenko.movieland.entity;
 
-import java.util.Objects;
+import java.util.List;
 
 public class Movie {
     private int id;
     private String nameRussian;
     private String nameNative;
     private String yearOfRelease;
+    private String description;
     private double rating;
     private double price;
     private String picturePath;
+    List<Country> countries;
+    List<Genre> genres;
+    List<Review> reviews;
 
     public int getId() {
         return id;
@@ -43,6 +47,14 @@ public class Movie {
         this.yearOfRelease = yearOfRelease;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public double getRating() {
         return rating;
     }
@@ -67,6 +79,30 @@ public class Movie {
         this.picturePath = picturePath;
     }
 
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -74,9 +110,13 @@ public class Movie {
                 ", nameRussian='" + nameRussian + '\'' +
                 ", nameNative='" + nameNative + '\'' +
                 ", yearOfRelease='" + yearOfRelease + '\'' +
+                ", description='" + description + '\'' +
                 ", rating=" + rating +
                 ", price=" + price +
                 ", picturePath='" + picturePath + '\'' +
+                ", countries=" + countries +
+                ", genres=" + genres +
+                ", reviews=" + reviews +
                 '}';
     }
 }
