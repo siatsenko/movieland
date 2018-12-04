@@ -1,8 +1,8 @@
-package com.siatsenko.movieland.entity.dto;
+package com.siatsenko.movieland.web.dto;
 
 import com.siatsenko.movieland.entity.Review;
 
-public class ReviewDto extends CommonDto {
+public class ReviewDto {
     private int id;
     private UserDto user;
     private String text;

@@ -55,12 +55,7 @@ public class JdbcMovieDao implements MovieDao {
 
     @Override
     public Movie getById(int id) {
-        Movie movie = null;
-        List<Movie> movies = jdbcTemplate.query(movieByIdSql, movieDetailRowMapper, id);
-        if (movies.size() > 0) {
-            movie = movies.get(0);
-        }
-
+        Movie movie = jdbcTemplate.queryForObject(movieByIdSql, movieDetailRowMapper, id);
         logger.trace("getById({}) finished and return movies: {}", id, movie);
         return movie;
     }

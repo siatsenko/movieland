@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface UserDao {
 
-    Map<Integer, User> getByReviewIds(List<Integer> reviewIds);
+    List<User> getByIds(List<Integer> userIds);
 
 }

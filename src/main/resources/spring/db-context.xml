@@ -44,26 +44,20 @@
 
     <!--Reviews    -->
     <bean id="reviewsByMovieIdSql" class="java.lang.String">
-        <constructor-arg value="SELECT r.* FROM review r WHERE r.movie_id = ?;"/>
+        <constructor-arg value="
+        SELECT r.*
+          FROM review r
+               INNER JOIN users u
+                 ON r.user_id = u.id
+         WHERE r.movie_id = ?;"/>
     </bean>
 
     <!--Users    -->
-    <bean id="usersByReviewIdSql" class="java.lang.String">
+    <bean id="usersByIdsSql" class="java.lang.String">
         <constructor-arg value="
         SELECT u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id = ?;"/>
-    </bean>
-
-    <bean id="usersByReviewIdsSql" class="java.lang.String">
-        <constructor-arg value="
-        SELECT r.id as review_id, u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id IN ( SELECT UNNEST(?) );"/>
+          FROM users u
+         WHERE u.id IN ( SELECT UNNEST(?) );"/>
     </bean>
 
     <!--Countries    -->

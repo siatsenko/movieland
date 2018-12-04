@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +22,26 @@ public class DefaultUserService implements UserService {
 
     @Override
     public List<Review> enrich(List<Review> reviews) {
-        List<Integer> listIds = new ArrayList<>();
+        List<Integer> userIds = new ArrayList<>();
+        // Map<UserId, ReviewId>
+        Map<Integer, Integer> map = new HashMap<>();
         for (Review review : reviews) {
-            listIds.add(review.getId());
+            int reviewId = review.getId();
+            int userId = review.getUser().getId();
+            userIds.add(userId);
+            map.put(userId,reviewId);
         }
-        Map<Integer, User> map = userDao.getByReviewIds(listIds);
 
-        for (Review review : reviews) {
-            review.setUser(map.get(review.getId()));
+        List<User> users = userDao.getByIds(userIds);
+        for (User user : users) {
+            int userId = user.getId();
+            int reviewId = map.get(userId);
+            for (Review review : reviews) {
+                if (review.getId() == reviewId) {
+                    review.setUser(user);
+                    break;
+                }
+            }
         }
         logger.trace("enrich(count={}) finished and enrich reviews: {}", reviews.size(), reviews);
         return reviews;

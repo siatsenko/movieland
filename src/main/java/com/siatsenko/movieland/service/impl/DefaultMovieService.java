@@ -3,7 +3,10 @@ package com.siatsenko.movieland.service.impl;
 import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.entity.RequestParameters;
+import com.siatsenko.movieland.service.CountryService;
+import com.siatsenko.movieland.service.GenreService;
 import com.siatsenko.movieland.service.MovieService;
+import com.siatsenko.movieland.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class DefaultMovieService implements MovieService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieDao movieDao;
+    private GenreService genreService;
+    private CountryService countryService;
+    private ReviewService reviewService;
 
     @Override
     public List<Movie> getAll(RequestParameters requestParameters) {
@@ -41,6 +47,9 @@ public class DefaultMovieService implements MovieService {
     @Override
     public Movie getById(int id) {
         Movie movie = movieDao.getById(id);
+        genreService.enrich(movie);
+        countryService.enrich(movie);
+        reviewService.enrich(movie);
         logger.trace("getById({}) finished and return movies: {}", id, movie);
         return movie;
     }
@@ -50,4 +59,18 @@ public class DefaultMovieService implements MovieService {
         this.movieDao = movieDao;
     }
 
+    @Autowired
+    public void setGenreService(GenreService genreService) {
+        this.genreService = genreService;
+    }
+
+    @Autowired
+    public void setCountryService(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    @Autowired
+    public void setReviewService(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 }

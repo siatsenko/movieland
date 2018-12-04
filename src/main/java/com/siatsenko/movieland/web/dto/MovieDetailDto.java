@@ -1,4 +1,4 @@
-package com.siatsenko.movieland.entity.dto;
+package com.siatsenko.movieland.web.dto;
 
 import com.siatsenko.movieland.entity.Country;
 import com.siatsenko.movieland.entity.Genre;
@@ -8,7 +8,7 @@ import com.siatsenko.movieland.entity.Review;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDetailDto extends CommonDto {
+public class MovieDetailDto {
     private int id;
     private String nameRussian;
     private String nameNative;

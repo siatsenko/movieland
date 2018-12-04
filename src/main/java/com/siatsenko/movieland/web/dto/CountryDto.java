@@ -1,8 +1,8 @@
-package com.siatsenko.movieland.entity.dto;
+package com.siatsenko.movieland.web.dto;
 
 import com.siatsenko.movieland.entity.Country;
 
-public class CountryDto extends CommonDto {
+public class CountryDto {
     private int id;
     private String name;
 

@@ -1,14 +1,14 @@
-package com.siatsenko.movieland.entity.dto;
+package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.User;
 
-public class GenreDto extends CommonDto {
+public class UserDto {
     private int id;
     private String name;
 
-    public GenreDto(Genre genre) {
-        this.id = genre.getId();
-        this.name = genre.getName();
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
     }
 
     public int getId() {

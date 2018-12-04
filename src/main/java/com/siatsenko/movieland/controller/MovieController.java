@@ -2,8 +2,10 @@ package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.entity.RequestParameters;
-import com.siatsenko.movieland.entity.dto.CommonDto;
 import com.siatsenko.movieland.service.*;
+import com.siatsenko.movieland.web.controller.util.DtoConverter;
+import com.siatsenko.movieland.web.dto.MovieDetailDto;
+import com.siatsenko.movieland.web.dto.MovieDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,12 @@ public class MovieController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieService movieService;
-    private GenreService genreService;
-    private CountryService countryService;
-    private ReviewService reviewService;
-    private DtoService dtoService;
+    private DtoConverter dtoService;
 
     private RequestParamsService requestParamsService;
 
     @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<CommonDto> getAll(@RequestParam Map<String, String> queryMap) {
+    public List<MovieDto> getAll(@RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get all movies");
         logger.debug("Sending request to get all movies {}", queryMap.toString());
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
@@ -36,7 +35,7 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/random", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<CommonDto> getRandom() {
+    public List<MovieDto> getRandom() {
         logger.info("Sending request to get random movies");
         List<Movie> movies = movieService.getRandom();
         logger.debug("Returning {} movies", movies.size());
@@ -44,7 +43,7 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<CommonDto> getByGenreId(@PathVariable("genreId") int genreId, @RequestParam Map<String, String> queryMap) {
+    public List<MovieDto> getByGenreId(@PathVariable("genreId") int genreId, @RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get movies by genreId : {}", genreId);
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
         List<Movie> movies = movieService.getByGenreId(genreId, requestParameters);
@@ -53,12 +52,9 @@ public class MovieController {
     }
 
     @RequestMapping(path = "/movie/{movieId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public CommonDto getById(@PathVariable("movieId") int id) {
+    public MovieDetailDto getById(@PathVariable("movieId") int id) {
         logger.info("Sending request to get movie by id : {}", id);
         Movie movie = movieService.getById(id);
-        genreService.enrich(movie);
-        countryService.enrich(movie);
-        reviewService.enrich(movie);
         logger.debug("Returning {} movie", movie);
         return dtoService.asMovieDetailDto(movie);
     }
@@ -74,22 +70,7 @@ public class MovieController {
     }
 
     @Autowired
-    public void setGenreService(GenreService genreService) {
-        this.genreService = genreService;
-    }
-
-    @Autowired
-    public void setCountryService(CountryService countryService) {
-        this.countryService = countryService;
-    }
-
-    @Autowired
-    public void setReviewService(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
-
-    @Autowired
-    public void setDtoService(DtoService dtoService) {
+    public void setDtoService(DtoConverter dtoService) {
         this.dtoService = dtoService;
     }
 }
