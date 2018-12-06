@@ -14,7 +14,7 @@ cache:
 
 addons:
   sonarcloud:
-    organization: "siatsenko"
+    organization: "siatsenko-github"
     token: 0c5602e9a28e70d110b97ca028e0fdd10809fdcf
 
 script:
