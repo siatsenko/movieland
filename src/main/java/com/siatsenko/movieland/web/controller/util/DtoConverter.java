@@ -12,8 +12,7 @@ import java.util.List;
 public class DtoConverter {
 
     public MovieDto asMovieDto(Movie movie) {
-        MovieDto movieDto = new MovieDto(movie);
-        return movieDto;
+        return new MovieDto(movie);
     }
 
     public List<MovieDto> asMovieDto(List<Movie> movies) {
@@ -25,8 +24,7 @@ public class DtoConverter {
     }
 
     public MovieDetailDto asMovieDetailDto(Movie movie) {
-        MovieDetailDto movieDetailDto = new MovieDetailDto(movie);
-        return movieDetailDto;
+        return new MovieDetailDto(movie);
     }
 
 }

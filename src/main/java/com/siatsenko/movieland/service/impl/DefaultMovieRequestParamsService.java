@@ -17,9 +17,11 @@ public class DefaultMovieRequestParamsService implements RequestParamsService {
         if (queryMap == null) {
             return requestParameters;
         }
-        LinkedHashMap<String, SortType> sortings = requestParameters.getSortings();
-        for (String key : queryMap.keySet()) {
-            String value = queryMap.get(key);
+        Map<String, SortType> sortings = requestParameters.getSortings();
+
+        for (Map.Entry<String, String> queryEntry : queryMap.entrySet()) {
+            String key = queryEntry.getKey();
+            String value = queryEntry.getValue();
             if (ALLOWED_FIELDS.contains(key) && SortType.contains(value)) {
                 sortings.put(key, SortType.valueOf(value.toUpperCase()));
             }

@@ -5,6 +5,7 @@ import com.siatsenko.movieland.entity.SortType;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.StringJoiner;
 
 @Repository
@@ -17,12 +18,14 @@ public class SqlBuilder {
             return query;
         }
 
-        LinkedHashMap<String, SortType> sortings = requestParameters.getSortings();
+        Map<String, SortType> sortings = requestParameters.getSortings();
 
         boolean isEmpty = true;
         StringJoiner stringJoiner = new StringJoiner(", ", "ORDER BY ", "");
-        for (String key : sortings.keySet()) {
-            String value = sortings.get(key).toString().toLowerCase();
+
+        for (Map.Entry<String, SortType> sortingEntry : sortings.entrySet()) {
+            String key = sortingEntry.getKey();
+            String value = sortingEntry.getValue().toString().toLowerCase();
             stringJoiner.add(key + " " + value);
             isEmpty = false;
         }

@@ -25,8 +25,54 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>TomcatServer</server>
+                    <path>/movieland</path>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <!--<reporting>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+                <!--<version>3.0.0</version>-->
+                <!--<reportSets>-->
+                    <!--<reportSet>-->
+                        <!--<reports>-->
+                            <!--<report>checkstyle</report>-->
+                        <!--</reports>-->
+                    <!--</reportSet>-->
+                <!--</reportSets>-->
+            <!--</plugin>-->
+
+                <!--<plugin>-->
+                    <!--<groupId>org.codehaus.mojo</groupId>-->
+                    <!--<artifactId>findbugs-maven-plugin</artifactId>-->
+                    <!--<version>3.0.5</version>-->
+                    <!--<configuration>-->
+                        <!--&lt;!&ndash;-->
+                            <!--Enables analysis which takes more memory but finds more bugs.-->
+                            <!--If you run out of memory, changes the value of the effort element-->
+                            <!--to 'low'.-->
+                        <!--&ndash;&gt;-->
+                        <!--<effort>Max</effort>-->
+                        <!--&lt;!&ndash; Reports all bugs (other values are medium and max) &ndash;&gt;-->
+                        <!--<threshold>Low</threshold>-->
+                        <!--&lt;!&ndash; Produces XML report &ndash;&gt;-->
+                        <!--<xmlOutput>true</xmlOutput>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
+
+        <!--</plugins>-->
+    <!--</reporting>-->
 
     <dependencies>
         <!-- Spring -->

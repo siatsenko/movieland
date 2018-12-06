@@ -46,9 +46,6 @@
         <property name="sqlBuilder" ref="sqlBuilder"/>
         <property name="randomCount" value="2"/>
         <property name="movieRowMapper" ref="movieRowMapper"/>
-        <!--<property name="jdbcCountryDao" ref="jdbcCountryDao"/>-->
-        <!--<property name="jdbcGenreDao" ref="jdbcGenreDao"/>-->
-        <!--<property name="jdbcReviewDao" ref="jdbcReviewDao"/>-->
         <property name="allMoviesSql" ref="allMoviesSql"/>
         <property name="randomMoviesSql" ref="randomMoviesSql"/>
         <property name="moviesByGenreIdSql" ref="moviesByGenreIdSql"/>
@@ -91,26 +88,14 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
         <property name="reviewRowMapper" ref="reviewRowMapper"/>
         <property name="reviewsByMovieIdSql" ref="reviewsByMovieIdSql"/>
-        <!--<property name="jdbcUserDao" ref="jdbcUserDao"/>-->
     </bean>
 
     <!--Users    -->
-    <bean id="usersByReviewIdSql" class="java.lang.String">
+    <bean id="usersByIdsSql" class="java.lang.String">
         <constructor-arg value="
         SELECT u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id = ?;"/>
-    </bean>
-
-    <bean id="usersByReviewIdsSql" class="java.lang.String">
-        <constructor-arg value="
-        SELECT r.id as review_id, u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id = ? ;"/>
+          FROM users u
+         WHERE u.id IN ( SELECT UNNEST(?) );"/>
     </bean>
 
     <bean id="userRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper">
@@ -119,13 +104,10 @@
     <bean id="userDetailRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserDetailRowMapper">
     </bean>
 
-    <bean id="reviewUserRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.ReviewUserRowMapper">
-    </bean>
-
     <bean id="jdbcUserDao" class="com.siatsenko.movieland.dao.jdbc.JdbcUserDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
-        <property name="reviewUserRowMapper" ref="reviewUserRowMapper"/>
-        <property name="usersByReviewIdsSql" ref="usersByReviewIdsSql"/>
+        <property name="userRowMapper" ref="userRowMapper"/>
+        <property name="usersByIdsSql" ref="usersByIdsSql"/>
     </bean>
 
     <!--Countries    -->
