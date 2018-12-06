@@ -20,7 +20,7 @@ public class MovieController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieService movieService;
-    private DtoConverter dtoService;
+    private DtoConverter dtoConverter;
 
     private RequestParamsService requestParamsService;
 
@@ -31,7 +31,7 @@ public class MovieController {
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
         List<Movie> movies = movieService.getAll(requestParameters);
         logger.debug("getAll returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        return dtoConverter.asMovieDto(movies);
     }
 
     @GetMapping(path = "/movie/random", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -39,7 +39,7 @@ public class MovieController {
         logger.info("Sending request to get random movies");
         List<Movie> movies = movieService.getRandom();
         logger.debug("getRandom returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        return dtoConverter.asMovieDto(movies);
     }
 
     @GetMapping(path = "/movie/genre/{genreId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -48,7 +48,7 @@ public class MovieController {
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
         List<Movie> movies = movieService.getByGenreId(genreId, requestParameters);
         logger.debug("getByGenreId returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        return dtoConverter.asMovieDto(movies);
     }
 
     @GetMapping(path = "/movie/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -56,7 +56,7 @@ public class MovieController {
         logger.info("Sending request to get movie by id : {}", id);
         Movie movie = movieService.getById(id);
         logger.debug("getById returning {} movie", movie);
-        return dtoService.asMovieDetailDto(movie);
+        return dtoConverter.asMovieDetailDto(movie);
     }
 
     @Autowired
@@ -70,7 +70,7 @@ public class MovieController {
     }
 
     @Autowired
-    public void setDtoService(DtoConverter dtoService) {
-        this.dtoService = dtoService;
+    public void setDtoConverter(DtoConverter dtoConverter) {
+        this.dtoConverter = dtoConverter;
     }
 }

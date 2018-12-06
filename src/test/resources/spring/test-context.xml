@@ -95,7 +95,7 @@
         <constructor-arg value="
         SELECT u.*
           FROM users u
-         WHERE u.id IN ( SELECT UNNEST(?) );"/>
+         WHERE u.id = ? ;"/>
     </bean>
 
     <bean id="userRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper">
@@ -143,6 +143,39 @@
     </bean>
 
     <bean id="requestParamsService" class="com.siatsenko.movieland.service.impl.DefaultMovieRequestParamsService">
+    </bean>
+
+    <bean id="dtoConverter" class="com.siatsenko.movieland.web.controller.util.DtoConverter">
+    </bean>
+
+    <bean id="genreService" class="com.siatsenko.movieland.service.impl.DefaultGenreService">
+        <property name="genreDao" ref="jdbcGenreDao"/>
+    </bean>
+
+    <bean id="countryService" class="com.siatsenko.movieland.service.impl.DefaultCountryService">
+        <property name="countryDao" ref="jdbcCountryDao"/>
+    </bean>
+
+    <bean id="userService" class="com.siatsenko.movieland.service.impl.DefaultUserService">
+        <property name="userDao" ref="jdbcUserDao"/>
+    </bean>
+
+    <bean id="reviewService" class="com.siatsenko.movieland.service.impl.DefaultReviewService">
+        <property name="reviewDao" ref="jdbcReviewDao"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="movieService" class="com.siatsenko.movieland.service.impl.DefaultMovieService">
+        <property name="movieDao" ref="jdbcMovieDao"/>
+        <property name="genreService" ref="genreService"/>
+        <property name="countryService" ref="countryService"/>
+        <property name="reviewService" ref="reviewService"/>
+    </bean>
+
+    <bean id="movieController" class="com.siatsenko.movieland.controller.MovieController">
+        <property name="movieService" ref="movieService"/>
+        <property name="dtoConverter" ref="dtoConverter"/>
+        <property name="requestParamsService" ref="requestParamsService"/>
     </bean>
 
 </beans>
