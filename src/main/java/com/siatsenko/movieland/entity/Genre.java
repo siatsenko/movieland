@@ -6,7 +6,7 @@ public final class Genre {
 
     public Genre(int id, String name) {
         this.id = id;
-        this.name = new String(name);
+        this.name = name;
     }
 
     public int getId() {

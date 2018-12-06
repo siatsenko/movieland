@@ -21,7 +21,7 @@ public class CountryRowMapperTest {
 
         CountryRowMapper countryRowMapper = new CountryRowMapper();
         Country country = countryRowMapper.mapRow(resultSet, 0);
-        assertEquals(country.getId(), 1);
-        assertEquals(country.getName(), "США");
+        assertEquals(1, country.getId());
+        assertEquals("США", country.getName());
     }
 }

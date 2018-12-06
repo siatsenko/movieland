@@ -25,9 +25,9 @@ public class UserDetailRowMapperTest {
         userDetailRowMapper.setUserRowMapper(userRowMapper);
 
         User user = userDetailRowMapper.mapRow(resultSet, 0);
-        assertEquals(user.getId(), 1);
-        assertEquals(user.getName(), "Рональд Рейнольдс");
-        assertEquals(user.getEmail(), "ronald.reynolds66@example.com");
-        assertEquals(user.getNick(), "paco");
+        assertEquals(1, user.getId());
+        assertEquals( "Рональд Рейнольдс", user.getName());
+        assertEquals("ronald.reynolds66@example.com",user.getEmail());
+        assertEquals("paco",user.getNick());
     }
 }

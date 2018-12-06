@@ -46,9 +46,6 @@
         <property name="sqlBuilder" ref="sqlBuilder"/>
         <property name="randomCount" value="2"/>
         <property name="movieRowMapper" ref="movieRowMapper"/>
-        <!--<property name="jdbcCountryDao" ref="jdbcCountryDao"/>-->
-        <!--<property name="jdbcGenreDao" ref="jdbcGenreDao"/>-->
-        <!--<property name="jdbcReviewDao" ref="jdbcReviewDao"/>-->
         <property name="allMoviesSql" ref="allMoviesSql"/>
         <property name="randomMoviesSql" ref="randomMoviesSql"/>
         <property name="moviesByGenreIdSql" ref="moviesByGenreIdSql"/>
@@ -91,26 +88,14 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
         <property name="reviewRowMapper" ref="reviewRowMapper"/>
         <property name="reviewsByMovieIdSql" ref="reviewsByMovieIdSql"/>
-        <!--<property name="jdbcUserDao" ref="jdbcUserDao"/>-->
     </bean>
 
     <!--Users    -->
-    <bean id="usersByReviewIdSql" class="java.lang.String">
+    <bean id="usersByIdsSql" class="java.lang.String">
         <constructor-arg value="
         SELECT u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id = ?;"/>
-    </bean>
-
-    <bean id="usersByReviewIdsSql" class="java.lang.String">
-        <constructor-arg value="
-        SELECT r.id as review_id, u.*
-          FROM review r
-               INNER JOIN users u
-                 ON r.user_id = u.id
-         WHERE r.id = ? ;"/>
+          FROM users u
+         WHERE u.id = ? ;"/>
     </bean>
 
     <bean id="userRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper">
@@ -119,13 +104,10 @@
     <bean id="userDetailRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.UserDetailRowMapper">
     </bean>
 
-    <bean id="reviewUserRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.ReviewUserRowMapper">
-    </bean>
-
     <bean id="jdbcUserDao" class="com.siatsenko.movieland.dao.jdbc.JdbcUserDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
-        <property name="reviewUserRowMapper" ref="reviewUserRowMapper"/>
-        <property name="usersByReviewIdsSql" ref="usersByReviewIdsSql"/>
+        <property name="userRowMapper" ref="userRowMapper"/>
+        <property name="usersByIdsSql" ref="usersByIdsSql"/>
     </bean>
 
     <!--Countries    -->
@@ -161,6 +143,39 @@
     </bean>
 
     <bean id="requestParamsService" class="com.siatsenko.movieland.service.impl.DefaultMovieRequestParamsService">
+    </bean>
+
+    <bean id="dtoConverter" class="com.siatsenko.movieland.web.controller.util.DtoConverter">
+    </bean>
+
+    <bean id="genreService" class="com.siatsenko.movieland.service.impl.DefaultGenreService">
+        <property name="genreDao" ref="jdbcGenreDao"/>
+    </bean>
+
+    <bean id="countryService" class="com.siatsenko.movieland.service.impl.DefaultCountryService">
+        <property name="countryDao" ref="jdbcCountryDao"/>
+    </bean>
+
+    <bean id="userService" class="com.siatsenko.movieland.service.impl.DefaultUserService">
+        <property name="userDao" ref="jdbcUserDao"/>
+    </bean>
+
+    <bean id="reviewService" class="com.siatsenko.movieland.service.impl.DefaultReviewService">
+        <property name="reviewDao" ref="jdbcReviewDao"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="movieService" class="com.siatsenko.movieland.service.impl.DefaultMovieService">
+        <property name="movieDao" ref="jdbcMovieDao"/>
+        <property name="genreService" ref="genreService"/>
+        <property name="countryService" ref="countryService"/>
+        <property name="reviewService" ref="reviewService"/>
+    </bean>
+
+    <bean id="movieController" class="com.siatsenko.movieland.controller.MovieController">
+        <property name="movieService" ref="movieService"/>
+        <property name="dtoConverter" ref="dtoConverter"/>
+        <property name="requestParamsService" ref="requestParamsService"/>
     </bean>
 
 </beans>
