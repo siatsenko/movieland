@@ -178,4 +178,8 @@
         <property name="requestParamsService" ref="requestParamsService"/>
     </bean>
 
+    <bean id="genreController" class="com.siatsenko.movieland.controller.GenreController">
+        <property name="genreService" ref="genreService"/>
+    </bean>
+
 </beans>
