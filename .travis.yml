@@ -6,11 +6,28 @@ deploy:
   keep-history: true
   on:
     branch: master
+
+cache:
+  directories:
+    - $HOME/.sonar
+    - $HOME/.sonarscanner
+
 addons:
   sonarcloud:
-    organization: "siatsenko-github" # the key of the org you chose at step #3
-#    token:
-#      secure: ********* # encrypted value of your token
+    organization: "siatsenko"
+    token: 0c5602e9a28e70d110b97ca028e0fdd10809fdcf
+
 script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner    
+  - sonar-scanner
+
+    #addons:
+#  sonarcloud:
+#    organization: "siatsenko-github" # the key of the org you chose at step #3
+##    token:
+##      secure: ********* # encrypted value of your token
+#script:
+#  # other script steps might be done before running the actual analysis
+#  - sonar-scanner
+#  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+
