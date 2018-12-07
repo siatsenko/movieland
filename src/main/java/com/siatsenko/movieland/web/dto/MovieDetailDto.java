@@ -5,6 +5,8 @@ import com.siatsenko.movieland.entity.Genre;
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.entity.Review;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class MovieDetailDto {
         this.yearOfRelease = movie.getYearOfRelease();
         this.description = movie.getDescription();
         this.rating = movie.getRating();
-        this.price = movie.getPrice();
+        this.price = new BigDecimal(movie.getPrice()).setScale(2, RoundingMode.UP).doubleValue();
         this.picturePath = movie.getPicturePath();
 
         List<CountryDto> countryDtos = new ArrayList<>();

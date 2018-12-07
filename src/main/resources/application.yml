@@ -13,6 +13,14 @@ random.count: 3
 #Common scheduler
 scheduler.pool-size: 5
 #Scheduled tasks
-scheduled.genre:
-  fixedDelay: 14400000
-  initialDelay: 14400000
+scheduled:
+  genre:
+    fixedDelay: 14400000
+    initialDelay: 14400000
+  currency:
+    fixedDelay: 14200000
+    initialDelay: 14200000
+# Currency
+currency:
+  datePattern: "yyyyMMdd"
+  url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
