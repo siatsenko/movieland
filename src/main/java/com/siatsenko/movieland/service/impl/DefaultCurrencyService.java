@@ -61,7 +61,7 @@ public class DefaultCurrencyService implements CurrencyService {
     }
 
     @PostConstruct
-    @Scheduled(fixedDelayString = "${scheduled.currency.fixedDelay:30000}", initialDelayString = "${scheduled.currency.initialDelay:30000}")
+    @Scheduled(cron = "${scheduled.currency.cron:0 0 * * * *}") // every hour by default
     public Map<String, Double> refresh() {
         logger.debug("refresh: start");
         Map<String, Double> result = getRates();
