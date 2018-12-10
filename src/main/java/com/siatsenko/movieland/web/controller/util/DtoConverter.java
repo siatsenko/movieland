@@ -36,7 +36,7 @@ public class DtoConverter {
     public LoginUserDto asLoginUserDto(Session session) {
         String uuid = session.getToken();
         String nickname = session.getUser().getName();
-        return new LoginUserDto(uuid, nickname);;
+        return new LoginUserDto(uuid, nickname);
     }
 
 }

@@ -42,6 +42,16 @@ public class DefaultAuthService implements AuthService {
     }
 
     @Override
+    public User getUser(String token) {
+        User user = null;
+        if (tokenSessions.containsKey(token)) {
+            user = tokenSessions.get(token).getUser();
+        }
+        logger.trace("getUser({}) finished and return user:{}", token, user);
+        return user;
+    }
+
+    @Override
     public void logout(String token) {
         tokenSessions.remove(token);
         logger.trace("logout({}) finished", token);
