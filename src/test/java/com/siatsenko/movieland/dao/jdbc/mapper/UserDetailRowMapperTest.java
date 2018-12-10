@@ -19,7 +19,6 @@ public class UserDetailRowMapperTest {
         when(resultSet.getInt("id")).thenReturn(1);
         when(resultSet.getString("name")).thenReturn("Рональд Рейнольдс");
         when(resultSet.getString("email")).thenReturn("ronald.reynolds66@example.com");
-        when(resultSet.getString("nick")).thenReturn("paco");
         UserRowMapper userRowMapper = new UserRowMapper();
         UserDetailRowMapper userDetailRowMapper = new UserDetailRowMapper();
         userDetailRowMapper.setUserRowMapper(userRowMapper);
@@ -28,6 +27,5 @@ public class UserDetailRowMapperTest {
         assertEquals(1, user.getId());
         assertEquals( "Рональд Рейнольдс", user.getName());
         assertEquals("ronald.reynolds66@example.com",user.getEmail());
-        assertEquals("paco",user.getNick());
     }
 }

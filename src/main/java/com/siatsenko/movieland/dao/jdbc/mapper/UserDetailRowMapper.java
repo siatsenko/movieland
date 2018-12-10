@@ -14,15 +14,13 @@ import java.sql.SQLException;
 public class UserDetailRowMapper implements RowMapper<User> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    UserRowMapper userRowMapper;
+    private UserRowMapper userRowMapper;
 
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         User user = userRowMapper.mapRow(resultSet, i);
         String email = resultSet.getString("email");
-        String nick = resultSet.getString("nick");
         user.setEmail(email);
-        user.setNick(nick);
 
         logger.trace("mapRow finished and return user: {}", user);
         return user;

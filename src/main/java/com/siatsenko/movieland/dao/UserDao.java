@@ -8,4 +8,6 @@ public interface UserDao {
 
     List<User> getByIds(List<Integer> userIds);
 
+    User getByAuth(String email, String password);
+
 }

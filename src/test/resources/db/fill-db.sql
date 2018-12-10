@@ -123,61 +123,61 @@ select m.id as movie_id, c.id as country_id
 where m.name_russian = 'Танцующий с волками'
   and c.name in ('США','Великобритания');
 --------------------------------------------------------------------
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 1,
 'Рональд Рейнольдс',
 'ronald.reynolds66@example.com',
 'paco');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 2,
 'Дарлин Эдвардс',
 'darlene.edwards15@example.com',
 'bricks');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 3,
 'Габриэль Джексон',
 'gabriel.jackson91@example.com',
 'hjkl');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 4,
 'Дэрил Брайант',
 'daryl.bryant94@example.com',
 'exodus');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 5,
 'Нил Паркер',
 'neil.parker43@example.com',
 '878787');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 6,
 'Трэвис Райт',
 'travis.wright36@example.com',
 'smart');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 7,
 'Амелия Кэннеди',
 'amelia.kennedy58@example.com',
 'beaker');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 8,
 'Айда Дэвис',
 'ida.davis80@example.com',
 'pepsi1');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 9,
 'Джесси Паттерсон',
 'jessie.patterson68@example.com',
 'tommy');
 
-insert into users (id,name,email,nick) values (
+insert into users (id,name,email,password) values (
 10,
 'Деннис Крейг',
 'dennis.craig82@example.com',
