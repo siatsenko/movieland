@@ -5,6 +5,8 @@ import com.siatsenko.movieland.web.dto.MovieDetailDto;
 import com.siatsenko.movieland.web.dto.MovieDto;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class DtoConverter {
     }
 
     public MovieDetailDto asMovieDetailDto(Movie movie) {
+        MovieDetailDto movieDetailDto = new MovieDetailDto(movie);
+        movieDetailDto.setPrice(new BigDecimal(movie.getPrice()).setScale(2, RoundingMode.UP).doubleValue());
         return new MovieDetailDto(movie);
     }
 
