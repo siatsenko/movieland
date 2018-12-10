@@ -28,7 +28,7 @@ public class DtoConverter {
     public MovieDetailDto asMovieDetailDto(Movie movie) {
         MovieDetailDto movieDetailDto = new MovieDetailDto(movie);
         movieDetailDto.setPrice(new BigDecimal(movie.getPrice()).setScale(2, RoundingMode.UP).doubleValue());
-        return new MovieDetailDto(movie);
+        return movieDetailDto;
     }
 
 }

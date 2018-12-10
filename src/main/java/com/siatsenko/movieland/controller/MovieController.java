@@ -54,7 +54,12 @@ public class MovieController {
     @GetMapping(path = "/movie/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public MovieDetailDto getById(@PathVariable("movieId") int id, @RequestParam(name = "currency", defaultValue = "UAH") String currencyCode) {
         logger.info("Sending request to get movie by id : {}, currency code : {}", id, currencyCode);
-        Movie movie = movieService.getById(id, currencyCode);
+        Movie movie;
+        if ("UAH".equals(currencyCode)) {
+            movie = movieService.getById(id);
+        } else {
+            movie = movieService.getById(id, currencyCode);
+        }
         logger.debug("getById returning {} movie", movie);
         return dtoConverter.asMovieDetailDto(movie);
     }
