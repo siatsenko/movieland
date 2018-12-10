@@ -25,7 +25,7 @@ public class DefaultCurrencyService implements CurrencyService {
     private String datePattern;
     private RestTemplate restTemplate;
 
-    private Map<String, Double> cacheRates;
+    private volatile Map<String, Double> cacheRates;
 
     private Map<String, Double> getRates() {
         logger.debug("getRates: start");

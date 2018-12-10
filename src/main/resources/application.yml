@@ -17,8 +17,8 @@ scheduled:
   genre:
     fixedDelay: 14400000
     initialDelay: 14400000
-  # 08 and 16 o'clock of every day
-  currency.cron: "0 0 8,16 * * *"
+  # 08 and 16 o'clock of every weekday
+  currency.cron: "0 0 8,18 * * MON-FRI"
 # Currency
 currency:
   datePattern: "yyyyMMdd"
