@@ -27,4 +27,6 @@
 
     <task:scheduler id="movielandScheduler" pool-size="${scheduler.pool-size}"/>
 
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+
 </beans>

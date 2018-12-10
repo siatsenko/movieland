@@ -27,13 +27,13 @@ public class MovieRowMapperTest {
 
         MovieRowMapper movieRowMapper = new MovieRowMapper();
         Movie movie = movieRowMapper.mapRow(resultSet, 0);
-        assertEquals(movie.getId(), 1);
-        assertEquals(movie.getNameRussian(), "Побег из Шоушенка");
-        assertEquals(movie.getNameNative(), "The Shawshank Redemption");
-        assertEquals(movie.getYearOfRelease(), "1994");
-        assertEquals(movie.getRating(), 8.9, 0.000001);
-        assertEquals(movie.getPrice(), 123.45, 0.000001);
-        assertEquals(movie.getPicturePath(), "https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1._SY209_CR0,0,140,209_.jpg");
+        assertEquals(1, movie.getId());
+        assertEquals("Побег из Шоушенка", movie.getNameRussian());
+        assertEquals("The Shawshank Redemption", movie.getNameNative());
+        assertEquals("1994", movie.getYearOfRelease());
+        assertEquals(8.9, movie.getRating(), 0.000001);
+        assertEquals(123.45, movie.getPrice(), 0.000001);
+        assertEquals("https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1._SY209_CR0,0,140,209_.jpg", movie.getPicturePath());
 
     }
 }

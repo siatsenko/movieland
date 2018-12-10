@@ -1,20 +1,38 @@
 package com.siatsenko.movieland.entity;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class RequestParameters {
 
     LinkedHashMap<String, SortType> sortings;
 
     public RequestParameters() {
-        sortings = new LinkedHashMap<String, SortType>();
+        sortings = new LinkedHashMap<>();
     }
 
-    public LinkedHashMap<String, SortType> getSortings() {
+    public Map<String, SortType> getSortings() {
         return sortings;
     }
 
-    public void setSortings(LinkedHashMap<String, SortType> sortings) {
-        this.sortings = sortings;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestParameters that = (RequestParameters) o;
+        return Objects.equals(sortings, that.sortings);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sortings);
+    }
+
+    @Override
+    public String toString() {
+        return "RequestParameters{" +
+                "sortings=" + sortings +
+                '}';
     }
 }

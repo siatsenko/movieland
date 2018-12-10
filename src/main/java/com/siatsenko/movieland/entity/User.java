@@ -8,14 +8,14 @@ public class User {
 
     public User(int id, String name, String email, String nick) {
         this.id = id;
-        this.name = new String(name);
-        this.email = new String(email);
-        this.nick = new String(nick);
+        this.name = name;
+        this.email = email;
+        this.nick = nick;
     }
 
     public User(int id, String name) {
         this.id = id;
-        this.name = new String(name);
+        this.name = name;
     }
 
     public User(int id) {

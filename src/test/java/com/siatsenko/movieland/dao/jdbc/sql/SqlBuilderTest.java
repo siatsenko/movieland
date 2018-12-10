@@ -50,12 +50,12 @@ public class SqlBuilderTest {
     public void setOrder() {
         RequestParamsService requestParamsService = new DefaultMovieRequestParamsService();
 
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsRating)), "SELECT * FROM v_movies ORDER BY rating asc");
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsPrice)), "SELECT * FROM v_movies ORDER BY price desc");
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsBoth)), "SELECT * FROM v_movies ORDER BY price asc, rating desc");
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongField)), "SELECT * FROM v_movies ORDER BY price asc");
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongSort)), "SELECT * FROM v_movies ORDER BY rating desc");
-        assertEquals(sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongBoth)), "SELECT * FROM v_movies /*ORDER BY*/");
+        assertEquals("SELECT * FROM v_movies ORDER BY rating asc", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsRating)));
+        assertEquals("SELECT * FROM v_movies ORDER BY price desc", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsPrice)));
+        assertEquals("SELECT * FROM v_movies ORDER BY price asc, rating desc", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsBoth)));
+        assertEquals("SELECT * FROM v_movies ORDER BY price asc", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongField)));
+        assertEquals("SELECT * FROM v_movies ORDER BY rating desc", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongSort)));
+        assertEquals("SELECT * FROM v_movies /*ORDER BY*/", sqlBuilder.setOrder(QUERY, requestParamsService.setSortings(paramsWrongBoth)));
     }
 
     @Autowired

@@ -20,43 +20,43 @@ public class MovieController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieService movieService;
-    private DtoConverter dtoService;
+    private DtoConverter dtoConverter;
 
     private RequestParamsService requestParamsService;
 
-    @RequestMapping(path = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/movie", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<MovieDto> getAll(@RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get all movies");
-        logger.debug("Sending request to get all movies {}", queryMap.toString());
+        logger.debug("Sending request to get all movies {}", queryMap);
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
         List<Movie> movies = movieService.getAll(requestParameters);
-        logger.debug("Returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        logger.debug("getAll returning {} movies", movies.size());
+        return dtoConverter.asMovieDto(movies);
     }
 
-    @RequestMapping(path = "/movie/random", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/movie/random", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<MovieDto> getRandom() {
         logger.info("Sending request to get random movies");
         List<Movie> movies = movieService.getRandom();
-        logger.debug("Returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        logger.debug("getRandom returning {} movies", movies.size());
+        return dtoConverter.asMovieDto(movies);
     }
 
-    @RequestMapping(path = "/movie/genre/{genreId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/movie/genre/{genreId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<MovieDto> getByGenreId(@PathVariable("genreId") int genreId, @RequestParam Map<String, String> queryMap) {
         logger.info("Sending request to get movies by genreId : {}", genreId);
         RequestParameters requestParameters = requestParamsService.setSortings(queryMap);
         List<Movie> movies = movieService.getByGenreId(genreId, requestParameters);
-        logger.debug("Returning {} movies", movies.size());
-        return dtoService.asMovieDto(movies);
+        logger.debug("getByGenreId returning {} movies", movies.size());
+        return dtoConverter.asMovieDto(movies);
     }
 
-    @RequestMapping(path = "/movie/{movieId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public MovieDetailDto getById(@PathVariable("movieId") int id) {
-        logger.info("Sending request to get movie by id : {}", id);
-        Movie movie = movieService.getById(id);
-        logger.debug("Returning {} movie", movie);
-        return dtoService.asMovieDetailDto(movie);
+    @GetMapping(path = "/movie/{movieId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public MovieDetailDto getById(@PathVariable("movieId") int id, @RequestParam(name = "currency", defaultValue = "UAH") String currencyCode) {
+        logger.info("Sending request to get movie by id : {}, currency code : {}", id, currencyCode);
+        Movie movie = movieService.getById(id, currencyCode);
+        logger.debug("getById returning {} movie", movie);
+        return dtoConverter.asMovieDetailDto(movie);
     }
 
     @Autowired
@@ -70,7 +70,7 @@ public class MovieController {
     }
 
     @Autowired
-    public void setDtoService(DtoConverter dtoService) {
-        this.dtoService = dtoService;
+    public void setDtoConverter(DtoConverter dtoConverter) {
+        this.dtoConverter = dtoConverter;
     }
 }
