@@ -16,10 +16,8 @@ public class DefaultMovieService implements MovieService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private MovieDao movieDao;
-    private GenreService genreService;
-    private CountryService countryService;
-    private ReviewService reviewService;
     private CurrencyService currencyService;
+    private EnrichmentService enrichmentService;
 
     @Override
     public List<Movie> getAll(RequestParameters requestParameters) {
@@ -43,12 +41,18 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public Movie getById(int id, String currencyCode) {
+    public Movie getById(int id) {
         Movie movie = movieDao.getById(id);
-        genreService.enrich(movie);
-        countryService.enrich(movie);
-        reviewService.enrich(movie);
-        currencyService.enrich(movie,currencyCode);
+        enrichmentService.enrich(movie);
+
+        logger.trace("getById({}) finished and return movies: {}", id, movie);
+        return movie;
+    }
+
+    @Override
+    public Movie getById(int id, String currencyCode) {
+        Movie movie = getById(id);
+        currencyService.enrich(movie, currencyCode);
 
         logger.trace("getById({}) finished and return movies: {}", id, movie);
         return movie;
@@ -60,23 +64,12 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Autowired
-    public void setGenreService(GenreService genreService) {
-        this.genreService = genreService;
-    }
-
-    @Autowired
-    public void setCountryService(CountryService countryService) {
-        this.countryService = countryService;
-    }
-
-    @Autowired
-    public void setReviewService(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
-
-    @Autowired
     public void setCurrencyService(CurrencyService currencyService) {
         this.currencyService = currencyService;
     }
 
+    @Autowired
+    public void setEnrichmentService(EnrichmentService enrichmentService) {
+        this.enrichmentService = enrichmentService;
+    }
 }

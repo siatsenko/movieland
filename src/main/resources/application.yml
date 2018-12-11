@@ -23,3 +23,10 @@ scheduled:
 currency:
   datePattern: "yyyyMMdd"
   url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+# Authentification
+auth:
+  session:
+    # Session timeout 2 hours = 2 * 60 * 60 = 7200 sec.
+    timeout: 7200
+    # Check session timeout 10 min = 10 * 60 * 1000 = 600000 millisec.
+    checkTimeout: 600000

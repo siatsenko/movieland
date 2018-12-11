@@ -15,4 +15,8 @@
 
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+        <bean class="com.siatsenko.movieland.interceptor.AuthInterceptor"/>
+    </mvc:interceptors>
+
 </beans>

@@ -13,6 +13,8 @@ public interface MovieService {
 
     List<Movie> getByGenreId(int genreId, RequestParameters requestParameters);
 
+    Movie getById(int id);
+
     Movie getById(int id, String currencyCode);
 
 }

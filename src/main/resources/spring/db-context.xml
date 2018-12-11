@@ -60,6 +60,14 @@
          WHERE u.id IN ( SELECT UNNEST(?) );"/>
     </bean>
 
+    <bean id="userByAuthSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT u.*
+          FROM users u
+         WHERE (u.email = ?)
+           AND (u.pswhash = crypt(?, pswhash));"/>
+    </bean>
+
     <!--Countries    -->
     <bean id="countriesByMovieIdSql" class="java.lang.String">
         <constructor-arg value="

@@ -27,7 +27,7 @@ CREATE TABLE users
     id INTEGER IDENTITY PRIMARY KEY,
     name VARCHAR(50),
     email VARCHAR(50),
-    nick VARCHAR(50)
+    password VARCHAR(50)
 );
 
 CREATE TABLE country
