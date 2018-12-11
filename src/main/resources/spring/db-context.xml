@@ -85,6 +85,10 @@
          WHERE movie_id = ?;"/>
     </bean>
 
+    <bean id="allCountriesSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM country;"/>
+    </bean>
+
     <!--DB-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="${dbcp2.driverClassName}"/>
