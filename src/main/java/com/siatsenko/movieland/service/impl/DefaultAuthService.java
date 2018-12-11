@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class DefaultAuthService implements AuthService {
@@ -25,13 +27,13 @@ public class DefaultAuthService implements AuthService {
     private UserService userService;
     private Long sessionTimeout;
 
-    private volatile Map<String, Session> tokenSessions = new HashMap<>();
+    private Map<String, Session> tokenSessions = new ConcurrentHashMap<>();
 
     @Override
     public Session login(String email, String password) {
         User user = userService.getByAuth(email, password);
         if (user == null) {
-            logger.debug("login({},{}) : user not authorized", email, password);
+            logger.debug("login({}) : user not authorized", email);
             throw new UserAutorisationException("User not authorized");
         }
         Session session = getSession(user);
@@ -61,17 +63,18 @@ public class DefaultAuthService implements AuthService {
     @Scheduled(fixedDelayString = "${auth.session.checkTimeout: 60000}") // every minute by default
     private Map<String, Session> refresh() {
         logger.debug("refresh: start");
-        Map<String, Session> result = new HashMap<>();
 
-        for (Map.Entry<String, Session> tokenSessionEntry : result.entrySet()) {
-            LocalDateTime expireDate = tokenSessionEntry.getValue().getExpireDate();
-            if (expireDate.isAfter(LocalDateTime.now())) {
-                result.put(tokenSessionEntry.getKey(), tokenSessionEntry.getValue());
+        Iterator<Map.Entry<String, Session>> iterator = tokenSessions.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            LocalDateTime expireDate = iterator.next().getValue().getExpireDate();
+            if (expireDate.isBefore(LocalDateTime.now())) {
+                iterator.remove();
             }
         }
-        tokenSessions = result;
-        logger.trace("refresh: finished and return result: ", result);
-        return result;
+
+        logger.trace("refresh: finished and return result: ", tokenSessions);
+        return tokenSessions;
     }
 
     private Session createSession(User user) {

@@ -3,9 +3,9 @@ package com.siatsenko.movieland.entity;
 import java.time.LocalDateTime;
 
 public class Session {
-    String token;
-    User user;
-    LocalDateTime expireDate;
+    private String token;
+    private User user;
+    private LocalDateTime expireDate;
 
     public Session() {
     }
@@ -13,8 +13,7 @@ public class Session {
     public Session(
             String token,
             User user,
-            LocalDateTime expireDate
-    ) {
+            LocalDateTime expireDate) {
         this.token = token;
         this.user = user;
         this.expireDate = expireDate;
