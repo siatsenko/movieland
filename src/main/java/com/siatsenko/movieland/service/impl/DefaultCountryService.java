@@ -25,6 +25,13 @@ public class DefaultCountryService implements CountryService {
         return movie;
     }
 
+    @Override
+    public List<Country> getAll() {
+        List<Country> countries = countryDao.getAll();
+        logger.trace("getAll finished and return countries: {}", countries);
+        return countries;
+    }
+
     @Autowired
     public void setCountryDao(CountryDao countryDao) {
         this.countryDao = countryDao;

@@ -8,4 +8,6 @@ public interface CountryDao {
 
     List<Country> getByMovieId(int movieId);
 
+    List<Country> getAll();
+
 }
