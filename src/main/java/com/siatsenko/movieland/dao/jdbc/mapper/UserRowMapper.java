@@ -1,5 +1,6 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
+import com.siatsenko.movieland.entity.Role;
 import com.siatsenko.movieland.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,9 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
+        Role role = Role.valueOf(resultSet.getString("role"));
 
-        User user = new User(id, name);
+        User user = new User(id, name, role);
 
         logger.trace("mapRow finished and return user: {}", user);
         return user;

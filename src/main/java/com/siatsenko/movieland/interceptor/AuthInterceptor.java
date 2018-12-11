@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Service
 public class AuthInterceptor extends HandlerInterceptorAdapter {
-    private static final String DEFAULT_LOGIN = "guest";
 
     private AuthService authService;
 
@@ -24,7 +23,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
         String token = request.getHeader("uuid");
         User user = authService.getUser(token);
-        String userLogin = user == null ? DEFAULT_LOGIN : user.getEmail();
+        String userLogin = user.getEmail();
 
         MDC.put("login", userLogin);
         return true;

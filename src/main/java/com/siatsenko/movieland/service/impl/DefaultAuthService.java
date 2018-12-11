@@ -1,5 +1,6 @@
 package com.siatsenko.movieland.service.impl;
 
+import com.siatsenko.movieland.entity.Role;
 import com.siatsenko.movieland.entity.Session;
 import com.siatsenko.movieland.entity.User;
 import com.siatsenko.movieland.exception.UserAutorisationException;
@@ -22,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class DefaultAuthService implements AuthService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final User GUEST_USER = new User("guest", "guest", Role.GUEST);
 
     private UserService userService;
     private Long sessionTimeout;
@@ -45,8 +47,10 @@ public class DefaultAuthService implements AuthService {
     @Override
     public User getUser(String token) {
         User user = null;
-        if (tokenSessions.containsKey(token)) {
+        if (token != null && tokenSessions.containsKey(token)) {
             user = tokenSessions.get(token).getUser();
+        } else {
+            user = GUEST_USER;
         }
         logger.trace("getUser({}) finished and return user:{}", token, user);
         return user;

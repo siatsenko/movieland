@@ -17,6 +17,7 @@ public class JdbcReviewDao implements ReviewDao {
 
     private JdbcTemplate jdbcTemplate;
     private String reviewsByMovieIdSql;
+    private String addReviewSql;
     private ReviewRowMapper reviewRowMapper;
 
     @Override
@@ -24,6 +25,11 @@ public class JdbcReviewDao implements ReviewDao {
         List<Review> reviews = jdbcTemplate.query(reviewsByMovieIdSql, reviewRowMapper, movieId);
         logger.trace("getByMovieId({}) finished and return reviews: {}", movieId, reviews);
         return reviews;
+    }
+
+    @Override
+    public void add(int movieId, Review review) {
+        jdbcTemplate.update(addReviewSql, movieId, review.getUser().getId(), review.getText());
     }
 
     @Autowired
@@ -41,4 +47,8 @@ public class JdbcReviewDao implements ReviewDao {
         this.reviewRowMapper = reviewRowMapper;
     }
 
+    @Autowired
+    public void setAddReviewSql(String addReviewSql) {
+        this.addReviewSql = addReviewSql;
+    }
 }

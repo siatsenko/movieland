@@ -52,6 +52,13 @@
          WHERE r.movie_id = ?;"/>
     </bean>
 
+    <bean id="addReviewSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO review
+          (movie_id, user_id, text)
+          VALUES (?, ?, ?);"/>
+    </bean>
+
     <!--Users    -->
     <bean id="usersByIdsSql" class="java.lang.String">
         <constructor-arg value="
