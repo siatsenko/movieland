@@ -2,8 +2,6 @@ package com.siatsenko.movieland.interceptor;
 
 import com.siatsenko.movieland.entity.User;
 import com.siatsenko.movieland.service.AuthService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,6 @@ import java.util.UUID;
 
 @Service
 public class AuthInterceptor extends HandlerInterceptorAdapter {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final String DEFAULT_LOGIN = "guest";
 
     private AuthService authService;

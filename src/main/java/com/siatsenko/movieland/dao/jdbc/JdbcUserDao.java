@@ -38,9 +38,9 @@ public class JdbcUserDao implements UserDao {
             User user = jdbcTemplate.queryForObject(userByAuthSql, userDetailRowMapper, email, password);
             result = user;
         } catch (EmptyResultDataAccessException e) {
-            logger.debug("getByAuth({},{}) user not found", email, password);
+            logger.debug("getByAuth({}) user not found", email);
         }
-        logger.debug("getByAuth({},{}) finished and return user:", email, password, result);
+        logger.debug("getByAuth({}) finished and return user:", email, result);
         return result;
     }
 
