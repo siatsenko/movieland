@@ -18,6 +18,7 @@ public class JdbcCountryDao implements CountryDao {
     private JdbcTemplate jdbcTemplate;
     private String countriesByMovieIdSql;
     private String allCountriesSql;
+    private String editCountriesByMovieIdSql;
     private CountryRowMapper countryRowMapper;
 
     @Override
@@ -32,6 +33,12 @@ public class JdbcCountryDao implements CountryDao {
         List<Country> countries = jdbcTemplate.query(allCountriesSql, countryRowMapper);
         logger.trace("getAll finished and return countries: {}", countries);
         return countries;
+    }
+
+    @Override
+    public void editByMovieId(int movieId, int[] countryIds) {
+        jdbcTemplate.update(editCountriesByMovieIdSql, movieId, movieId, countryIds);
+        logger.trace("editByMovieId({},{}) finished", movieId, countryIds);
     }
 
     @Autowired
@@ -52,5 +59,10 @@ public class JdbcCountryDao implements CountryDao {
     @Autowired
     public void setAllCountriesSql(String allCountriesSql) {
         this.allCountriesSql = allCountriesSql;
+    }
+
+    @Autowired
+    public void setEditCountriesByMovieIdSql(String editCountriesByMovieIdSql) {
+        this.editCountriesByMovieIdSql = editCountriesByMovieIdSql;
     }
 }

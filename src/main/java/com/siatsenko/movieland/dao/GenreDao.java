@@ -10,4 +10,5 @@ public interface GenreDao {
 
     List<Genre> getByMovieId(int movieId);
 
+    void editByMovieId(int movieId, int[] genreIds);
 }

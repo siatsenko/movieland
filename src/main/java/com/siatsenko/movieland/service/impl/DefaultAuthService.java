@@ -4,6 +4,7 @@ import com.siatsenko.movieland.entity.Role;
 import com.siatsenko.movieland.entity.Session;
 import com.siatsenko.movieland.entity.User;
 import com.siatsenko.movieland.exception.UserAutorisationException;
+import com.siatsenko.movieland.exception.InsufficientPermissionsException;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.UserService;
 import org.slf4j.Logger;
@@ -60,6 +61,14 @@ public class DefaultAuthService implements AuthService {
     public void logout(String token) {
         tokenSessions.remove(token);
         logger.trace("logout({}) finished", token);
+    }
+
+    @Override
+    public void checkRoleLevel(String token, Role role) {
+        User user = getUser(token);
+        if (user.getRole().ordinal() < role.ordinal()) {
+            throw new InsufficientPermissionsException("Insufficient permissions");
+        }
     }
 
     @PostConstruct

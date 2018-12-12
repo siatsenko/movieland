@@ -1,6 +1,7 @@
 package com.siatsenko.movieland.service;
 
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.MovieRequest;
 import com.siatsenko.movieland.entity.RequestParameters;
 
 import java.util.List;
@@ -16,5 +17,9 @@ public interface MovieService {
     Movie getById(int id);
 
     Movie getById(int id, String currencyCode);
+
+    Movie add(MovieRequest movieRequest, String token);
+
+    Movie edit(int id, MovieRequest movieRequest, String token);
 
 }

@@ -28,6 +28,61 @@
         <constructor-arg value="SELECT * FROM v_movies WHERE id = ?;"/>
     </bean>
 
+    <bean id="addMovieSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO movie (
+            name_russian,
+            name_native,
+            year_of_release,
+            description,
+            rating,
+            price,
+            picture_path
+        ) VALUES (
+            :nameRussian,
+            :nameNative,
+            :yearOfRelease,
+            :description,
+            :rating,
+            :price,
+            :picturePath
+        );"/>
+    </bean>
+
+    <bean id="editMovieSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO movie (
+            id,
+            name_russian,
+            name_native,
+            year_of_release,
+            description,
+            rating,
+            price,
+            picture_path
+        ) VALUES (
+            :id,
+            :nameRussian,
+            :nameNative,
+            :yearOfRelease,
+            :description,
+            :rating,
+            :price,
+            :picturePath
+        )
+		ON CONFLICT ON CONSTRAINT movie_pkey
+		DO
+			UPDATE
+			SET name_russian = EXCLUDED.name_russian,
+				name_native = EXCLUDED.name_native,
+				year_of_release = EXCLUDED.year_of_release,
+				description = EXCLUDED.description,
+				rating = EXCLUDED.rating,
+				price = EXCLUDED.price,
+				picture_path = EXCLUDED.picture_path
+		;"/>
+    </bean>
+
     <!--Genres    -->
     <bean id="allGenresSql" class="java.lang.String">
         <constructor-arg value="SELECT * FROM genre;"/>
@@ -40,6 +95,16 @@
                INNER JOIN genre g
                   ON mg.genre_id = g.id
          WHERE movie_id = ?;"/>
+    </bean>
+
+    <bean id="editGenresByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        WITH del_genres AS (
+        DELETE FROM movie_genre
+        WHERE movie_id = ?
+        )
+        INSERT INTO movie_genre (movie_id, genre_id)
+        SELECT ?, g.id FROM genre g where g.id IN ( SELECT UNNEST(?) );"/>
     </bean>
 
     <!--Reviews    -->
@@ -89,6 +154,16 @@
         <constructor-arg value="SELECT * FROM country;"/>
     </bean>
 
+    <bean id="editCountriesByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        WITH del_countries AS (
+        DELETE FROM movie_country
+        WHERE movie_id = ?
+        )
+        INSERT INTO movie_country (movie_id, country_id)
+        SELECT ?, c.id FROM country c where c.id IN ( SELECT UNNEST(?) );"/>
+    </bean>
+
     <!--DB-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="${dbcp2.driverClassName}"/>
@@ -103,6 +178,12 @@
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg>
+            <ref bean="dataSource"/>
+        </constructor-arg>
     </bean>
 
     <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">

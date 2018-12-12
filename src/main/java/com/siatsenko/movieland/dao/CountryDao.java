@@ -10,4 +10,5 @@ public interface CountryDao {
 
     List<Country> getAll();
 
+    void editByMovieId(int movieId, int[] countryIds);
 }

@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +23,7 @@ public class JdbcMovieDao implements MovieDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SqlBuilder sqlBuilder;
     private int randomCount;
     private MovieRowMapper movieRowMapper;
@@ -27,6 +32,8 @@ public class JdbcMovieDao implements MovieDao {
     private String randomMoviesSql;
     private String moviesByGenreIdSql;
     private String movieByIdSql;
+    private String addMovieSql;
+    private String editMovieSql;
 
     @Override
     public List<Movie> getAll(RequestParameters requestParameters) {
@@ -59,6 +66,43 @@ public class JdbcMovieDao implements MovieDao {
         logger.trace("getById({}) finished and return movies: {}", id, movie);
         return movie;
     }
+
+    @Override
+    public Movie add(Movie movie) {
+        return update(movie, addMovieSql, false);
+    }
+
+    @Override
+    public Movie edit(Movie movie) {
+        return update(movie, editMovieSql, true);
+    }
+
+    private Movie update(Movie movie, String querySql, boolean withId) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
+                .addValue("nameRussian", movie.getNameRussian())
+                .addValue("nameNative", movie.getNameNative())
+                .addValue("yearOfRelease", movie.getYearOfRelease())
+                .addValue("price", movie.getPrice())
+                .addValue("rating", movie.getRating())
+                .addValue("description", movie.getDescription())
+                .addValue("picturePath", movie.getPicturePath());
+
+        if (withId) {
+            mapSqlParameterSource.addValue("id", movie.getId());
+        }
+
+        String[] returningArray = new String[]{"id"};
+
+        namedParameterJdbcTemplate.update(querySql, mapSqlParameterSource, keyHolder, returningArray);
+        int movieId = keyHolder.getKey().intValue();
+        movie.setId(movieId);
+
+        logger.trace("add() finished and return movie: {}", movie);
+        return movie;
+    }
+
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -103,5 +147,20 @@ public class JdbcMovieDao implements MovieDao {
     @Autowired
     public void setMovieDetailRowMapper(MovieDetailRowMapper movieDetailRowMapper) {
         this.movieDetailRowMapper = movieDetailRowMapper;
+    }
+
+    @Autowired
+    public void setAddMovieSql(String addMovieSql) {
+        this.addMovieSql = addMovieSql;
+    }
+
+    @Autowired
+    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
+    @Autowired
+    public void setEditMovieSql(String editMovieSql) {
+        this.editMovieSql = editMovieSql;
     }
 }
