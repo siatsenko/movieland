@@ -1,6 +1,7 @@
 package com.siatsenko.movieland.controller;
 
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.MovieRequest;
 import com.siatsenko.movieland.entity.RequestParameters;
 import com.siatsenko.movieland.service.*;
 import com.siatsenko.movieland.web.controller.util.DtoConverter;
@@ -62,6 +63,18 @@ public class MovieController {
         }
         logger.debug("getById returning {} movie", movie);
         return dtoConverter.asMovieDetailDto(movie);
+    }
+
+    @PostMapping(path = "/movie", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void add(@RequestHeader(name = "uuid", defaultValue = "0000") String token, @RequestBody MovieRequest movieRequest) {
+        movieService.add(movieRequest, token);
+        logger.debug("add {}:", token);
+    }
+
+    @PutMapping(path = "/movie/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void edit(@PathVariable("id") int id, @RequestHeader(name = "uuid", defaultValue = "0000") String token, @RequestBody MovieRequest movieRequest) {
+        movieService.edit(id, movieRequest, token);
+        logger.debug("edit {}:", token);
     }
 
     @Autowired

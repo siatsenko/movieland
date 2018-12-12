@@ -3,6 +3,7 @@ package com.siatsenko.movieland.service.impl;
 import com.siatsenko.movieland.dao.GenreDao;
 import com.siatsenko.movieland.entity.Genre;
 import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.MovieRequest;
 import com.siatsenko.movieland.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,12 @@ public class DefaultGenreService implements GenreService {
         movie.setGenres(genres);
         logger.trace("enrich({}) finished and enrich genres: {}", movie.getId(), genres);
         return movie;
+    }
+
+    @Override
+    public void editByMovieId(int movieId, int[] genreIds) {
+        genreDao.editByMovieId(movieId, genreIds);
+        logger.trace("editByMovieId({},{}) finished", movieId, genreIds);
     }
 
     @Autowired

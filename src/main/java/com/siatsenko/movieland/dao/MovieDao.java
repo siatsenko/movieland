@@ -15,4 +15,8 @@ public interface MovieDao {
 
     Movie getById(int id);
 
+    Movie add(Movie movie);
+
+    Movie edit(Movie movie);
+
 }

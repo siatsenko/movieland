@@ -32,6 +32,12 @@ public class DefaultCountryService implements CountryService {
         return countries;
     }
 
+    @Override
+    public void editByMovieId(int movieId, int[] countryIds) {
+        countryDao.editByMovieId(movieId, countryIds);
+        logger.trace("editByMovieId({},{}) finished", movieId, countryDao);
+    }
+
     @Autowired
     public void setCountryDao(CountryDao countryDao) {
         this.countryDao = countryDao;

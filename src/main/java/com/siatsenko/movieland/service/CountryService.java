@@ -11,4 +11,5 @@ public interface CountryService {
 
     List<Country> getAll();
 
+    void editByMovieId(int movieId, int[] countryIds);
 }
