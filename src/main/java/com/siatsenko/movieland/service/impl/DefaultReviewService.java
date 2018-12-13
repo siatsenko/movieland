@@ -2,7 +2,6 @@ package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.ReviewDao;
 import com.siatsenko.movieland.entity.*;
-import com.siatsenko.movieland.exception.InsufficientPermissionsException;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.ReviewService;
 import com.siatsenko.movieland.service.UserService;
@@ -31,11 +30,8 @@ public class DefaultReviewService implements ReviewService {
     }
 
     @Override
-    public void add(ReviewRequest reviewRequest, String token) {
+    public void add(ReviewRequest reviewRequest, User user) {
 
-        authService.checkRoleLevel(token, Role.USER);
-
-        User user = authService.getUser(token);
         int movieId = reviewRequest.getMovieId();
         String text = reviewRequest.getText();
 

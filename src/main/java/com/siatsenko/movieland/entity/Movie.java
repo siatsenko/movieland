@@ -15,20 +15,6 @@ public class Movie {
     List<Genre> genres;
     List<Review> reviews;
 
-    public Movie() {
-
-    }
-
-    public Movie(MovieRequest movieRequest) {
-        this.nameRussian = movieRequest.getNameRussian();
-        this.nameNative = movieRequest.getNameNative();
-        this.yearOfRelease = movieRequest.getYearOfRelease();
-        this.description = movieRequest.getDescription();
-        this.price = movieRequest.getPrice();
-        this.rating = movieRequest.getRating();
-        this.picturePath = movieRequest.getPicturePath();
-    }
-
     public int getId() {
         return id;
     }

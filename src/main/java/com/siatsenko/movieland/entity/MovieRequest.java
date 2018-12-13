@@ -3,6 +3,7 @@ package com.siatsenko.movieland.entity;
 import java.util.Arrays;
 
 public class MovieRequest {
+    private int id;
     private String nameRussian;
     private String nameNative;
     private String yearOfRelease;
@@ -12,6 +13,10 @@ public class MovieRequest {
     private String picturePath;
     int[] countries;
     int[] genres;
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getNameRussian() {
         return nameRussian;
