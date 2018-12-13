@@ -12,6 +12,6 @@ public interface AuthService {
 
     void logout(String token);
 
-    void checkRoleLevel(String token, Role role);
+    boolean checkRoleLevel(User user, Role role);
 
 }

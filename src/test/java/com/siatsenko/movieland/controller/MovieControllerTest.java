@@ -3,6 +3,7 @@ package com.siatsenko.movieland.controller;
 import com.siatsenko.movieland.service.MovieService;
 import com.siatsenko.movieland.service.RequestParamsService;
 
+import com.siatsenko.movieland.web.controller.MovieController;
 import com.siatsenko.movieland.web.controller.util.DtoConverter;
 import com.siatsenko.movieland.web.dto.MovieDto;
 import org.junit.Test;

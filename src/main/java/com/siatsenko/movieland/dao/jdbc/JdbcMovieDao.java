@@ -68,13 +68,12 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Override
-    public Movie add(Movie movie) {
-        return update(movie, addMovieSql, false);
-    }
-
-    @Override
-    public Movie edit(Movie movie) {
-        return update(movie, editMovieSql, true);
+    public Movie upsert(Movie movie) {
+        if (movie.getId() == 0) {
+            return update(movie, addMovieSql, false);
+        } else {
+            return update(movie, editMovieSql, true);
+        }
     }
 
     private Movie update(Movie movie, String querySql, boolean withId) {

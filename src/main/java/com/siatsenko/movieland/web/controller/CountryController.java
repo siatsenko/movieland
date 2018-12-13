@@ -1,4 +1,4 @@
-package com.siatsenko.movieland.controller;
+package com.siatsenko.movieland.web.controller;
 
 import com.siatsenko.movieland.entity.Country;
 import com.siatsenko.movieland.service.CountryService;

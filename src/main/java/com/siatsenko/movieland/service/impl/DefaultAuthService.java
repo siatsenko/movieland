@@ -3,8 +3,7 @@ package com.siatsenko.movieland.service.impl;
 import com.siatsenko.movieland.entity.Role;
 import com.siatsenko.movieland.entity.Session;
 import com.siatsenko.movieland.entity.User;
-import com.siatsenko.movieland.exception.UserAutorisationException;
-import com.siatsenko.movieland.exception.InsufficientPermissionsException;
+import com.siatsenko.movieland.exception.UserAuthorisationException;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.UserService;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ public class DefaultAuthService implements AuthService {
         User user = userService.getByAuth(email, password);
         if (user == null) {
             logger.debug("login({}) : user not authorized", email);
-            throw new UserAutorisationException("User not authorized");
+            throw new UserAuthorisationException("User not authorized");
         }
         Session session = getSession(user);
         if (session == null) {
@@ -63,12 +62,17 @@ public class DefaultAuthService implements AuthService {
         logger.trace("logout({}) finished", token);
     }
 
+//    @Override
+//    public void checkRoleLevel(String token, Role role) {
+//        User user = getUser(token);
+//        if (user.getRole().ordinal() < role.ordinal()) {
+//            throw new InsufficientPermissionsException("Insufficient permissions");
+//        }
+//    }
+
     @Override
-    public void checkRoleLevel(String token, Role role) {
-        User user = getUser(token);
-        if (user.getRole().ordinal() < role.ordinal()) {
-            throw new InsufficientPermissionsException("Insufficient permissions");
-        }
+    public boolean checkRoleLevel(User user, Role role) {
+        return user.getRole().ordinal() >= role.ordinal();
     }
 
     @PostConstruct

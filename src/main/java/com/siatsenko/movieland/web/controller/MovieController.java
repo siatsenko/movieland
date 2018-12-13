@@ -1,9 +1,12 @@
-package com.siatsenko.movieland.controller;
+package com.siatsenko.movieland.web.controller;
 
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.entity.MovieRequest;
 import com.siatsenko.movieland.entity.RequestParameters;
+import com.siatsenko.movieland.entity.Role;
 import com.siatsenko.movieland.service.*;
+import com.siatsenko.movieland.web.UserHandler;
+import com.siatsenko.movieland.web.annotation.ProtectedBy;
 import com.siatsenko.movieland.web.controller.util.DtoConverter;
 import com.siatsenko.movieland.web.dto.MovieDetailDto;
 import com.siatsenko.movieland.web.dto.MovieDto;
@@ -65,16 +68,19 @@ public class MovieController {
         return dtoConverter.asMovieDetailDto(movie);
     }
 
+    @ProtectedBy(acceptedRole = Role.ADMIN)
     @PostMapping(path = "/movie", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void add(@RequestHeader(name = "uuid", defaultValue = "0000") String token, @RequestBody MovieRequest movieRequest) {
-        movieService.add(movieRequest, token);
-        logger.debug("add {}:", token);
+    public void add(@RequestBody MovieRequest movieRequest) {
+        movieService.upsert(movieRequest, UserHandler.getCurrentUser());
+        logger.debug("add {}:", UserHandler.getCurrentUser());
     }
 
+    @ProtectedBy(acceptedRole = Role.ADMIN)
     @PutMapping(path = "/movie/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void edit(@PathVariable("id") int id, @RequestHeader(name = "uuid", defaultValue = "0000") String token, @RequestBody MovieRequest movieRequest) {
-        movieService.edit(id, movieRequest, token);
-        logger.debug("edit {}:", token);
+    public void edit(@PathVariable("id") int id, @RequestBody MovieRequest movieRequest) {
+        movieRequest.setId(id);
+        movieService.upsert(movieRequest, UserHandler.getCurrentUser());
+        logger.debug("edit {}:", UserHandler.getCurrentUser());
     }
 
     @Autowired

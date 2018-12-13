@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ public class DefaultMovieService implements MovieService {
     private EnrichmentService enrichmentService;
     private GenreService genreService;
     private CountryService countryService;
-    private AuthService authService;
 
     @Override
     public List<Movie> getAll(RequestParameters requestParameters) {
@@ -61,37 +61,27 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    public Movie add(MovieRequest movieRequest, String token) {
-        Movie movie = update(null, movieRequest, token);
-        logger.trace("add({},{}) finished and return movie: {}", movieRequest, token, movie);
-        return movie;
-    }
+    @Transactional
+    public Movie upsert(MovieRequest movieRequest, User user) {
 
-    @Override
-    public Movie edit(int id, MovieRequest movieRequest, String token) {
-        Movie movie = update(id, movieRequest, token);
-        logger.trace("edit({},{},{}) finished and return movie: {}", id, movieRequest, token, movie);
-        return movie;
-    }
+        Movie movie = new Movie();
 
-    private Movie update(Integer id, MovieRequest movieRequest, String token) {
-        authService.checkRoleLevel(token, Role.ADMIN);
-
-        Movie movie = new Movie(movieRequest);
-        if (id != null) {
-            movie.setId(id);
-            movie = movieDao.edit(movie);
-        } else {
-            movie = movieDao.add(movie);
-        }
+        movie.setId(movieRequest.getId());
+        movie.setNameRussian(movieRequest.getNameRussian());
+        movie.setNameNative(movieRequest.getNameNative());
+        movie.setYearOfRelease(movieRequest.getYearOfRelease());
+        movie.setDescription(movieRequest.getDescription());
+        movie.setPrice(movieRequest.getPrice());
+        movie.setRating(movieRequest.getRating());
+        movie.setPicturePath(movieRequest.getPicturePath());
+        movie = movieDao.upsert(movie);
 
         genreService.editByMovieId(movie.getId(), movieRequest.getGenres());
         countryService.editByMovieId(movie.getId(), movieRequest.getCountries());
 
-        logger.trace("update({},{},{}) finished and return movie: {}", id, movieRequest, token, movie);
+        logger.trace("update({},{}) finished and return movie: {}", movieRequest, user, movie);
         return movie;
     }
-
 
     @Autowired
     public void setMovieDao(MovieDao movieDao) {
@@ -106,11 +96,6 @@ public class DefaultMovieService implements MovieService {
     @Autowired
     public void setEnrichmentService(EnrichmentService enrichmentService) {
         this.enrichmentService = enrichmentService;
-    }
-
-    @Autowired
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
     }
 
     @Autowired

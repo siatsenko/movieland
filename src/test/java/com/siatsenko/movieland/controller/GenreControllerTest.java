@@ -1,9 +1,8 @@
-package com.siatsenko.movieland.controller;
+package com.siatsenko.movieland.web.controller;
 
 import com.siatsenko.movieland.entity.Genre;
 import com.siatsenko.movieland.service.GenreService;
-import com.siatsenko.movieland.web.controller.util.DtoConverter;
-import com.siatsenko.movieland.web.dto.GenreDto;
+import com.siatsenko.movieland.web.controller.GenreController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

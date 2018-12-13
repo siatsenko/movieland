@@ -172,13 +172,13 @@
         <property name="reviewService" ref="reviewService"/>
     </bean>
 
-    <bean id="movieController" class="com.siatsenko.movieland.controller.MovieController">
+    <bean id="movieController" class="com.siatsenko.movieland.web.controller.MovieController">
         <property name="movieService" ref="movieService"/>
         <property name="dtoConverter" ref="dtoConverter"/>
         <property name="requestParamsService" ref="requestParamsService"/>
     </bean>
 
-    <bean id="genreController" class="com.siatsenko.movieland.controller.GenreController">
+    <bean id="genreController" class="com.siatsenko.movieland.web.controller.GenreController">
         <property name="genreService" ref="genreService"/>
     </bean>
 
