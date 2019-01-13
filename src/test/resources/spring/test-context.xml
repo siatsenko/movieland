@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/jdbc
         http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
         http://www.springframework.org/schema/util
@@ -35,6 +38,61 @@
         <constructor-arg value="SELECT * FROM v_movies WHERE id = ?;"/>
     </bean>
 
+    <bean id="addMovieSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO movie (
+            name_russian,
+            name_native,
+            year_of_release,
+            description,
+            rating,
+            price,
+            picture_path
+        ) VALUES (
+            :nameRussian,
+            :nameNative,
+            :yearOfRelease,
+            :description,
+            :rating,
+            :price,
+            :picturePath
+        );"/>
+    </bean>
+
+    <bean id="editMovieSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO movie (
+            id,
+            name_russian,
+            name_native,
+            year_of_release,
+            description,
+            rating,
+            price,
+            picture_path
+        ) VALUES (
+            :id,
+            :nameRussian,
+            :nameNative,
+            :yearOfRelease,
+            :description,
+            :rating,
+            :price,
+            :picturePath
+        )
+		ON CONFLICT ON CONSTRAINT movie_pkey
+		DO
+			UPDATE
+			SET name_russian = EXCLUDED.name_russian,
+				name_native = EXCLUDED.name_native,
+				year_of_release = EXCLUDED.year_of_release,
+				description = EXCLUDED.description,
+				rating = EXCLUDED.rating,
+				price = EXCLUDED.price,
+				picture_path = EXCLUDED.picture_path
+		;"/>
+    </bean>
+
     <bean id="movieRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper">
     </bean>
 
@@ -50,6 +108,8 @@
         <property name="randomMoviesSql" ref="randomMoviesSql"/>
         <property name="moviesByGenreIdSql" ref="moviesByGenreIdSql"/>
         <property name="movieByIdSql" ref="movieByIdSql"/>
+        <property name="addMovieSql" ref="addMovieSql"/>
+        <property name="editMovieSql" ref="editMovieSql"/>
     </bean>
 
     <!--Genres    -->
@@ -76,6 +136,16 @@
         <property name="genresByMovieIdSql" ref="genresByMovieIdSql"/>
     </bean>
 
+    <bean id="editGenresByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        WITH del_genres AS (
+        DELETE FROM movie_genre
+        WHERE movie_id = ?
+        )
+        INSERT INTO movie_genre (movie_id, genre_id)
+        SELECT ?, g.id FROM genre g where g.id IN ( SELECT UNNEST(?) );"/>
+    </bean>
+
     <!--Reviews    -->
     <bean id="reviewsByMovieIdSql" class="java.lang.String">
         <constructor-arg value="SELECT r.* FROM review r WHERE r.movie_id = ?;"/>
@@ -88,6 +158,13 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
         <property name="reviewRowMapper" ref="reviewRowMapper"/>
         <property name="reviewsByMovieIdSql" ref="reviewsByMovieIdSql"/>
+    </bean>
+
+    <bean id="addReviewSql" class="java.lang.String">
+        <constructor-arg value="
+        INSERT INTO review
+          (movie_id, user_id, text)
+          VALUES (?, ?, ?);"/>
     </bean>
 
     <!--Users    -->
@@ -110,7 +187,24 @@
         <property name="usersByIdsSql" ref="usersByIdsSql"/>
     </bean>
 
+    <bean id="userByAuthSql" class="java.lang.String">
+        <constructor-arg value="
+        SELECT u.*
+          FROM users u
+         WHERE (u.email = ?)
+           AND (u.password = ?);"/>
+    </bean>
+
     <!--Countries    -->
+    <bean id="countryRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.CountryRowMapper">
+    </bean>
+
+    <bean id="jdbcCountryDao" class="com.siatsenko.movieland.dao.jdbc.JdbcCountryDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="countryRowMapper" ref="countryRowMapper"/>
+        <property name="countriesByMovieIdSql" ref="countriesByMovieIdSql"/>
+    </bean>
+
     <bean id="countriesByMovieIdSql" class="java.lang.String">
         <constructor-arg value="
         SELECT c.*
@@ -120,13 +214,18 @@
          WHERE movie_id = ?;"/>
     </bean>
 
-    <bean id="countryRowMapper" class="com.siatsenko.movieland.dao.jdbc.mapper.CountryRowMapper">
+    <bean id="allCountriesSql" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM country;"/>
     </bean>
 
-    <bean id="jdbcCountryDao" class="com.siatsenko.movieland.dao.jdbc.JdbcCountryDao">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-        <property name="countryRowMapper" ref="countryRowMapper"/>
-        <property name="countriesByMovieIdSql" ref="countriesByMovieIdSql"/>
+    <bean id="editCountriesByMovieIdSql" class="java.lang.String">
+        <constructor-arg value="
+        WITH del_countries AS (
+        DELETE FROM movie_country
+        WHERE movie_id = ?
+        )
+        INSERT INTO movie_country (movie_id, country_id)
+        SELECT ?, c.id FROM country c where c.id IN ( SELECT UNNEST(?) );"/>
     </bean>
 
     <!--DB-->
@@ -137,6 +236,12 @@
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="DataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg>
+            <ref bean="dataSource"/>
+        </constructor-arg>
     </bean>
 
     <bean id="sqlBuilder" class="com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder">
@@ -160,16 +265,37 @@
         <property name="userDao" ref="jdbcUserDao"/>
     </bean>
 
+    <bean id="authService" class="com.siatsenko.movieland.service.impl.DefaultAuthService">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="currencyService" class="com.siatsenko.movieland.service.impl.DefaultCurrencyService">
+        <property name="restTemplate" ref="restTemplate"/>
+        <property name="url" value="https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"/>
+        <property name="datePattern" value="yyyyMMdd"/>
+    </bean>
+
     <bean id="reviewService" class="com.siatsenko.movieland.service.impl.DefaultReviewService">
         <property name="reviewDao" ref="jdbcReviewDao"/>
         <property name="userService" ref="userService"/>
+        <property name="authService" ref="authService"/>
     </bean>
 
     <bean id="movieService" class="com.siatsenko.movieland.service.impl.DefaultMovieService">
         <property name="movieDao" ref="jdbcMovieDao"/>
         <property name="genreService" ref="genreService"/>
         <property name="countryService" ref="countryService"/>
+    </bean>
+
+    <bean id="enrichmentService" class="com.siatsenko.movieland.service.impl.DefaultEnrichmentService">
+        <property name="genreService" ref="genreService"/>
+        <property name="countryService" ref="countryService"/>
         <property name="reviewService" ref="reviewService"/>
+    </bean>
+
+    <bean id="authController" class="com.siatsenko.movieland.web.controller.AuthController">
+        <property name="authService" ref="authService"/>
+        <property name="dtoConverter" ref="dtoConverter"/>
     </bean>
 
     <bean id="movieController" class="com.siatsenko.movieland.web.controller.MovieController">
@@ -178,8 +304,30 @@
         <property name="requestParamsService" ref="requestParamsService"/>
     </bean>
 
+    <bean id="reviewController" class="com.siatsenko.movieland.web.controller.ReviewController">
+        <property name="reviewService" ref="reviewService"/>
+    </bean>
+
     <bean id="genreController" class="com.siatsenko.movieland.web.controller.GenreController">
         <property name="genreService" ref="genreService"/>
     </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+    <bean id="authInterceptor" class="com.siatsenko.movieland.interceptor.AuthInterceptor" >
+    <property name="authService" ref="authService" />
+    </bean>
+
+    <!--<mvc:interceptors>-->
+        <!--<bean class="com.siatsenko.movieland.interceptor.AuthInterceptor">-->
+            <!--<property name="authService" ref="authService"/>-->
+        <!--</bean>-->
+    <!--</mvc:interceptors>-->
+
+    <!--<mvc:interceptors>-->
+    <!--<bean class="com.siatsenko.movieland.interceptor.AuthInterceptor">-->
+    <!--<property name="authService" ref="authService" />-->
+    <!--</bean>-->
+    <!--</mvc:interceptors>-->
 
 </beans>

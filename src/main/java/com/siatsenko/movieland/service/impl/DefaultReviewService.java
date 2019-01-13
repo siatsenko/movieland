@@ -30,6 +30,11 @@ public class DefaultReviewService implements ReviewService {
     }
 
     @Override
+    public List<Review> getByMovieId(int movieId) {
+        return reviewDao.getByMovieId(movieId);
+    }
+
+    @Override
     public void add(ReviewRequest reviewRequest, User user) {
 
         int movieId = reviewRequest.getMovieId();

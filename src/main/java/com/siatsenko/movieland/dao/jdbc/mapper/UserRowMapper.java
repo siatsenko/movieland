@@ -18,9 +18,10 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
+        String email = resultSet.getString("email");
         Role role = Role.valueOf(resultSet.getString("role"));
 
-        User user = new User(id, name, role);
+        User user = new User(id, name, email, role);
 
         logger.trace("mapRow finished and return user: {}", user);
         return user;

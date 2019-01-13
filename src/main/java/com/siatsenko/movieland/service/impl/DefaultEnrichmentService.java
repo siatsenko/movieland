@@ -3,9 +3,11 @@ package com.siatsenko.movieland.service.impl;
 import com.siatsenko.movieland.entity.Movie;
 import com.siatsenko.movieland.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
+@Primary
 public class DefaultEnrichmentService implements EnrichmentService {
     private GenreService genreService;
     private CountryService countryService;

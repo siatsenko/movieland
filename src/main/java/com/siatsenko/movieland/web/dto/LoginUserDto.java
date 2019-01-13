@@ -4,6 +4,9 @@ public class LoginUserDto {
     private String uuid;
     private String nickname;
 
+    public LoginUserDto() {
+    }
+
     public LoginUserDto(String uuid, String nickname) {
         this.uuid = uuid;
         this.nickname = nickname;
@@ -23,5 +26,13 @@ public class LoginUserDto {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginUserDto{" +
+                "uuid='" + uuid + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }

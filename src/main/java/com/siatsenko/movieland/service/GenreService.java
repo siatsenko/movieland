@@ -10,6 +10,8 @@ public interface GenreService {
 
     List<Genre> getAll();
 
+    List<Genre> getByMovieId(int movieId);
+
     Movie enrich(Movie movie);
 
     void editByMovieId(int movieId, int[] genreIds);

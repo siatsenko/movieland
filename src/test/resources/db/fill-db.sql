@@ -183,6 +183,10 @@ insert into users (id,name,email,password) values (
 'dennis.craig82@example.com',
 'coldbeer');
 --------------------------------------------------------------------
+UPDATE users SET role = 'USER' where 1=1;
+--------------------------------------------------------------------
+UPDATE users SET role = 'ADMIN' where id=1;
+--------------------------------------------------------------------
 insert into review (id,movie_id,user_id,text)
 select 1, m.id as movie_id, u.id as user_id, 'Фильм только выигрывает от частого просмотра и всегда поднимает мне настроение (наряду с драмой, тут еще и тонкий юмор). ' as text
   from movie m
