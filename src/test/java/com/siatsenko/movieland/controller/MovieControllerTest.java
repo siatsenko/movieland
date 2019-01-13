@@ -36,13 +36,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -61,10 +65,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Configuration
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(value = "/spring/test-context.xml")
 @ContextConfiguration(value = "/spring/test-context.xml")
 //locations = { "classpath*:META-INF/spring.xml", ... }
-public class MovieControllerTest  implements WebMvcConfigurer{
+//public class MovieControllerTest  implements WebMvcConfigurer {
+public class MovieControllerTest implements WebMvcConfigurer, WebApplicationInitializer {
+
     AuthController authController;
     ReviewController reviewController;
     MovieController movieController;
@@ -85,6 +90,15 @@ public class MovieControllerTest  implements WebMvcConfigurer{
         registry.addInterceptor(authInterceptor); //.addPathPatterns("/**").excludePathPatterns("/admin/**");
     }
 
+    @Override
+    public void onStartup(ServletContext sc) throws ServletException {
+        sc.addListener(new ContextLoaderListener());
+    }
+
+//    <listener>
+//        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+//    </listener>
+
     @Before
     public void before() {
         mockAuthController = MockMvcBuilders.standaloneSetup(authController).build();
@@ -96,6 +110,17 @@ public class MovieControllerTest  implements WebMvcConfigurer{
     public void iGetById() throws Exception {
 
 //        context.containsBean()
+
+//context.isSingleton("authInterceptor");
+
+
+        System.out.println(context.getApplicationName());
+        System.out.println(context.getDisplayName());
+
+//        Class<?> aClass = Class.forName("com.siatsenko.movieland.interceptor.AuthInterceptor");
+
+        boolean containsAuthInterceptor = context.containsBean("authInterceptor");
+
 
 //    AuthInterceptor authInterceptor = (AuthInterceptor) context.getBean(Class.forName("com.siatsenko.movieland.interceptor.AuthInterceptor",false,this.getClass().getClassLoader()));
 //        System.out.println(authInterceptor);
@@ -130,11 +155,11 @@ public class MovieControllerTest  implements WebMvcConfigurer{
 
 
 //        MvcResult mvcReviewResult =
-//                mockReviewController.perform(MockMvcRequestBuilders.post("/review")
-//                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-//                        .header("uuid",uuid)
-//                        .content(reviewRequestJson))
-//                        .andExpect(status().isOk());
+                mockReviewController.perform(MockMvcRequestBuilders.post("/review")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .header("uuid",uuid)
+                        .content(reviewRequestJson))
+                        .andExpect(status().isOk());
 
 //        @ProtectedBy(acceptedRole = Role.USER)
 //        @PostMapping(path = "/review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
