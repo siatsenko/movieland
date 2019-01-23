@@ -46,7 +46,7 @@ executorService.invokeAll(tasks,5000, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
         e.printStackTrace();
     }
-tasks.get(0).
+//tasks.get(0).
 
         return movie;
     }

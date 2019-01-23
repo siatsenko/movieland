@@ -19,9 +19,11 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/spring/root-context.xml</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>classpath:/spring/root-context.xml</param-value>-->
+    <!--</context-param>-->
+
+    <!--<import resource="classpath:/spring/db-context.xml"/>-->
 
 </web-app>

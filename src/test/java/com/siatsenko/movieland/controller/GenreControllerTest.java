@@ -2,7 +2,6 @@ package com.siatsenko.movieland.web.controller;
 
 import com.siatsenko.movieland.entity.Genre;
 import com.siatsenko.movieland.service.GenreService;
-import com.siatsenko.movieland.web.controller.GenreController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = "/spring/test-context.xml")
+@ContextConfiguration(value = {"/spring/root-context.xml","/spring/test-context.xml"})
 public class GenreControllerTest {
 
     GenreService genreService;

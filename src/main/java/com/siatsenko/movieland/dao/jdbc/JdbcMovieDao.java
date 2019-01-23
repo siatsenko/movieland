@@ -128,7 +128,8 @@ public class JdbcMovieDao implements MovieDao {
         this.movieRowMapper = movieRowMapper;
     }
 
-    @Value("${random.count:5}")
+//    @Value("${random.count:5}")
+    @Value("5")
     public void setRandomCount(int randomCount) {
         this.randomCount = randomCount;
     }
