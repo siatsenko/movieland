@@ -1,3 +1,21 @@
+# Configuration for Apache DBCP2 Datasource
+spring:
+  datasource:
+    dbcp2:
+      defaultAutoCommit: true
+      minIdle: 5
+      maxIdle: 10
+      maxOpenPreparedStatements: 100
+      initial-size: 7
+      max-total: 20
+      pool-prepared-statements: true
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driver-class-name: "org.postgresql.Driver"
+  jpa:
+    show-sql: true
+
 # Default mapping for servlet
 server:
   servlet:
@@ -7,35 +25,10 @@ server:
 random:
   count: 3
 
-#server:
-#  servlet:
-#    context-path: "/spring/root-context.xml"
-
-#context-param:
-#  contextConfigLocation: "classpath:/spring/root-context.xml"
-#  servlet-mapping:
-#    servlet-name: "movieland"
-#    url-pattern: "/v1/*"
-#import:
-#  resource: "classpath:/spring/db-context.xml"
-#servlet:
-#  servlet-name: "movieland"
-#  servlet-class: "org.springframework.web.servlet.DispatcherServlet"
-#  load-on-startup: 1
-
-# Configuration for Apache DBCP
-#dbcp2:
-#  driverClassName: "org.postgresql.Driver"
-#  url: ${JDBC_DATABASE_URL}
-#  username: ${JDBC_DATABASE_USERNAME}
-#  password: ${JDBC_DATABASE_PASSWORD}
-#  defaultAutoCommit: true
-#  minIdle: 5
-#  maxIdle: 10
-#  maxOpenPreparedStatements: 100
 #Common scheduler
 scheduler:
   pool-size: 5
+
 #Scheduled tasks
 scheduled:
   genre:
@@ -44,10 +37,12 @@ scheduled:
   # 08 and 16 o'clock of every weekday
   currency:
     cron: "0 0 8,18 * * MON-FRI"
+
 # Currency
 currency:
   datePattern: "yyyyMMdd"
   url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+
 # Authentification
 auth:
   session:
@@ -55,27 +50,12 @@ auth:
     timeout: 7200
     # Check session timeout 10 min = 10 * 60 * 1000 = 600000 millisec.
     checkTimeout: 600000
+
+# Spring logging level
 logging:
   level:
+    root: debug
     org:
       springframwork: debug
 
 
-# Configuration for Spring Datasource
-#spring.datasource:
-#  platform: postgres
-#  url: ${JDBC_DATABASE_URL}
-#  username: ${JDBC_DATABASE_USERNAME}
-#  password: ${JDBC_DATABASE_PASSWORD}
-
-spring:
-  datasource:
-    dbcp2:
-      driver-class-name: "org.postgresql.Driver"
-      url: ${JDBC_DATABASE_URL}
-      username: ${JDBC_DATABASE_USERNAME}
-      password: ${JDBC_DATABASE_PASSWORD}
-      defaultAutoCommit: true
-      minIdle: 5
-      maxIdle: 10
-      maxOpenPreparedStatements: 100
