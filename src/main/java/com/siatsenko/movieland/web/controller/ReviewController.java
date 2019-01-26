@@ -1,8 +1,7 @@
 package com.siatsenko.movieland.web.controller;
 
-import com.siatsenko.movieland.entity.Review;
-import com.siatsenko.movieland.entity.ReviewRequest;
-import com.siatsenko.movieland.entity.Role;
+import com.siatsenko.movieland.entity.request.ReviewRequest;
+import com.siatsenko.movieland.entity.common.Role;
 import com.siatsenko.movieland.service.ReviewService;
 import com.siatsenko.movieland.web.UserHandler;
 import com.siatsenko.movieland.web.annotation.ProtectedBy;

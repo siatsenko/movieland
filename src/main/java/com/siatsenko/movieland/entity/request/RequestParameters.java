@@ -1,4 +1,6 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.request;
+
+import com.siatsenko.movieland.entity.common.SortType;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,10 +1,10 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.common;
 
-public final class Genre {
+public final class Country {
     private int id;
     private String name;
 
-    public Genre(int id, String name) {
+    public Country(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,10 +19,9 @@ public final class Genre {
 
     @Override
     public String toString() {
-        return "Genre{" +
+        return "Country{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
-
 }

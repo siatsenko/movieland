@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.common.Genre;
 
 public class GenreDto {
     private int id;

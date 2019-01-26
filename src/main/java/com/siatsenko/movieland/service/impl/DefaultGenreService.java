@@ -1,9 +1,8 @@
 package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.GenreDao;
-import com.siatsenko.movieland.entity.Genre;
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.MovieRequest;
+import com.siatsenko.movieland.entity.common.Genre;
+import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
 package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.CountryDao;
-import com.siatsenko.movieland.entity.Country;
-import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.common.Country;
+import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.service.CountryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
-import com.siatsenko.movieland.entity.Role;
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.Role;
+import com.siatsenko.movieland.entity.common.User;
 import org.junit.Test;
 
 import java.sql.ResultSet;

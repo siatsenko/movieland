@@ -9,10 +9,14 @@ spring:
       initial-size: 7
       max-total: 20
       pool-prepared-statements: true
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
-    driver-class-name: "org.postgresql.Driver"
+# H2 DB
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=- 1;DB_CLOSE_ON_EXIT=FALSE
+#    driverClassName: org.h2.Driver
+# HSQL DB
+    url: jdbc:hsqldb:mem:testdb;shutdown=true;sql.sytax_pgs=true;DB_CLOSE_DELAY=-1
+    driverClassName: org.hsqldb.jdbcDriver
+    username: sa
+    password:
   jpa:
     show-sql: true
   cache:
@@ -37,8 +41,8 @@ scheduler:
 #Scheduled tasks
 scheduled:
   genre:
-    fixedDelay: 14400000
-    initialDelay: 14400000
+    fixedDelay: 30000
+    initialDelay: 30000
   # 08 and 16 o'clock of every weekday
   currency:
     cron: "0 0 8,18 * * MON-FRI"
@@ -70,3 +74,5 @@ threadPool:
   corePoolSize: 0
   maxPoolSize: 50
   keepAliveSec: 60
+
+

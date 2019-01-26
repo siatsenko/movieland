@@ -1,9 +1,9 @@
 package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.Country;
-import com.siatsenko.movieland.entity.Genre;
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Country;
+import com.siatsenko.movieland.entity.common.Genre;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.common.Review;
 
 import java.util.ArrayList;
 import java.util.List;

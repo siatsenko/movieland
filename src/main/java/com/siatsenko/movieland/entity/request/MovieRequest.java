@@ -1,27 +1,22 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.request;
 
-import java.util.List;
+import java.util.Arrays;
 
-public class Movie {
+public class MovieRequest {
     private int id;
     private String nameRussian;
     private String nameNative;
     private String yearOfRelease;
     private String description;
-    private double rating;
     private double price;
+    private double rating;
     private String picturePath;
-    List<Country> countries;
-    List<Genre> genres;
-    List<Review> reviews;
+    int[] countries;
+    int[] genres;
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getNameRussian() {
         return nameRussian;
@@ -55,20 +50,20 @@ public class Movie {
         this.description = description;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public String getPicturePath() {
@@ -79,44 +74,34 @@ public class Movie {
         this.picturePath = picturePath;
     }
 
-    public List<Country> getCountries() {
+    public int[] getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(int[] countries) {
         this.countries = countries;
     }
 
-    public List<Genre> getGenres() {
+    public int[] getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(int[] genres) {
         this.genres = genres;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", nameRussian='" + nameRussian + '\'' +
+        return "MovieRequest{" +
+                "nameRussian='" + nameRussian + '\'' +
                 ", nameNative='" + nameNative + '\'' +
                 ", yearOfRelease='" + yearOfRelease + '\'' +
                 ", description='" + description + '\'' +
-                ", rating=" + rating +
                 ", price=" + price +
+                ", rating=" + rating +
                 ", picturePath='" + picturePath + '\'' +
-                ", countries=" + countries +
-                ", genres=" + genres +
-                ", reviews=" + reviews +
+                ", countries=" + Arrays.toString(countries) +
+                ", genres=" + Arrays.toString(genres) +
                 '}';
     }
 }

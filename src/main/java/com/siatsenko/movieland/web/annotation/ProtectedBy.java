@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.annotation;
 
-import com.siatsenko.movieland.entity.Role;
+import com.siatsenko.movieland.entity.common.Role;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

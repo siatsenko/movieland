@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.controller;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.common.Genre;
 import com.siatsenko.movieland.service.GenreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

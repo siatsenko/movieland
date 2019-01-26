@@ -1,4 +1,4 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.common;
 
 public class Review {
     private int id;

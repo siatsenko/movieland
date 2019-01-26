@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.common.Genre;
 
 import java.util.List;
 

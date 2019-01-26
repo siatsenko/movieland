@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.controller;
 
-import com.siatsenko.movieland.entity.Country;
+import com.siatsenko.movieland.entity.common.Country;
 import com.siatsenko.movieland.service.CountryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

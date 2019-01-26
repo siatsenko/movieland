@@ -1,18 +1,20 @@
 package com.siatsenko.movieland.dao.jdbc;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.common.Genre;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = "/spring/test-context.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class JdbcGenreDaoTest {
 
     private JdbcGenreDao jdbcGenreDao;
@@ -25,11 +27,11 @@ public class JdbcGenreDaoTest {
 
         Genre genreFirst = genres.get(0);
         assertEquals(1, genreFirst.getId());
-//        assertEquals("драма", genreFirst.getName());
+        assertEquals("драма", genreFirst.getName());
 
         Genre genreSecond = genres.get(1);
         assertEquals(2, genreSecond.getId());
-//        assertEquals("криминал", genreSecond.getName());
+        assertEquals("криминал", genreSecond.getName());
     }
 
     @Autowired

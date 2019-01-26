@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web;
 
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 
 public class UserHandler {
     private static final ThreadLocal<User> CURRENT_USER = new ThreadLocal<>();

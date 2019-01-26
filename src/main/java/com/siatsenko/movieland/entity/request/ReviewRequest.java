@@ -1,4 +1,4 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.request;
 
 public class ReviewRequest {
     int movieId;

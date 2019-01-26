@@ -1,7 +1,10 @@
 package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.ReviewDao;
-import com.siatsenko.movieland.entity.*;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.common.Review;
+import com.siatsenko.movieland.entity.common.User;
+import com.siatsenko.movieland.entity.request.ReviewRequest;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.ReviewService;
 import com.siatsenko.movieland.service.UserService;

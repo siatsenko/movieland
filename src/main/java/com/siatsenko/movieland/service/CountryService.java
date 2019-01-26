@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.service;
 
-import com.siatsenko.movieland.entity.Country;
-import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.common.Country;
+import com.siatsenko.movieland.entity.common.Movie;
 
 import java.util.List;
 

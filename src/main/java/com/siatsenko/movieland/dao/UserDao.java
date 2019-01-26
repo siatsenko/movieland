@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao;
 
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 
 import java.util.List;
 

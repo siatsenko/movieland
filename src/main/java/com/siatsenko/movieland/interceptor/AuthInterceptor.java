@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.interceptor;
 
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 import com.siatsenko.movieland.exception.InsufficientPermissionsException;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.web.UserHandler;

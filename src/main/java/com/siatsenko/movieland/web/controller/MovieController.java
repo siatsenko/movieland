@@ -1,9 +1,9 @@
 package com.siatsenko.movieland.web.controller;
 
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.MovieRequest;
-import com.siatsenko.movieland.entity.RequestParameters;
-import com.siatsenko.movieland.entity.Role;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.request.MovieRequest;
+import com.siatsenko.movieland.entity.request.RequestParameters;
+import com.siatsenko.movieland.entity.common.Role;
 import com.siatsenko.movieland.service.*;
 import com.siatsenko.movieland.web.UserHandler;
 import com.siatsenko.movieland.web.annotation.ProtectedBy;

@@ -1,7 +1,5 @@
 package com.siatsenko.movieland.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -15,57 +13,17 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
+import java.util.concurrent.*;
 
 @Configuration
 @ComponentScan(basePackages = "com.siatsenko.movieland"
-  , excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.siatsenko.movieland.controller.*"))
-//@ImportResource({"classpath*:spring/root-context.xml"})
+        , excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.siatsenko.movieland.web.controller.*"))
 @EnableWebMvc
 @PropertySource("classpath:application.yml")
-public class ApplicationConfig implements SchedulingConfigurer
-//        , WebApplicationInitializer
-{
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
+public class ApplicationConfig implements SchedulingConfigurer {
 
-    @Autowired
     private Environment environment;
-
-    @Autowired
     private DataSource dataSource;
-
-    //@Bean
-//@Scope("singleton")
-//    public BasicDataSource dataSource() {
-//        BasicDataSource dataSource = new BasicDataSource();
-//        dataSource.setDriverClassName(environment.getProperty("dbcp2.driverClassName"));
-//        dataSource.setUrl(environment.getProperty("dbcp2.url"));
-//        dataSource.setUsername(environment.getProperty("dbcp2.username"));
-//        dataSource.setPassword(environment.getProperty("dbcp2.password"));
-//        dataSource.setDefaultAutoCommit(Boolean.valueOf(environment.getProperty("dbcp2.defaultAutoCommit")));
-//        dataSource.setMinIdle(Integer.parseInt(environment.getProperty("dbcp2.minIdle")));
-//        dataSource.setMaxIdle(Integer.parseInt(environment.getProperty("dbcp2.maxIdle")));
-//        dataSource.setMaxOpenPreparedStatements(Integer.parseInt(environment.getProperty("dbcp2.maxOpenPreparedStatements")));
-//        return dataSource;
-//    }
-/*
-    public BasicDataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("spring.datasource.dbcp2.driver-class-name"));
-        dataSource.setUrl(environment.getProperty("spring.datasource.dbcp2.url"));
-        dataSource.setUsername(environment.getProperty("spring.datasource.dbcp2.username"));
-        dataSource.setPassword(environment.getProperty("spring.datasource.dbcp2.password"));
-        dataSource.setDefaultAutoCommit(Boolean.valueOf(environment.getProperty("spring.datasource.dbcp2.defaultAutoCommit")));
-        dataSource.setMinIdle(Integer.parseInt(environment.getProperty("spring.datasource.dbcp2.minIdle")));
-        dataSource.setMaxIdle(Integer.parseInt(environment.getProperty("spring.datasource.dbcp2.maxIdle")));
-        dataSource.setMaxOpenPreparedStatements(Integer.parseInt(environment.getProperty("spring.datasource.dbcp2.maxOpenPreparedStatements")));
-        return dataSource;
-    }
-*/
-
-//    @Bean
-//    public BasicDataSource dataSource() {
-//        return this.dataSource;
-//    }
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
@@ -90,47 +48,27 @@ public class ApplicationConfig implements SchedulingConfigurer
         return new RestTemplate();
     }
 
-
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer properties() throws IOException {
-//        logger.info("Loading configuration.");
-//
-//        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-//        YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
-//
-//        Resource yamlResource = new ClassPathResource("application.yml");
-//
-//        logger.info("\tConfiguration loaded from {}", yamlResource.getURL().getPath());
-//
-//        yamlPropertiesFactoryBean.setResources(yamlResource);
-//
-//
-//        propertySourcesPlaceholderConfigurer.setProperties(yamlPropertiesFactoryBean.getObject());
-//        logger.info("Loading configuration. DONE");
-//        return propertySourcesPlaceholderConfigurer;
-//    }
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
+    @Bean
+    public ExecutorService executorService() {
+        return new ThreadPoolExecutor(Integer.parseInt(environment.getProperty("threadPool.corePoolSize"))
+                , Integer.parseInt(environment.getProperty("threadPool.maxPoolSize"))
+                , Integer.parseInt(environment.getProperty("threadPool.keepAliveSec"))
+                , TimeUnit.SECONDS
+                , new SynchronousQueue<Runnable>());
+    }
 
-//    @Override
-//    public void onStartup(ServletContext container) throws ServletException {
-//// Creates the dispatcher servlet context
-//        AnnotationConfigWebApplicationContext servletContext =
-//                new AnnotationConfigWebApplicationContext();
-//
-//// Registers the servlet configuraton with the dispatcher servlet context
-//        servletContext.register(AppConfiguration.class);
-//
-//// Further configures the servlet context
-//        ServletRegistration.Dynamic dispatcher =
-//                container.addServlet("spring-mvc-dispatcher",
-//                        new DispatcherServlet(servletContext));
-//        dispatcher.setLoadOnStartup(1);
-//        dispatcher.addMapping("/v1/*");
-//    }
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 }

@@ -2,7 +2,7 @@ package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.CountryDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.CountryRowMapper;
-import com.siatsenko.movieland.entity.Country;
+import com.siatsenko.movieland.entity.common.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

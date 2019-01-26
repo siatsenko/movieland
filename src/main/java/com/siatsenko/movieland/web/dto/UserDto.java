@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 
 public class UserDto {
     private int id;

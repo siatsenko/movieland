@@ -1,14 +1,17 @@
 package com.siatsenko.movieland.service.impl;
 
-import com.siatsenko.movieland.entity.Country;
-import com.siatsenko.movieland.entity.Genre;
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Country;
+import com.siatsenko.movieland.entity.common.Genre;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.common.Review;
 import com.siatsenko.movieland.service.CountryService;
 import com.siatsenko.movieland.service.EnrichmentService;
 import com.siatsenko.movieland.service.GenreService;
 import com.siatsenko.movieland.service.ReviewService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,36 +20,49 @@ import java.util.List;
 import java.util.concurrent.*;
 
 @Service
+@Primary
 public class ParallelEnrichmentService implements EnrichmentService {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private GenreService genreService;
     private CountryService countryService;
     private ReviewService reviewService;
 
-    private static final ExecutorService executorService = Executors.newCachedThreadPool();
+    private ExecutorService executorService;
 
     @Override
     public Movie enrich(Movie movie) {
-//        genreService.enrich(movie);
-//        countryService.enrich(movie);
-//        reviewService.enrich(movie);
-//        List<Genre> genres = new ArrayList<>(genreService.getByMovieId(movie.getId()));
-//        List<Country> countries = new ArrayList<>(countryService.getByMovieId(movie.getId()));
-//        List<Review> reviews = new ArrayList<>(reviewService.getByMovieId(movie.getId()));
+        movie.setGenres(new ArrayList());
+        movie.setCountries(new ArrayList());
+        movie.setReviews(new ArrayList());
 
         int movieId = movie.getId();
         List<Callable<List<?>>> tasks = Arrays.asList(
-                () -> {return new ArrayList<>(genreService.getByMovieId(movieId));},
-                () -> {return new ArrayList<>(countryService.getByMovieId(movieId));},
-                () -> {return new ArrayList<>(reviewService.getByMovieId(movieId));}
+                () -> {
+                    return new ArrayList<>(genreService.getByMovieId(movieId));
+                }
+                , () -> {
+                    return new ArrayList<>(countryService.getByMovieId(movieId));
+                }
+                , () -> {
+                    return new ArrayList<>(reviewService.getByMovieId(movieId));
+                }
         );
-
-
         try {
-executorService.invokeAll(tasks,5000, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-//tasks.get(0).
+            List<Future<List<?>>> results = executorService.invokeAll(tasks, 4000, TimeUnit.MILLISECONDS);
+
+            List<Genre> genres = (List<Genre>) results.get(0).get();
+            List<Country> countries = (List<Country>) results.get(1).get();
+            List<Review> reviews = (List<Review>) results.get(2).get();
+
+            movie.setGenres(genres);
+            movie.setCountries(countries);
+            movie.setReviews(reviews);
+        } catch (InterruptedException | ExecutionException e) {
+            logger.debug("parallel enrich for movieId = {} failed {}", movieId, e);
+        } catch (CancellationException e) {
+            logger.debug("parallel enrich for movieId = {} cancel {}", movieId, e);
+        }
 
         return movie;
     }
@@ -64,5 +80,10 @@ executorService.invokeAll(tasks,5000, TimeUnit.MILLISECONDS);
     @Autowired
     public void setReviewService(ReviewService reviewService) {
         this.reviewService = reviewService;
+    }
+
+    @Autowired
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 }

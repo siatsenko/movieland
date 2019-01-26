@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao;
 
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Review;
 
 import java.util.List;
 

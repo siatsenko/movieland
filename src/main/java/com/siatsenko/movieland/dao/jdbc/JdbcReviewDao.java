@@ -2,7 +2,7 @@ package com.siatsenko.movieland.dao.jdbc;
 
 import com.siatsenko.movieland.dao.ReviewDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.ReviewRowMapper;
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

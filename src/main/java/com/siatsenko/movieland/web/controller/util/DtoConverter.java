@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.web.controller.util;
 
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.Session;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.common.Session;
 import com.siatsenko.movieland.web.dto.LoginUserDto;
 import com.siatsenko.movieland.web.dto.MovieDetailDto;
 import com.siatsenko.movieland.web.dto.MovieDto;

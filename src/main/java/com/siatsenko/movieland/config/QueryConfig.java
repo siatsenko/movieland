@@ -6,25 +6,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QueryConfig {
 
-    //    Movies
+    // Movies
     @Bean
     public String allMoviesSql() {
-        return "SELECT * FROM v_movies /*ORDER BY*/;";
+        return "SELECT * FROM movie /*ORDER BY*/;";
     }
 
     @Bean
     public String randomMoviesSql() {
-        return "SELECT * FROM v_movies ORDER BY random() limit ?;";
+        return "SELECT * FROM movie ORDER BY random() limit ?;";
     }
 
     @Bean
     public String moviesByGenreIdSql() {
-        return "SELECT vm.* FROM v_movies vm INNER JOIN movie_genre mg ON vm.id = mg.movie_id WHERE mg.genre_id = ? /*ORDER BY*/ ";
+        return "SELECT m.* FROM movie m INNER JOIN movie_genre mg ON m.id = mg.movie_id WHERE mg.genre_id = ? /*ORDER BY*/ ";
     }
 
     @Bean
     public String movieByIdSql() {
-        return "SELECT * FROM v_movies WHERE id = ?;";
+        return "SELECT * FROM movie WHERE id = ?;";
     }
 
     @Bean
@@ -40,7 +40,7 @@ public class QueryConfig {
                 "    SET name_russian = EXCLUDED.name_russian,name_native = EXCLUDED.name_native,year_of_release = EXCLUDED.year_of_release,description = EXCLUDED.description,rating = EXCLUDED.rating,price = EXCLUDED.price,picture_path = EXCLUDED.picture_path;";
     }
 
-    //    Genres
+    // Genres
     @Bean
     public String allGenresSql() {
         return "SELECT * FROM genre;";
@@ -58,7 +58,7 @@ public class QueryConfig {
                 "SELECT ?, g.id FROM genre g where g.id IN ( SELECT UNNEST(?) );";
     }
 
-    //    Reviews
+    // Reviews
     @Bean
     public String reviewsByMovieIdSql() {
         return "SELECT r.* FROM review r INNER JOIN users u ON r.user_id = u.id WHERE r.movie_id = ?;";
@@ -70,7 +70,7 @@ public class QueryConfig {
     }
 
 
-    //    Users
+    // Users
     @Bean
     public String usersByIdsSql() {
         return "SELECT u.* FROM users u WHERE u.id IN ( SELECT UNNEST(?) );";
@@ -81,7 +81,7 @@ public class QueryConfig {
         return "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));";
     }
 
-    //    Countries
+    // Countries
     @Bean
     public String allCountriesSql() {
         return "SELECT * FROM country;";

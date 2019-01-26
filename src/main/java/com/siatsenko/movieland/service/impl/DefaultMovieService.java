@@ -1,7 +1,10 @@
 package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.MovieDao;
-import com.siatsenko.movieland.entity.*;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.common.User;
+import com.siatsenko.movieland.entity.request.MovieRequest;
+import com.siatsenko.movieland.entity.request.RequestParameters;
 import com.siatsenko.movieland.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

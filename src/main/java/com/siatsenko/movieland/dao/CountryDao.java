@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao;
 
-import com.siatsenko.movieland.entity.Country;
+import com.siatsenko.movieland.entity.common.Country;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.siatsenko.movieland.entity;
+package com.siatsenko.movieland.entity.common;
 
 import java.util.Arrays;
 import java.util.List;

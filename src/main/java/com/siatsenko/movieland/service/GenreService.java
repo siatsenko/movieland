@@ -1,8 +1,7 @@
 package com.siatsenko.movieland.service;
 
-import com.siatsenko.movieland.entity.Genre;
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.MovieRequest;
+import com.siatsenko.movieland.entity.common.Genre;
+import com.siatsenko.movieland.entity.common.Movie;
 
 import java.util.List;
 

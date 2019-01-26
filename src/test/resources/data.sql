@@ -1,3 +1,4 @@
+
 --------------------------------------------------------------------
 insert into movie (id,name_russian,name_native,year_of_release,description,rating,price,picture_path) values (
 1,
