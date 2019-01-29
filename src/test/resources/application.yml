@@ -1,14 +1,10 @@
 # Configuration for Apache DBCP2 Datasource
 spring:
   datasource:
-    dbcp2:
-      defaultAutoCommit: true
-      minIdle: 5
-      maxIdle: 10
-      maxOpenPreparedStatements: 50
-      initial-size: 7
-      max-total: 20
-      pool-prepared-statements: true
+    hikari:
+      auto-commit: true
+      minimum-idle: 5
+      maximum-pool-size: 20
 # H2 DB
 #    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=- 1;DB_CLOSE_ON_EXIT=FALSE
 #    driverClassName: org.h2.Driver

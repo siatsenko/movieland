@@ -34,6 +34,7 @@ public class DefaultCountryService implements CountryService {
 
     @Override
     public List<Country> getByMovieId(int movieId) {
+        simulateSlowService(5000);
         return countryDao.getByMovieId(movieId);
     }
 
@@ -47,4 +48,15 @@ public class DefaultCountryService implements CountryService {
     public void setCountryDao(CountryDao countryDao) {
         this.countryDao = countryDao;
     }
+
+    private void simulateSlowService(long millis) {
+        logger.debug("simulateSlowService: start");
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.debug("simulateSlowService: stop");
+    }
+
 }

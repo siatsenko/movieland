@@ -10,16 +10,11 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.util.concurrent.*;
 
 @Configuration
-@ComponentScan(basePackages = "com.siatsenko.movieland"
-        , excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.siatsenko.movieland.web.controller.*"))
-@EnableWebMvc
-@PropertySource("classpath:application.yml")
 public class ApplicationConfig implements SchedulingConfigurer {
 
     private Environment environment;
@@ -71,4 +66,5 @@ public class ApplicationConfig implements SchedulingConfigurer {
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
 }

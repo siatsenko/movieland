@@ -27,6 +27,7 @@ public class JdbcMovieDao implements MovieDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SqlBuilder sqlBuilder;
     private int randomCount;
+    private String propertyField;
     private MovieRowMapper movieRowMapper;
     private MovieDetailRowMapper movieDetailRowMapper;
     private String allMoviesSql;
@@ -130,7 +131,7 @@ public class JdbcMovieDao implements MovieDao {
     }
 
 //    @Value("${random.count:5}")
-    @Value("5")
+    @Value("4")
     public void setRandomCount(int randomCount) {
         this.randomCount = randomCount;
     }

@@ -1,18 +1,15 @@
-# Configuration for Apache DBCP2 Datasource
+# Configuration for Datasource
 spring:
   datasource:
-    dbcp2:
-      defaultAutoCommit: true
-      minIdle: 5
-      maxIdle: 10
-      maxOpenPreparedStatements: 50
-      initial-size: 7
-      max-total: 20
-      pool-prepared-statements: true
     url: ${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: "org.postgresql.Driver"
+# for Hikari
+    hikari:
+      auto-commit: true
+      minimum-idle: 5
+      maximum-pool-size: 20
   jpa:
     show-sql: true
   cache:
@@ -63,7 +60,13 @@ logging:
     org:
       springframwork: debug
 
-management.security.enabled: false
+#management.security.enabled: false
+# for Actuator http://localhost:8080/v1/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # threadPool
 threadPool:
