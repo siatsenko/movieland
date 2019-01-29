@@ -26,6 +26,8 @@ public class DefaultAuthService implements AuthService {
     private static final User GUEST_USER = new User("guest", "guest", Role.GUEST);
 
     private UserService userService;
+
+    @Value("${auth.session.timeout: 120}") // every 2 min by default
     private Long sessionTimeout;
 
     private Map<String, Session> tokenSessions = new ConcurrentHashMap<>();
@@ -61,14 +63,6 @@ public class DefaultAuthService implements AuthService {
         tokenSessions.remove(token);
         logger.trace("logout({}) finished", token);
     }
-
-//    @Override
-//    public void checkRoleLevel(String token, Role role) {
-//        User user = getUser(token);
-//        if (user.getRole().ordinal() < role.ordinal()) {
-//            throw new InsufficientPermissionsException("Insufficient permissions");
-//        }
-//    }
 
     @Override
     public boolean checkRoleLevel(User user, Role role) {
@@ -120,8 +114,4 @@ public class DefaultAuthService implements AuthService {
         this.userService = userService;
     }
 
-    @Value("${auth.session.timeout: 120}") // every 2 min by default
-    public void setSessionTimeout(Long sessionTimeout) {
-        this.sessionTimeout = sessionTimeout;
-    }
 }

@@ -27,7 +27,8 @@ server:
     context-path: "/v1/"
 
 # Count for random movies
-random:
+# Doesn't work as "random.count: 3" !
+randoms:
   count: 3
 
 #Common scheduler
@@ -36,9 +37,6 @@ scheduler:
 
 #Scheduled tasks
 scheduled:
-  genre:
-    fixedDelay: 30000
-    initialDelay: 30000
   # 08 and 16 o'clock of every weekday
   currency:
     cron: "0 0 8,18 * * MON-FRI"
@@ -63,12 +61,16 @@ logging:
     org:
       springframwork: debug
 
-management.security.enabled: false
+#management.security.enabled: false
+# for Actuator http://localhost:8080/v1/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # threadPool
 threadPool:
   corePoolSize: 0
   maxPoolSize: 50
   keepAliveSec: 60
-
-

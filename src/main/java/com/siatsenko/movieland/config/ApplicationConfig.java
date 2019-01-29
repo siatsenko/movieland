@@ -1,12 +1,12 @@
 package com.siatsenko.movieland.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +17,19 @@ import java.util.concurrent.*;
 @Configuration
 public class ApplicationConfig implements SchedulingConfigurer {
 
-    private Environment environment;
     private DataSource dataSource;
+
+    @Value("${scheduler.pool-size:5}")
+    private int schedulerPoolSize;
+
+    @Value("${threadPool.corePoolSize:0}")
+    private int threadPoolCorePoolSize;
+
+    @Value("${threadPool.maxPoolSize:50}")
+    private int threadPoolMaxPoolSize;
+
+    @Value("${threadPool.keepAliveSec:60}")
+    private int threadPoolKeepAliveSec;
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
@@ -33,7 +44,7 @@ public class ApplicationConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-        taskScheduler.setPoolSize(Integer.parseInt(environment.getProperty("scheduler.pool-size")));
+        taskScheduler.setPoolSize(schedulerPoolSize);
         taskScheduler.initialize();
         scheduledTaskRegistrar.setTaskScheduler(taskScheduler);
     }
@@ -44,22 +55,15 @@ public class ApplicationConfig implements SchedulingConfigurer {
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    @Bean
     public ExecutorService executorService() {
-        return new ThreadPoolExecutor(Integer.parseInt(environment.getProperty("threadPool.corePoolSize"))
-                , Integer.parseInt(environment.getProperty("threadPool.maxPoolSize"))
-                , Integer.parseInt(environment.getProperty("threadPool.keepAliveSec"))
-                , TimeUnit.SECONDS
-                , new SynchronousQueue<Runnable>());
-    }
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
 
-    @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+        threadPoolTaskExecutor.setCorePoolSize(threadPoolCorePoolSize);
+        threadPoolTaskExecutor.setMaxPoolSize(threadPoolMaxPoolSize);
+        threadPoolTaskExecutor.setKeepAliveSeconds(threadPoolKeepAliveSec);
+        threadPoolTaskExecutor.initialize();
+
+        return threadPoolTaskExecutor.getThreadPoolExecutor();
     }
 
     @Autowired

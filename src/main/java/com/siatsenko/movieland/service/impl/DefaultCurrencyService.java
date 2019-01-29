@@ -21,8 +21,12 @@ import java.util.*;
 public class DefaultCurrencyService implements CurrencyService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Value("${currency.url}")
     private String url;
+
+    @Value("${currency.datePattern}")
     private String datePattern;
+
     private RestTemplate restTemplate;
 
     private volatile Map<String, Double> cacheRates;
@@ -68,16 +72,6 @@ public class DefaultCurrencyService implements CurrencyService {
         cacheRates = result;
         logger.trace("refresh: finished and return result: ", result);
         return result;
-    }
-
-    @Value("${currency.url}")
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Value("${currency.datePattern}")
-    public void setDatePattern(String datePattern) {
-        this.datePattern = datePattern;
     }
 
     @Autowired

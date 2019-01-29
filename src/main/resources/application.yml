@@ -24,7 +24,8 @@ server:
     context-path: "/v1/"
 
 # Count for random movies
-random:
+# Doesn't work as "random.count: 3" !!!
+randoms:
   count: 3
 
 #Common scheduler
@@ -33,9 +34,6 @@ scheduler:
 
 #Scheduled tasks
 scheduled:
-  genre:
-    fixedDelay: 14400000
-    initialDelay: 14400000
   # 08 and 16 o'clock of every weekday
   currency:
     cron: "0 0 8,18 * * MON-FRI"
@@ -73,3 +71,11 @@ threadPool:
   corePoolSize: 0
   maxPoolSize: 50
   keepAliveSec: 60
+
+# SlowService
+slowService:
+  pause: 5500
+
+# Parallel enrichment
+parallelEnrichment:
+  timeout: 5000
