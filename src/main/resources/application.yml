@@ -74,7 +74,7 @@ threadPool:
 
 # SlowService
 slowService:
-  pause: 5500
+  pause: 1500
 
 # Parallel enrichment
 parallelEnrichment:
