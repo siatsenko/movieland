@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.service.impl;
 
-import com.siatsenko.movieland.entity.Currency;
-import com.siatsenko.movieland.entity.Movie;
+import com.siatsenko.movieland.entity.common.Currency;
+import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.service.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

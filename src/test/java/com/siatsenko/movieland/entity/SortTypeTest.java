@@ -1,5 +1,6 @@
 package com.siatsenko.movieland.entity;
 
+import com.siatsenko.movieland.entity.common.SortType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

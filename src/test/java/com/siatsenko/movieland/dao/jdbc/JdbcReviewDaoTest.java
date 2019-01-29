@@ -1,19 +1,18 @@
 package com.siatsenko.movieland.dao.jdbc;
 
-import com.siatsenko.movieland.entity.Review;
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.Review;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = "/spring/test-context.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class JdbcReviewDaoTest {
 
     private JdbcReviewDao jdbcReviewDao;
@@ -27,7 +26,7 @@ public class JdbcReviewDaoTest {
 
         Review review = reviews.get(0);
         assertEquals(4, review.getId());
-//        assertEquals("Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах. Особенно я люблю когда при экранизации литературного произведение из него в силу специфики кинематографа исчезает ирония и появляется некий сверхреализм, обязанный удерживать зрителя у экрана каждую отдельно взятую секунду. ", review.getText());
+        assertEquals("Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах. Особенно я люблю когда при экранизации литературного произведение из него в силу специфики кинематографа исчезает ирония и появляется некий сверхреализм, обязанный удерживать зрителя у экрана каждую отдельно взятую секунду. ", review.getText());
 
     }
 

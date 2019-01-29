@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Review;
 import org.junit.Test;
 
 import java.sql.ResultSet;

@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.service.impl;
 
-import com.siatsenko.movieland.entity.RequestParameters;
-import com.siatsenko.movieland.entity.SortType;
+import com.siatsenko.movieland.entity.request.RequestParameters;
+import com.siatsenko.movieland.entity.common.SortType;
 import com.siatsenko.movieland.service.RequestParamsService;
 import org.springframework.stereotype.Service;
 

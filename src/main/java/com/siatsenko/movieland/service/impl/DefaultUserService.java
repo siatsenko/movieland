@@ -1,8 +1,8 @@
 package com.siatsenko.movieland.service.impl;
 
 import com.siatsenko.movieland.dao.UserDao;
-import com.siatsenko.movieland.entity.Review;
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.Review;
+import com.siatsenko.movieland.entity.common.User;
 import com.siatsenko.movieland.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

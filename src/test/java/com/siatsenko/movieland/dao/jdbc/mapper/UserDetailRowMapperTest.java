@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -19,13 +19,14 @@ public class UserDetailRowMapperTest {
         when(resultSet.getInt("id")).thenReturn(1);
         when(resultSet.getString("name")).thenReturn("Рональд Рейнольдс");
         when(resultSet.getString("email")).thenReturn("ronald.reynolds66@example.com");
+        when(resultSet.getString("role")).thenReturn("ADMIN");
         UserRowMapper userRowMapper = new UserRowMapper();
         UserDetailRowMapper userDetailRowMapper = new UserDetailRowMapper();
         userDetailRowMapper.setUserRowMapper(userRowMapper);
 
         User user = userDetailRowMapper.mapRow(resultSet, 0);
         assertEquals(1, user.getId());
-        assertEquals( "Рональд Рейнольдс", user.getName());
+        assertEquals("Рональд Рейнольдс", user.getName());
         assertEquals("ronald.reynolds66@example.com",user.getEmail());
     }
 }

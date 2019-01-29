@@ -1,0 +1,78 @@
+# Configuration for Apache DBCP2 Datasource
+spring:
+  datasource:
+    dbcp2:
+      defaultAutoCommit: true
+      minIdle: 5
+      maxIdle: 10
+      maxOpenPreparedStatements: 50
+      initial-size: 7
+      max-total: 20
+      pool-prepared-statements: true
+# H2 DB
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=- 1;DB_CLOSE_ON_EXIT=FALSE
+#    driverClassName: org.h2.Driver
+# HSQL DB
+    url: jdbc:hsqldb:mem:testdb;shutdown=true;sql.sytax_pgs=true;DB_CLOSE_DELAY=-1
+    driverClassName: org.hsqldb.jdbcDriver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+  cache:
+    type: caffeine
+    cache-names: cacheGenres
+    caffeine:
+      spec: expireAfterWrite=30s
+
+# Default mapping for servlet
+server:
+  servlet:
+    context-path: "/v1/"
+
+# Count for random movies
+random:
+  count: 3
+
+#Common scheduler
+scheduler:
+  pool-size: 5
+
+#Scheduled tasks
+scheduled:
+  genre:
+    fixedDelay: 30000
+    initialDelay: 30000
+  # 08 and 16 o'clock of every weekday
+  currency:
+    cron: "0 0 8,18 * * MON-FRI"
+
+# Currency
+currency:
+  datePattern: "yyyyMMdd"
+  url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+
+# Authentification
+auth:
+  session:
+    # Session timeout 2 hours = 2 * 60 * 60 = 7200 sec.
+    timeout: 7200
+    # Check session timeout 10 min = 10 * 60 * 1000 = 600000 millisec.
+    checkTimeout: 600000
+
+# Spring logging level
+logging:
+  level:
+    root: debug
+    org:
+      springframwork: debug
+
+management.security.enabled: false
+
+# threadPool
+threadPool:
+  corePoolSize: 0
+  maxPoolSize: 50
+  keepAliveSec: 60
+
+

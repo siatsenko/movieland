@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.Country;
+import com.siatsenko.movieland.entity.common.Country;
 
 public class CountryDto {
     private int id;

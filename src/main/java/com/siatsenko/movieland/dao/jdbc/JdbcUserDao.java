@@ -3,7 +3,7 @@ package com.siatsenko.movieland.dao.jdbc;
 import com.siatsenko.movieland.dao.UserDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.UserDetailRowMapper;
 import com.siatsenko.movieland.dao.jdbc.mapper.UserRowMapper;
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
