@@ -1,6 +1,10 @@
 package com.siatsenko.movieland.entity.common;
 
+import com.siatsenko.movieland.web.dto.CountryDto;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Movie {
     private int id;
@@ -14,6 +18,23 @@ public class Movie {
     List<Country> countries;
     List<Genre> genres;
     List<Review> reviews;
+
+    public Movie(){
+    }
+
+    public Movie(Movie movie) {
+        this.id = movie.id;
+        this.nameRussian=movie.nameRussian;
+        this.nameNative=movie.nameNative;
+        this.yearOfRelease=movie.yearOfRelease;
+        this.description=movie.description;
+        this.rating=movie.rating;
+        this.price=movie.price;
+        this.picturePath=movie.picturePath;
+        this.countries  = new ArrayList(movie.countries);
+        this.genres = new ArrayList(movie.genres);
+        this.reviews = new ArrayList(movie.reviews);
+    }
 
     public int getId() {
         return id;
@@ -118,5 +139,28 @@ public class Movie {
                 ", genres=" + genres +
                 ", reviews=" + reviews +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return id == movie.id &&
+                Double.compare(movie.rating, rating) == 0 &&
+                Double.compare(movie.price, price) == 0 &&
+                Objects.equals(nameRussian, movie.nameRussian) &&
+                Objects.equals(nameNative, movie.nameNative) &&
+                Objects.equals(yearOfRelease, movie.yearOfRelease) &&
+                Objects.equals(description, movie.description) &&
+                Objects.equals(picturePath, movie.picturePath) &&
+                Objects.equals(countries, movie.countries) &&
+                Objects.equals(genres, movie.genres) &&
+                Objects.equals(reviews, movie.reviews);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nameRussian, nameNative, yearOfRelease, description, rating, price, picturePath, countries, genres, reviews);
     }
 }

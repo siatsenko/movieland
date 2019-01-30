@@ -1,5 +1,7 @@
 package com.siatsenko.movieland.entity.common;
 
+import java.util.Objects;
+
 public class Review {
     private int id;
     private User user;
@@ -50,5 +52,20 @@ public class Review {
                 ", user=" + user +
                 ", text='" + text + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return id == review.id &&
+                Objects.equals(user, review.user) &&
+                Objects.equals(text, review.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, text);
     }
 }

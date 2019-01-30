@@ -72,8 +72,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                name.equals(user.name) &&
-                email.equals(user.email) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
                 role == user.role;
     }
 

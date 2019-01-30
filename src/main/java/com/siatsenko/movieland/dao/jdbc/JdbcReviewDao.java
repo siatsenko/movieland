@@ -6,6 +6,7 @@ import com.siatsenko.movieland.entity.common.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,12 @@ public class JdbcReviewDao implements ReviewDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String reviewsByMovieIdSql;
-    private String addReviewSql;
     private ReviewRowMapper reviewRowMapper;
+
+    @Value("${queries.reviews.reviewsByMovieIdSql}")
+    private String reviewsByMovieIdSql;
+    @Value("${queries.reviews.addReviewSql}")
+    private String addReviewSql;
 
     @Override
     public List<Review> getByMovieId(int movieId) {
@@ -38,17 +42,8 @@ public class JdbcReviewDao implements ReviewDao {
     }
 
     @Autowired
-    public void setReviewsByMovieIdSql(String reviewsByMovieIdSql) {
-        this.reviewsByMovieIdSql = reviewsByMovieIdSql;
-    }
-
-    @Autowired
     public void setReviewRowMapper(ReviewRowMapper reviewRowMapper) {
         this.reviewRowMapper = reviewRowMapper;
     }
 
-    @Autowired
-    public void setAddReviewSql(String addReviewSql) {
-        this.addReviewSql = addReviewSql;
-    }
 }
