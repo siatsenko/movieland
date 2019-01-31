@@ -4,6 +4,7 @@ import com.siatsenko.movieland.dao.CountryDao;
 import com.siatsenko.movieland.entity.common.Country;
 import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.service.CountryService;
+import com.siatsenko.movieland.service.SlowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class DefaultCountryService implements CountryService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private CountryDao countryDao;
+    private SlowService slowService;
 
     @Override
     public Movie enrich(Movie movie) {
@@ -34,6 +36,7 @@ public class DefaultCountryService implements CountryService {
 
     @Override
     public List<Country> getByMovieId(int movieId) {
+        slowService.slow();
         return countryDao.getByMovieId(movieId);
     }
 
@@ -46,5 +49,10 @@ public class DefaultCountryService implements CountryService {
     @Autowired
     public void setCountryDao(CountryDao countryDao) {
         this.countryDao = countryDao;
+    }
+
+    @Autowired
+    public void setSlowService(SlowService slowService) {
+        this.slowService = slowService;
     }
 }
