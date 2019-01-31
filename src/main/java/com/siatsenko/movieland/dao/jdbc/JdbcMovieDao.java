@@ -4,12 +4,17 @@ import com.siatsenko.movieland.dao.MovieDao;
 import com.siatsenko.movieland.dao.jdbc.mapper.MovieDetailRowMapper;
 import com.siatsenko.movieland.dao.jdbc.mapper.MovieRowMapper;
 import com.siatsenko.movieland.dao.jdbc.sql.SqlBuilder;
-import com.siatsenko.movieland.entity.*;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.request.RequestParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,14 +24,25 @@ public class JdbcMovieDao implements MovieDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SqlBuilder sqlBuilder;
-    private int randomCount;
     private MovieRowMapper movieRowMapper;
     private MovieDetailRowMapper movieDetailRowMapper;
+
+    @Value("${randoms.count:5}")
+    private int randomCount;
+    @Value("${queries.movies.allMoviesSql}")
     private String allMoviesSql;
+    @Value("${queries.movies.randomMoviesSql}")
     private String randomMoviesSql;
+    @Value("${queries.movies.moviesByGenreIdSql}")
     private String moviesByGenreIdSql;
+    @Value("${queries.movies.movieByIdSql}")
     private String movieByIdSql;
+    @Value("${queries.movies.addMovieSql}")
+    private String addMovieSql;
+    @Value("${queries.movies.editMovieSql}")
+    private String editMovieSql;
 
     @Override
     public List<Movie> getAll(RequestParameters requestParameters) {
@@ -60,34 +76,53 @@ public class JdbcMovieDao implements MovieDao {
         return movie;
     }
 
+    @Override
+    public Movie upsert(Movie movie) {
+        if (movie.getId() == 0) {
+            return update(movie, addMovieSql, false);
+        } else {
+            return update(movie, editMovieSql, true);
+        }
+    }
+
+    private Movie update(Movie movie, String querySql, boolean withId) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
+                .addValue("nameRussian", movie.getNameRussian())
+                .addValue("nameNative", movie.getNameNative())
+                .addValue("yearOfRelease", movie.getYearOfRelease())
+                .addValue("price", movie.getPrice())
+                .addValue("rating", movie.getRating())
+                .addValue("description", movie.getDescription())
+                .addValue("picturePath", movie.getPicturePath());
+
+        if (withId) {
+            mapSqlParameterSource.addValue("id", movie.getId());
+        }
+
+        String[] returningArray = new String[]{"id"};
+
+        namedParameterJdbcTemplate.update(querySql, mapSqlParameterSource, keyHolder, returningArray);
+        int movieId = movie.getId();
+        if (!withId) {
+            movieId = keyHolder.getKey().intValue();
+        }
+        movie.setId(movieId);
+
+        logger.trace("add() finished and return movie: {}", movie);
+        return movie;
+    }
+
+
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Autowired
-    public void setAllMoviesSql(String allMoviesSql) {
-        this.allMoviesSql = allMoviesSql;
-    }
-
-    @Autowired
-    public void setRandomMoviesSql(String randomMoviesSql) {
-        this.randomMoviesSql = randomMoviesSql;
-    }
-
-    @Autowired
-    public void setMoviesByGenreIdSql(String moviesByGenreIdSql) {
-        this.moviesByGenreIdSql = moviesByGenreIdSql;
-    }
-
-    @Autowired
     public void setMovieRowMapper(MovieRowMapper movieRowMapper) {
         this.movieRowMapper = movieRowMapper;
-    }
-
-    @Value("${random.count:5}")
-    public void setRandomCount(int randomCount) {
-        this.randomCount = randomCount;
     }
 
     @Autowired
@@ -96,12 +131,13 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Autowired
-    public void setMovieByIdSql(String movieByIdSql) {
-        this.movieByIdSql = movieByIdSql;
-    }
-
-    @Autowired
     public void setMovieDetailRowMapper(MovieDetailRowMapper movieDetailRowMapper) {
         this.movieDetailRowMapper = movieDetailRowMapper;
     }
+
+    @Autowired
+    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.dao;
 
-import com.siatsenko.movieland.entity.Movie;
-import com.siatsenko.movieland.entity.RequestParameters;
+import com.siatsenko.movieland.entity.common.Movie;
+import com.siatsenko.movieland.entity.request.RequestParameters;
 
 import java.util.List;
 
@@ -14,5 +14,7 @@ public interface MovieDao {
     List<Movie> getByGenreId(int genreId, RequestParameters requestParameters);
 
     Movie getById(int id);
+
+    Movie upsert(Movie movie);
 
 }

@@ -1,0 +1,108 @@
+# Configuration for Apache DBCP2 Datasource
+spring:
+  datasource:
+    hikari:
+      auto-commit: true
+      minimum-idle: 5
+      maximum-pool-size: 20
+# H2 DB
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+# HSQL DB
+#    url: jdbc:hsqldb:mem:testdb;shutdown=true;sql.sytax_pgs=true;DB_CLOSE_DELAY=-1
+#    driverClassName: org.hsqldb.jdbcDriver
+    username: sa
+    password:
+  cache:
+    type: caffeine
+    cache-names: cacheGenres
+    caffeine:
+      spec: expireAfterWrite=30s
+
+# Default mapping for servlet
+server:
+  servlet:
+    context-path: "/v1/"
+
+# Count for random movies
+# Doesn't work as "random.count: 3" !
+randoms:
+  count: 3
+
+#Common scheduler
+scheduler:
+  pool-size: 5
+
+#Scheduled tasks
+scheduled:
+  # 08 and 16 o'clock of every weekday
+  currency:
+    cron: "0 0 8,18 * * MON-FRI"
+
+# Currency
+currency:
+  datePattern: "yyyyMMdd"
+  url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+
+# Authentification
+auth:
+  session:
+    # Session timeout 2 hours = 2 * 60 * 60 = 7200 sec.
+    timeout: 7200
+    # Check session timeout 10 min = 10 * 60 * 1000 = 600000 millisec.
+    checkTimeout: 600000
+
+# Spring logging level
+logging:
+  level:
+    root: debug
+    org:
+      springframwork: debug
+
+#management.security.enabled: false
+# for Actuator http://localhost:8080/v1/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# threadPool
+threadPool:
+  corePoolSize: 0
+  maxPoolSize: 50
+  keepAliveSec: 60
+
+# SlowService
+slowService:
+  pause: 1500
+
+# Parallel enrichment
+parallelEnrichment:
+  timeout: 5000
+
+
+# Sql queries
+queries:
+  movies:
+    allMoviesSql: "SELECT * FROM movie /*ORDER BY*/;"
+    randomMoviesSql: "SELECT * FROM movie ORDER BY random() limit ?;"
+    moviesByGenreIdSql: "SELECT m.* FROM movie m INNER JOIN movie_genre mg ON m.id = mg.movie_id WHERE mg.genre_id = ? /*ORDER BY*/ "
+    movieByIdSql: "SELECT * FROM movie WHERE id = ?;"
+    addMovieSql: "INSERT INTO movie (name_russian,name_native,year_of_release,description,rating,price,picture_path) VALUES (:nameRussian,:nameNative,:yearOfRelease,:description,:rating,:price,:picturePath);"
+    editMovieSql: "UPDATE movie SET name_russian = :nameRussian, name_native = :nameNative, year_of_release = :yearOfRelease, description = :description, rating = :rating, price = :price, picture_path = :picturePath WHERE id = :id;"
+  genres:
+    allGenresSql: "SELECT * FROM genre;"
+    genresByMovieIdSql: "SELECT g.* FROM movie_genre mg INNER JOIN genre g ON mg.genre_id = g.id WHERE movie_id = ?;"
+    editGenresByMovieIdSql: "INSERT INTO movie_genre (movie_id, genre_id) SELECT (?+?)/2, g.id FROM genre g where g.id = ?;"
+  reviews:
+    reviewsByMovieIdSql: "SELECT r.* FROM review r INNER JOIN users u ON r.user_id = u.id WHERE r.movie_id = ?;"
+    addReviewSql: "INSERT INTO review (movie_id, user_id, text) VALUES (?, ?, ?);"
+  users:
+    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id IN ( SELECT UNNEST(?) );"
+    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));"
+  countries:
+    allCountriesSql: "SELECT * FROM country;"
+    countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
+    editCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) SELECT (?+?)/2, c.id FROM country c where c.id = ?;"
+

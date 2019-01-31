@@ -1,25 +1,103 @@
-# Configuration for Apache DBCP
-dbcp2:
-  driverClassName: "org.postgresql.Driver"
-  url: ${JDBC_DATABASE_URL}
-  username: ${JDBC_DATABASE_USERNAME}
-  password: ${JDBC_DATABASE_PASSWORD}
-  defaultAutoCommit: true
-  minIdle: 5
-  maxIdle: 10
-  maxOpenPreparedStatements: 100
+# Configuration for Datasource
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driver-class-name: "org.postgresql.Driver"
+# for Hikari
+    hikari:
+      auto-commit: true
+      minimum-idle: 5
+      maximum-pool-size: 20
+  cache:
+    type: caffeine
+    cache-names: cacheGenres
+    caffeine:
+      spec: expireAfterWrite=30s
+
+# Default mapping for servlet
+server:
+  servlet:
+    context-path: "/v1/"
+
 # Count for random movies
-random.count: 3
+# Doesn't work as "random.count: 3" !!!
+randoms:
+  count: 3
+
 #Common scheduler
-scheduler.pool-size: 5
+scheduler:
+  pool-size: 5
+
 #Scheduled tasks
 scheduled:
-  genre:
-    fixedDelay: 14400000
-    initialDelay: 14400000
   # 08 and 16 o'clock of every weekday
-  currency.cron: "0 0 8,18 * * MON-FRI"
+  currency:
+    cron: "0 0 8,18 * * MON-FRI"
+
 # Currency
 currency:
   datePattern: "yyyyMMdd"
   url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+
+# Authentification
+auth:
+  session:
+    # Session timeout 2 hours = 2 * 60 * 60 = 7200 sec.
+    timeout: 7200
+    # Check session timeout 10 min = 10 * 60 * 1000 = 600000 millisec.
+    checkTimeout: 600000
+
+# Spring logging level
+logging:
+  level:
+    root: debug
+    org:
+      springframwork: debug
+
+#management.security.enabled: false
+# for Actuator http://localhost:8080/v1/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# threadPool
+threadPool:
+  corePoolSize: 0
+  maxPoolSize: 50
+  keepAliveSec: 60
+
+# SlowService
+slowService:
+  pause: 0
+
+# Parallel enrichment
+parallelEnrichment:
+  timeout: 5000
+
+# Sql queries
+queries:
+  movies:
+    allMoviesSql: "SELECT * FROM movie /*ORDER BY*/;"
+    randomMoviesSql: "SELECT * FROM movie ORDER BY random() limit ?;"
+    moviesByGenreIdSql: "SELECT m.* FROM movie m INNER JOIN movie_genre mg ON m.id = mg.movie_id WHERE mg.genre_id = ? /*ORDER BY*/ "
+    movieByIdSql: "SELECT * FROM movie WHERE id = ?;"
+    addMovieSql: "INSERT INTO movie (name_russian,name_native,year_of_release,description,rating,price,picture_path) VALUES (:nameRussian,:nameNative,:yearOfRelease,:description,:rating,:price,:picturePath);"
+    editMovieSql: "INSERT INTO movie (id,name_russian,name_native,year_of_release,description,rating,price,picture_path) VALUES (:id,:nameRussian,:nameNative,:yearOfRelease,:description,:rating,:price,:picturePath) ON CONFLICT ON CONSTRAINT movie_pkey DO UPDATE    SET name_russian = EXCLUDED.name_russian,name_native = EXCLUDED.name_native,year_of_release = EXCLUDED.year_of_release,description = EXCLUDED.description,rating = EXCLUDED.rating,price = EXCLUDED.price,picture_path = EXCLUDED.picture_path;"
+  genres:
+    allGenresSql: "SELECT * FROM genre;"
+    genresByMovieIdSql: "SELECT g.* FROM movie_genre mg INNER JOIN genre g ON mg.genre_id = g.id WHERE movie_id = ?;"
+    editGenresByMovieIdSql: "WITH del_genres AS ( DELETE FROM movie_genre WHERE movie_id = ?) INSERT INTO movie_genre (movie_id, genre_id) SELECT ?, g.id FROM genre g where g.id IN ( SELECT UNNEST(?) );"
+  reviews:
+    reviewsByMovieIdSql: "SELECT r.* FROM review r INNER JOIN users u ON r.user_id = u.id WHERE r.movie_id = ?;"
+    addReviewSql: "INSERT INTO review (movie_id, user_id, text) VALUES (?, ?, ?);"
+  users:
+    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id IN ( SELECT UNNEST(?) );"
+    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));"
+  countries:
+    allCountriesSql: "SELECT * FROM country;"
+    countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
+    editCountriesByMovieIdSql: "WITH del_countries AS (DELETE FROM movie_country WHERE movie_id = ?)  INSERT INTO movie_country (movie_id, country_id) SELECT ?, c.id FROM country c where c.id IN ( SELECT UNNEST(?) );"

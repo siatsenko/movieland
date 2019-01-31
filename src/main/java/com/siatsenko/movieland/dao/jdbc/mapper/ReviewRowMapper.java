@@ -1,7 +1,7 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
-import com.siatsenko.movieland.entity.Review;
-import com.siatsenko.movieland.entity.User;
+import com.siatsenko.movieland.entity.common.Review;
+import com.siatsenko.movieland.entity.common.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;

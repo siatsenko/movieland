@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.dao.jdbc.mapper;
 
-import com.siatsenko.movieland.entity.Genre;
+import com.siatsenko.movieland.entity.common.Genre;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -26,4 +26,5 @@ public class GenreRowMapperTest {
         assertEquals("драма", genre.getName());
 
     }
+
 }

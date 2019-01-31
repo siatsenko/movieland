@@ -1,6 +1,6 @@
 package com.siatsenko.movieland.web.dto;
 
-import com.siatsenko.movieland.entity.Review;
+import com.siatsenko.movieland.entity.common.Review;
 
 public class ReviewDto {
     private int id;
