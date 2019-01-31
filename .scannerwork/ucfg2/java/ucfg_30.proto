@@ -1,0 +1,89 @@
+
+Gcom.siatsenko.movieland.entity.common.Genre#equals(Ljava/lang/Object;)Z
+__unknown_file ("paramAnnotations*≤
+2o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java$ $(Õ
+ 
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java$ $(#
+%3java.lang.String"__id*9*7-
++com.siatsenko.movieland.entity.common.Genre"
+name‘
+—
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java$% $(/
+%4java.lang.String"__id*@*>
+4
+genre+com.siatsenko.movieland.entity.common.Genre"
+nameè
+å
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java$ $(0
+%5boolean"?java.util.Objects#equals(Ljava/lang/Object;Ljava/lang/Object;)Z*"
+java.util.Objects*
+
+%3java.lang.String*
+
+%4java.lang.String*
+1*»
+3o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java" "(…
+∆
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java" "( 4
+genre+com.siatsenko.movieland.entity.common.Genre"__id*
+
+ojava.lang.Object*
+2
+1*Ô
+4o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java!< !(A"y
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java!5 !(B
+""*÷
+5o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java! !(!ˆÛ
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java! !(#
+%1java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*/-
++com.siatsenko.movieland.entity.common.Genre2
+getClass()ﬁ€
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java!' !(3
+%2java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*
+
+ojava.lang.Object2
+getClass()*
+3
+4*Ô
+7o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java   (""y
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java   (#
+""*Ï
+paramAnnotationso
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java (#∑
+¥
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java (
+%0"
+__annotate*
+java.lang.Override*
+
+ojava.lang.Object°
+û
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java! ("
+ojava.lang.Object"__annotation*
+
+%0*	
+4
+5
+7*Ô
+1o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java# $(1"y
+o
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Genre.java# $(1
+"":
+ojava.lang.ObjectB/-
++com.siatsenko.movieland.entity.common.Genre

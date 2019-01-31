@@ -1,0 +1,7 @@
+organization=siatsenko-github
+projectKey=siatsenko_movieland
+serverUrl=https://sonarcloud.io
+serverVersion=7.7.0.21605
+dashboardUrl=https://sonarcloud.io/dashboard?id=siatsenko_movieland
+ceTaskId=AWil_g-9Sr1wYhq3iZr0
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWil_g-9Sr1wYhq3iZr0

@@ -1,0 +1,73 @@
+
+Icom.siatsenko.movieland.entity.common.Review#toString()Ljava/lang/String;
+__unknown_file ("1*Ç
+1p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 2(­
+ª
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 3(
+%0java.lang.String"__concat*	
+Review{*
+id=¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 3(
+%1java.lang.String"__concat*
+
+%0java.lang.String*
+""¾
+»
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 4(
+%2java.lang.String"__concat*
+
+%1java.lang.String*	
+, user=¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 4( 
+%3java.lang.String"__concat*
+
+%2java.lang.String*
+""¿
+¼
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 5(
+%4java.lang.String"__concat*
+
+%3java.lang.String*
+
+, text='Ï
+Ì
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java5 5(!
+%5java.lang.String"__id*:*8.
+,com.siatsenko.movieland.entity.common.Review"
+textË
+È
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 5(!
+%6java.lang.String"__concat*
+
+%4java.lang.String*
+
+%5java.lang.String¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 5((
+%7java.lang.String"__concat*
+
+%6java.lang.String*
+""¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 6(
+%8java.lang.String"__concat*
+
+%7java.lang.String*
+"""Œ
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java2 6(
+
+%8java.lang.StringB0.
+,com.siatsenko.movieland.entity.common.Review

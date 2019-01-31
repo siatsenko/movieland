@@ -1,0 +1,22 @@
+
+Ocom.siatsenko.movieland.dao.jdbc.JdbcCountryDao#getByMovieId(I)Ljava/util/List;
+__unknown_file ("1*ž
+1s
+i/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcCountryDao.java" (.æ
+ã
+s
+i/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcCountryDao.java5 (J
+%0java.lang.String"__id*N*L1
+/com.siatsenko.movieland.dao.jdbc.JdbcCountryDao"
+countriesByMovieIdSql£
+ 
+s
+i/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcCountryDao.java (g
+	countriesjava.util.List"__id*
+"""”
+s
+i/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcCountryDao.java! !(
+
+	countriesjava.util.List:
+""B31
+/com.siatsenko.movieland.dao.jdbc.JdbcCountryDao

@@ -1,0 +1,17 @@
+
+Vcom.siatsenko.movieland.entity.common.Session#getExpireDate()Ljava/time/LocalDateTime;
+__unknown_file ("1*î
+1q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Session.java' '(Þ
+Û
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Session.java' '(
+%0java.time.LocalDateTime"__id*A*?/
+-com.siatsenko.movieland.entity.common.Session"
+
+expireDate"”
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Session.java' '(
+
+%0java.time.LocalDateTimeB1/
+-com.siatsenko.movieland.entity.common.Session

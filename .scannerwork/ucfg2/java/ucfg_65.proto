@@ -1,0 +1,89 @@
+
+Hcom.siatsenko.movieland.entity.common.Review#equals(Ljava/lang/Object;)Z
+__unknown_file ("paramAnnotations*π
+2p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java@ @(œ
+Ã
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java@ @(#
+%3java.lang.String"__id*:*8.
+,com.siatsenko.movieland.entity.common.Review"
+text◊
+‘
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java@% @(0
+%4java.lang.String"__id*B*@
+6
+review,com.siatsenko.movieland.entity.common.Review"
+textê
+ç
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java@ @(1
+%5boolean"?java.util.Objects#equals(Ljava/lang/Object;Ljava/lang/Object;)Z*"
+java.util.Objects*
+
+%3java.lang.String*
+
+%4java.lang.String*
+1*Ã
+5p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java=! =("Ã
+…
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java= =(#6
+review,com.siatsenko.movieland.entity.common.Review"__id*
+
+ojava.lang.Object*
+2
+1*Ò
+6p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java<< <(A"z
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java<5 <(B
+""*⁄
+7p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java< <(!¯ı
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java< <(#
+%1java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*0.
+,com.siatsenko.movieland.entity.common.Review2
+getClass()ﬂ‹
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java<' <(3
+%2java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*
+
+ojava.lang.Object2
+getClass()*
+5
+6*Ò
+9p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java; ;(""z
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java; ;(#
+""*Ô
+paramAnnotationsp
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java: :(#∏
+µ
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java9 9(
+%0"
+__annotate*
+java.lang.Override*
+
+ojava.lang.Object¢
+ü
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java:! :("
+ojava.lang.Object"__annotation*
+
+%0*	
+6
+7
+9*Ò
+1p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java> @(2"z
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Review.java> @(2
+"":
+ojava.lang.ObjectB0.
+,com.siatsenko.movieland.entity.common.Review

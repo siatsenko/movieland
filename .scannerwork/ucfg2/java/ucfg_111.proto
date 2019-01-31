@@ -1,0 +1,17 @@
+
+Ucom.siatsenko.movieland.entity.request.RequestParameters#getSortings()Ljava/util/Map;
+__unknown_file ("1*˜
+1|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (ò
+ï
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (
+%0java.util.LinkedHashMap"__id*J*H:
+8com.siatsenko.movieland.entity.request.RequestParameters"
+
+sortings"Ÿ
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (
+
+%0java.util.LinkedHashMapB<:
+8com.siatsenko.movieland.entity.request.RequestParameters

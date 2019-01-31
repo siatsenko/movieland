@@ -1,0 +1,48 @@
+
+ecom.siatsenko.movieland.web.controller.MovieController#getByGenreId(ILjava/util/Map;)Ljava/util/List;
+__unknown_file ("paramAnnotations*Ú
+paramAnnotationsz
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java2& 2(xÃ
+À
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java1 1(b
+%1"
+__annotate*
+!unknownSymbol!*
+
+queryMapjava.util.MapÃ
+À
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java2M 2(Z
+%2"
+__annotate*
+!unknownSymbol!*
+
+queryMapjava.util.Map¸
+µ
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java2o 2(w
+queryMapjava.util.Map"__annotation*
+
+%1*
+
+%2*
+1*ù
+1z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java3 3(§
+¤
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java5 5(S
+moviesjava.util.List"__id*
+""ÆÃ
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java69 6(F	
+%0int"java.util.List#size()I*
+
+moviesjava.util.List2size()"„
+z
+p/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/MovieController.java7 7(/
+"":
+"":
+queryMapjava.util.MapB:8
+6com.siatsenko.movieland.web.controller.MovieController

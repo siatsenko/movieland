@@ -1,0 +1,22 @@
+
+Ncom.siatsenko.movieland.dao.jdbc.JdbcReviewDao#getByMovieId(I)Ljava/util/List;
+__unknown_file ("1*ì
+1r
+h/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcReviewDao.java (+‚
+ﬂ
+r
+h/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcReviewDao.java2 (E
+%0java.lang.String"__id*K*I0
+.com.siatsenko.movieland.dao.jdbc.JdbcReviewDao"
+reviewsByMovieIdSql†
+ù
+r
+h/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcReviewDao.java (a
+reviewsjava.util.List"__id*
+"""ë
+r
+h/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcReviewDao.java (
+
+reviewsjava.util.List:
+""B20
+.com.siatsenko.movieland.dao.jdbc.JdbcReviewDao

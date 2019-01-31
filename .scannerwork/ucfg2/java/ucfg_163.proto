@@ -1,0 +1,74 @@
+
+Icom.siatsenko.movieland.web.dto.LoginUserDto#toString()Ljava/lang/String;
+__unknown_file ("1*û
+1p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! !(¶
+³
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! "(
+%0java.lang.String"__concat*
+LoginUserDto{*
+
+uuid='Ï
+Ì
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java" "(
+%1java.lang.String"__id*:*8.
+,com.siatsenko.movieland.web.dto.LoginUserDto"
+uuidË
+È
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! "(
+%2java.lang.String"__concat*
+
+%0java.lang.String*
+
+%1java.lang.String¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! "(&
+%3java.lang.String"__concat*
+
+%2java.lang.String*
+""Ã
+À
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! #(
+%4java.lang.String"__concat*
+
+%3java.lang.String*
+, nickname='Ó
+Ð
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java#! #()
+%5java.lang.String"__id*>*<.
+,com.siatsenko.movieland.web.dto.LoginUserDto"
+
+nicknameË
+È
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! #()
+%6java.lang.String"__concat*
+
+%4java.lang.String*
+
+%5java.lang.String¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! #(0
+%7java.lang.String"__concat*
+
+%6java.lang.String*
+""¹
+¶
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! $(
+%8java.lang.String"__concat*
+
+%7java.lang.String*
+"""Œ
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/dto/LoginUserDto.java! $(
+
+%8java.lang.StringB0.
+,com.siatsenko.movieland.web.dto.LoginUserDto

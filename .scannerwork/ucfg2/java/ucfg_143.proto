@@ -1,0 +1,20 @@
+
+Qcom.siatsenko.movieland.web.controller.CountryController#getAll()Ljava/util/List;
+__unknown_file ("1*û
+1|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/CountryController.java (¨
+©
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/CountryController.java (:
+	countriesjava.util.List"__id*
+""À»
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/CountryController.java/ (?	
+%0int"java.util.List#size()I*
+
+	countriesjava.util.List2size()"ù
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/CountryController.java (
+
+	countriesjava.util.ListB<:
+8com.siatsenko.movieland.web.controller.CountryController

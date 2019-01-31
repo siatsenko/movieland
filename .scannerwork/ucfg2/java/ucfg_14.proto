@@ -1,0 +1,55 @@
+
+Wcom.siatsenko.movieland.dao.jdbc.JdbcUserDao#getByIds(Ljava/util/List;)Ljava/util/List;
+__unknown_file ("paramAnnotations*Ò
+paramAnnotationsp
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java (5º
+π
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java (
+%4"
+__annotate*
+java.lang.Override*
+
+userIdsjava.util.List¶
+£
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java- (4
+userIdsjava.util.List"__annotation*
+
+%4*
+1*•
+1p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java   (Û
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java   ('
+%0java.util.stream.Stream"6java.util.Collection#stream()Ljava/util/stream/Stream;*
+
+userIdsjava.util.List2stream()–Õ
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java   (C 
+%1java.util.stream.IntStream"`java.util.stream.Stream#mapToInt(Ljava/util/function/ToIntFunction;)Ljava/util/stream/IntStream;*
+
+%0java.util.stream.Stream*
+""2,mapToInt(Ljava/util/function/ToIntFunction;)⁄◊
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java   (M
+%2$Array"&java.util.stream.IntStream#toArray()[I*"
+ 
+%1java.util.stream.IntStream2	toArray()ÿ
+’
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java!. !(;
+%3java.lang.String"__id*C*A.
+,com.siatsenko.movieland.dao.jdbc.JdbcUserDao"
+usersByIdsSqlú
+ô
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java! !(T
+usersjava.util.List"__id*
+"""ç
+p
+f/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcUserDao.java# #(
+
+usersjava.util.List:
+userIdsjava.util.ListB0.
+,com.siatsenko.movieland.dao.jdbc.JdbcUserDao

@@ -1,0 +1,21 @@
+
+Icom.siatsenko.movieland.dao.jdbc.JdbcMovieDao#getRandom()Ljava/util/List;
+__unknown_file ("1*à
+1q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcMovieDao.java: :()‹
+Ÿ
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcMovieDao.java:0 :(?
+%0java.lang.String"__id*F*D/
+-com.siatsenko.movieland.dao.jdbc.JdbcMovieDao"
+randomMoviesSqlû
+õ
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcMovieDao.java: :(^
+moviesjava.util.List"__id*
+"""è
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcMovieDao.java< <(
+
+moviesjava.util.ListB1/
+-com.siatsenko.movieland.dao.jdbc.JdbcMovieDao

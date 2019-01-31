@@ -1,0 +1,82 @@
+
+7com.siatsenko.movieland.entity.common.Movie#hashCode()I
+__unknown_file ("1*Û
+1q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤ ¤(Ö
+Ó
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤  ¤(+
+%0java.lang.String"__id*@*>-
++com.siatsenko.movieland.entity.common.Movie"
+nameRussianÕ
+Ò
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤- ¤(7
+%1java.lang.String"__id*?*=-
++com.siatsenko.movieland.entity.common.Movie"
+
+nameNativeØ
+Õ
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤9 ¤(F
+%2java.lang.String"__id*B*@-
++com.siatsenko.movieland.entity.common.Movie"
+yearOfReleaseÖ
+Ó
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤H ¤(S
+%3java.lang.String"__id*@*>-
++com.siatsenko.movieland.entity.common.Movie"
+descriptionÖ
+Ó
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤d ¤(o
+%4java.lang.String"__id*@*>-
++com.siatsenko.movieland.entity.common.Movie"
+picturePathÒ
+Ï
+q
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤q ¤(z
+%5java.util.List"__id*>*<-
++com.siatsenko.movieland.entity.common.Movie"
+	countriesÐ
+Í
+r
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤| ¤(‚
+%6java.util.List"__id*;*9-
++com.siatsenko.movieland.entity.common.Movie"
+genresÒ
+Ï
+s
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤„ ¤(‹
+%7java.util.List"__id*<*:-
++com.siatsenko.movieland.entity.common.Movie"	
+reviews©
+¦
+r
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤ ¤(Œ	
+%8int",java.util.Objects#hash([Ljava/lang/Object;)I*"
+java.util.Objects*
+""*
+
+%0java.lang.String*
+
+%1java.lang.String*
+
+%2java.lang.String*
+
+%3java.lang.String*
+""*
+""*
+
+%4java.lang.String*
+
+%5java.util.List*
+
+%6java.util.List*
+
+%7java.util.List"|
+r
+e/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/common/Movie.java¤ ¤(
+""B/-
++com.siatsenko.movieland.entity.common.Movie

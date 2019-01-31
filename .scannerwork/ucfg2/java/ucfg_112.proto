@@ -1,0 +1,85 @@
+
+Tcom.siatsenko.movieland.entity.request.RequestParameters#equals(Ljava/lang/Object;)Z
+__unknown_file ("paramAnnotations*Š
+2|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java< (A"†
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java5 (B
+""*Š
+3|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (!
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (#
+%1java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*<:
+8com.siatsenko.movieland.entity.request.RequestParameters2
+getClass()ëè
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java' (3
+%2java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*
+
+ojava.lang.Object2
+getClass()*
+2
+1*Š
+5|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (""†
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (#
+""*“
+paramAnnotations|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (#Ä
+Á
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (
+%0"
+__annotate*
+java.lang.Override*
+
+ojava.lang.Object®
+«
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java! ("
+ojava.lang.Object"__annotation*
+
+%0*	
+2
+3
+5*Œ
+
+1|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java5 (6â
+ß
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (7@
+that8com.siatsenko.movieland.entity.request.RequestParameters"__id*
+
+ojava.lang.Objectò
+ï
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (&
+%3java.util.LinkedHashMap"__id*J*H:
+8com.siatsenko.movieland.entity.request.RequestParameters"
+
+sortingsø
+õ
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java( (5
+%4java.util.LinkedHashMap"__id*P*N
+@
+that8com.siatsenko.movieland.entity.request.RequestParameters"
+
+sortingsª
+§
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (6
+%5boolean"?java.util.Objects#equals(Ljava/lang/Object;Ljava/lang/Object;)Z*"
+java.util.Objects*
+
+%3java.util.LinkedHashMap*
+
+%4java.util.LinkedHashMap"†
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/RequestParameters.java (7
+"":
+ojava.lang.ObjectB<:
+8com.siatsenko.movieland.entity.request.RequestParameters

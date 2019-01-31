@@ -1,0 +1,228 @@
+
+Pcom.siatsenko.movieland.entity.request.MovieRequest#toString()Ljava/lang/String;
+__unknown_file ("1*©5
+1w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ _(Ä
+Á
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ `(
+%0java.lang.String"__concat*
+MovieRequest{*
+nameRussian='ä
+á
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java`" `(-
+%1java.lang.String"__id*H*F5
+3com.siatsenko.movieland.entity.request.MovieRequest"
+nameRussianÒ
+Ï
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ `(-
+%2java.lang.String"__concat*
+
+%0java.lang.String*
+
+%1java.lang.StringÀ
+½
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ `(4
+%3java.lang.String"__concat*
+
+%2java.lang.String*
+""Ì
+É
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ a( 
+%4java.lang.String"__concat*
+
+%3java.lang.String*
+, nameNative='ã
+à
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javaa# a(-
+%5java.lang.String"__id*G*E5
+3com.siatsenko.movieland.entity.request.MovieRequest"
+
+nameNativeÒ
+Ï
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ a(-
+%6java.lang.String"__concat*
+
+%4java.lang.String*
+
+%5java.lang.StringÀ
+½
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ a(4
+%7java.lang.String"__concat*
+
+%6java.lang.String*
+""Ï
+Ì
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ b(#
+%8java.lang.String"__concat*
+
+%7java.lang.String*
+, yearOfRelease='æ
+ã
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javab& b(3
+%9java.lang.String"__id*J*H5
+3com.siatsenko.movieland.entity.request.MovieRequest"
+yearOfReleaseÓ
+Ð
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ b(3
+%10java.lang.String"__concat*
+
+%8java.lang.String*
+
+%9java.lang.StringÂ
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ b(:
+%11java.lang.String"__concat*
+
+%10java.lang.String*
+""Ï
+Ì
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ c(!
+%12java.lang.String"__concat*
+
+%11java.lang.String*
+, description='å
+â
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javac$ c(/
+%13java.lang.String"__id*H*F5
+3com.siatsenko.movieland.entity.request.MovieRequest"
+descriptionÕ
+Ò
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ c(/
+%14java.lang.String"__concat*
+
+%12java.lang.String*
+
+%13java.lang.StringÂ
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ c(6
+%15java.lang.String"__concat*
+
+%14java.lang.String*
+""È
+Å
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ d(
+%16java.lang.String"__concat*
+
+%15java.lang.String*
+
+, price=Â
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ d("
+%17java.lang.String"__concat*
+
+%16java.lang.String*
+""É
+Æ
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ e(
+%18java.lang.String"__concat*
+
+%17java.lang.String*
+	, rating=Â
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ e($
+%19java.lang.String"__concat*
+
+%18java.lang.String*
+""Ï
+Ì
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ f(!
+%20java.lang.String"__concat*
+
+%19java.lang.String*
+, picturePath='å
+â
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javaf$ f(/
+%21java.lang.String"__id*H*F5
+3com.siatsenko.movieland.entity.request.MovieRequest"
+picturePathÕ
+Ò
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ f(/
+%22java.lang.String"__concat*
+
+%20java.lang.String*
+
+%21java.lang.StringÂ
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ f(6
+%23java.lang.String"__concat*
+
+%22java.lang.String*
+""Ì
+É
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ g(
+%24java.lang.String"__concat*
+
+%23java.lang.String*
+, countries=ä
+á
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javag! g(;
+%25java.lang.String"/java.util.Arrays#toString([I)Ljava/lang/String;*"
+java.util.Arrays*
+""Õ
+Ò
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ g(;
+%26java.lang.String"__concat*
+
+%24java.lang.String*
+
+%25java.lang.StringÉ
+Æ
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ h(
+%27java.lang.String"__concat*
+
+%26java.lang.String*
+	, genres=ä
+á
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.javah h(5
+%28java.lang.String"/java.util.Arrays#toString([I)Ljava/lang/String;*"
+java.util.Arrays*
+""Õ
+Ò
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ h(5
+%29java.lang.String"__concat*
+
+%27java.lang.String*
+
+%28java.lang.StringÂ
+¿
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ i(
+%30java.lang.String"__concat*
+
+%29java.lang.String*
+"""”
+w
+m/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/entity/request/MovieRequest.java_ i(
+
+%30java.lang.StringB75
+3com.siatsenko.movieland.entity.request.MovieRequest

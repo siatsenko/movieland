@@ -1,0 +1,29 @@
+
+ecom.siatsenko.movieland.web.controller.util.DtoConverter#asMovieDto(Ljava/util/List;)Ljava/util/List;
+__unknown_file ("5*ƒ
+5|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java# (4±Æ
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java' (2
+%0java.util.ArrayList"java.util.ArrayList√
+¿
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java# (4
+%1"java.util.ArrayList#<init>()V*
+
+%0java.util.ArrayList¡
+æ
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java (5
+	movieDtosjava.util.List"__id*
+
+%0java.util.ArrayList*
+1*°
+1|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java ("ù
+|
+r/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/web/controller/util/DtoConverter.java (
+
+	movieDtosjava.util.List:
+moviesjava.util.ListB<:
+8com.siatsenko.movieland.web.controller.util.DtoConverter

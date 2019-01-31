@@ -1,0 +1,21 @@
+
+Fcom.siatsenko.movieland.dao.jdbc.JdbcGenreDao#getAll()Ljava/util/List;
+__unknown_file ("1*…
+1q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcGenreDao.java ()Ù
+Ö
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcGenreDao.java0 (<
+%0java.lang.String"__id*C*A/
+-com.siatsenko.movieland.dao.jdbc.JdbcGenreDao"
+allGenresSqlž
+›
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcGenreDao.java (N
+genresjava.util.List"__id*
+"""
+q
+g/home/travis/build/siatsenko/movieland/src/main/java/com/siatsenko/movieland/dao/jdbc/JdbcGenreDao.java! !(
+
+genresjava.util.ListB1/
+-com.siatsenko.movieland.dao.jdbc.JdbcGenreDao
