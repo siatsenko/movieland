@@ -26,17 +26,22 @@ public class JdbcMovieDao implements MovieDao {
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SqlBuilder sqlBuilder;
+    private MovieRowMapper movieRowMapper;
+    private MovieDetailRowMapper movieDetailRowMapper;
 
     @Value("${randoms.count:5}")
     private int randomCount;
-
-    private MovieRowMapper movieRowMapper;
-    private MovieDetailRowMapper movieDetailRowMapper;
+    @Value("${queries.movies.allMoviesSql}")
     private String allMoviesSql;
+    @Value("${queries.movies.randomMoviesSql}")
     private String randomMoviesSql;
+    @Value("${queries.movies.moviesByGenreIdSql}")
     private String moviesByGenreIdSql;
+    @Value("${queries.movies.movieByIdSql}")
     private String movieByIdSql;
+    @Value("${queries.movies.addMovieSql}")
     private String addMovieSql;
+    @Value("${queries.movies.editMovieSql}")
     private String editMovieSql;
 
     @Override
@@ -99,7 +104,10 @@ public class JdbcMovieDao implements MovieDao {
         String[] returningArray = new String[]{"id"};
 
         namedParameterJdbcTemplate.update(querySql, mapSqlParameterSource, keyHolder, returningArray);
-        int movieId = keyHolder.getKey().intValue();
+        int movieId = movie.getId();
+        if (!withId) {
+            movieId = keyHolder.getKey().intValue();
+        }
         movie.setId(movieId);
 
         logger.trace("add() finished and return movie: {}", movie);
@@ -113,21 +121,6 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Autowired
-    public void setAllMoviesSql(String allMoviesSql) {
-        this.allMoviesSql = allMoviesSql;
-    }
-
-    @Autowired
-    public void setRandomMoviesSql(String randomMoviesSql) {
-        this.randomMoviesSql = randomMoviesSql;
-    }
-
-    @Autowired
-    public void setMoviesByGenreIdSql(String moviesByGenreIdSql) {
-        this.moviesByGenreIdSql = moviesByGenreIdSql;
-    }
-
-    @Autowired
     public void setMovieRowMapper(MovieRowMapper movieRowMapper) {
         this.movieRowMapper = movieRowMapper;
     }
@@ -138,18 +131,8 @@ public class JdbcMovieDao implements MovieDao {
     }
 
     @Autowired
-    public void setMovieByIdSql(String movieByIdSql) {
-        this.movieByIdSql = movieByIdSql;
-    }
-
-    @Autowired
     public void setMovieDetailRowMapper(MovieDetailRowMapper movieDetailRowMapper) {
         this.movieDetailRowMapper = movieDetailRowMapper;
-    }
-
-    @Autowired
-    public void setAddMovieSql(String addMovieSql) {
-        this.addMovieSql = addMovieSql;
     }
 
     @Autowired
@@ -157,8 +140,4 @@ public class JdbcMovieDao implements MovieDao {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
-    @Autowired
-    public void setEditMovieSql(String editMovieSql) {
-        this.editMovieSql = editMovieSql;
-    }
 }
