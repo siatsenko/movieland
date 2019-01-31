@@ -26,4 +26,5 @@ public class GenreRowMapperTest {
         assertEquals("драма", genre.getName());
 
     }
+
 }

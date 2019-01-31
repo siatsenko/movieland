@@ -6,6 +6,7 @@ import com.siatsenko.movieland.entity.common.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +17,14 @@ public class JdbcCountryDao implements CountryDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String countriesByMovieIdSql;
-    private String allCountriesSql;
-    private String editCountriesByMovieIdSql;
     private CountryRowMapper countryRowMapper;
+
+    @Value("${queries.countries.countriesByMovieIdSql}")
+    private String countriesByMovieIdSql;
+    @Value("${queries.countries.allCountriesSql}")
+    private String allCountriesSql;
+    @Value("${queries.countries.editCountriesByMovieIdSql}")
+    private String editCountriesByMovieIdSql;
 
     @Override
     public List<Country> getByMovieId(int movieId) {
@@ -47,22 +52,8 @@ public class JdbcCountryDao implements CountryDao {
     }
 
     @Autowired
-    public void setCountriesByMovieIdSql(String countriesByMovieIdSql) {
-        this.countriesByMovieIdSql = countriesByMovieIdSql;
-    }
-
-    @Autowired
     public void setCountryRowMapper(CountryRowMapper countryRowMapper) {
         this.countryRowMapper = countryRowMapper;
     }
 
-    @Autowired
-    public void setAllCountriesSql(String allCountriesSql) {
-        this.allCountriesSql = allCountriesSql;
-    }
-
-    @Autowired
-    public void setEditCountriesByMovieIdSql(String editCountriesByMovieIdSql) {
-        this.editCountriesByMovieIdSql = editCountriesByMovieIdSql;
-    }
 }

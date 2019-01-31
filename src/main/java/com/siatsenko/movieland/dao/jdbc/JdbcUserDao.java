@@ -7,6 +7,7 @@ import com.siatsenko.movieland.entity.common.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,13 @@ public class JdbcUserDao implements UserDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private String usersByIdsSql;
-    private String userByAuthSql;
     private UserRowMapper userRowMapper;
     private UserDetailRowMapper userDetailRowMapper;
+
+    @Value("${queries.users.usersByIdsSql}")
+    private String usersByIdsSql;
+    @Value("${queries.users.userByAuthSql}")
+    private String userByAuthSql;
 
     @Override
     public List<User> getByIds(List<Integer> userIds) {
@@ -52,16 +56,6 @@ public class JdbcUserDao implements UserDao {
     @Autowired
     public void setUserRowMapper(UserRowMapper userRowMapper) {
         this.userRowMapper = userRowMapper;
-    }
-
-    @Autowired
-    public void setUsersByIdsSql(String usersByIdsSql) {
-        this.usersByIdsSql = usersByIdsSql;
-    }
-
-    @Autowired
-    public void setUserByAuthSql(String userByAuthSql) {
-        this.userByAuthSql = userByAuthSql;
     }
 
     @Autowired

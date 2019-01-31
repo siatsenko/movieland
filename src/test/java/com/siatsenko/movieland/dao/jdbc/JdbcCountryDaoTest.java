@@ -34,8 +34,24 @@ public class JdbcCountryDaoTest {
         assertEquals("Великобритания", countrySecond.getName());
     }
 
+    @Test
+    public void getAll() {
+        List<Country> countries = jdbcCountryDao.getAll();
+
+        assertEquals(6, countries.size());
+
+        Country countryFirst = countries.get(0);
+        assertEquals(1, countryFirst.getId());
+        assertEquals("США", countryFirst.getName());
+
+        Country countryLast = countries.get(5);
+        assertEquals(6, countryLast.getId());
+        assertEquals("Япония", countryLast.getName());
+    }
+
     @Autowired
     public void setJdbcCountryDao(JdbcCountryDao jdbcCountryDao) {
         this.jdbcCountryDao = jdbcCountryDao;
     }
+
 }
