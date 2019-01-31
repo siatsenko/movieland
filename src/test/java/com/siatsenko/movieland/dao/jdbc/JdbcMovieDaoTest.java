@@ -18,34 +18,6 @@ public class JdbcMovieDaoTest {
 
     private JdbcMovieDao jdbcMovieDao;
 
-//    @SpyBean(name="randomMoviesSql")
-//    private String randomMoviesSql;
-
-//
-//    @Configuration
-//    @Import(SpringApplication.class) // A @Component injected with ExampleService
-//    static class Config {
-//        public String randomMoviesSql() {
-//            return "SELECT * FROM movie ORDER BY random() limit ?;";
-//        }
-//    }
-
-//    @Configuration
-////    @TestConfiguration
-//    @ComponentScan("hello")
-//    static class ContextConfiguration {
-//        @Bean
-//        @Primary
-//        public String randomMoviesSql() {
-//            return "SELECT * FROM movie ORDER BY random() limit ?;";
-//        }
-//    }
-
-//    @Before
-//    public void before() {
-//        given(this.randomMoviesSql).willReturn("SELECT * FROM movie ORDER BY 1;");
-//    }
-
     @Test
     public void getAll() {
         List<Movie> movies = jdbcMovieDao.getAll(null);

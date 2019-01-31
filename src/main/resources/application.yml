@@ -10,8 +10,6 @@ spring:
       auto-commit: true
       minimum-idle: 5
       maximum-pool-size: 20
-  jpa:
-    show-sql: true
   cache:
     type: caffeine
     cache-names: cacheGenres

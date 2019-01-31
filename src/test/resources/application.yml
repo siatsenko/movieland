@@ -13,8 +13,6 @@ spring:
 #    driverClassName: org.hsqldb.jdbcDriver
     username: sa
     password:
-  jpa:
-    show-sql: true
   cache:
     type: caffeine
     cache-names: cacheGenres
