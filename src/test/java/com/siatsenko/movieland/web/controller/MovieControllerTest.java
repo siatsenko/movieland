@@ -32,15 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class MovieControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private MovieService movieService;
-
-    @Autowired
-    RequestParamsService requestParamsService;
-
     @Configuration
     public static class TestContext {
         @Bean
@@ -176,5 +167,25 @@ public class MovieControllerTest {
         ;
 
     }
+
+    @Test
+    public void getRandom() throws Exception {
+        when(movieService.getRandom()).thenReturn(movies);
+
+        mockMvc.perform(get("/movie/random"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(2)))
+        ;
+    }
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private MovieService movieService;
+
+    @Autowired
+    RequestParamsService requestParamsService;
 
 }

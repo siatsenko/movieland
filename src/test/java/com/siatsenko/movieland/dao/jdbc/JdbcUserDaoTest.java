@@ -22,16 +22,20 @@ public class JdbcUserDaoTest {
     @Test
     public void getByIds() {
         List<User> users = jdbcUserDao.getByIds(Arrays.asList(1));
-        assertEquals("Рональд Рейнольдс",users.get(0).getName());
-        assertEquals("ronald.reynolds66@example.com",users.get(0).getEmail());
+        assertEquals("Рональд Рейнольдс", users.get(0).getName());
+        assertEquals("ronald.reynolds66@example.com", users.get(0).getEmail());
     }
 
     @Test
     public void getByAuth() {
+        User user = jdbcUserDao.getByAuth("ronald.reynolds66@example.com", "paco");
+        assertEquals("Рональд Рейнольдс", user.getName());
+        assertEquals("ronald.reynolds66@example.com", user.getEmail());
     }
 
     @Autowired
     public void setJdbcUserDao(JdbcUserDao jdbcUserDao) {
         this.jdbcUserDao = jdbcUserDao;
     }
+
 }

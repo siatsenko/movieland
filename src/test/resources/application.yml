@@ -27,7 +27,7 @@ server:
 # Count for random movies
 # Doesn't work as "random.count: 3" !
 randoms:
-  count: 3
+  count: 2
 
 #Common scheduler
 scheduler:
@@ -101,7 +101,7 @@ queries:
     addReviewSql: "INSERT INTO review (movie_id, user_id, text) VALUES (?, ?, ?);"
   users:
     usersByIdsSql: "SELECT u.* FROM users u WHERE u.id in (:ids);"
-    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));"
+    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.password = ?);"
   countries:
     allCountriesSql: "SELECT * FROM country;"
     countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
