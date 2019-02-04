@@ -67,11 +67,11 @@ public class MovieControllerTest {
         movieOne.setYearOfRelease("1999");
         movieOne.setRating(8.9);
         movieOne.setPrice(134.67);
-        movieOne.setDescription("Обвиненный в страшном преступлении, Джон Коффи оказывается в блоке смертников тюрьмы «Холодная гора». Вновь прибывший обладал поразительным ростом и был пугающе спокоен, что, впрочем, никак не влияло на отношение к нему начальника блока Пола Эджкомба, привыкшего исполнять приговор.");
+        movieOne.setDescription("Обвиненный в страшном преступлении, Джон Коффи оказывается в блоке смертников тюрьмы «Холодная гора».");
         movieOne.setPicturePath("https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg");
         movieOne.setCountries(Arrays.asList(new Country(1, "США")));
         movieOne.setGenres(Arrays.asList(new Genre(3, "фэнтези"), new Genre(1, "драма"), new Genre(2, "криминал"), new Genre(4, "детектив")));
-        movieOne.setReviews(Arrays.asList(new Review(2, new User(1, "Рональд Рейнольдс", "ronald.reynolds66@example.com", Role.ADMIN), "Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах. Особенно я люблю когда при экранизации литературного произведение из него в силу специфики кинематографа исчезает ирония и появляется некий сверхреализм, обязанный удерживать зрителя у экрана каждую отдельно взятую секунду. ")));
+        movieOne.setReviews(Arrays.asList(new Review(2, new User(1, "Рональд Рейнольдс", "ronald.reynolds66@example.com", Role.ADMIN), "Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах.")));
         movies.add(movieOne);
 
         Movie movieTwo = new Movie();
@@ -81,11 +81,11 @@ public class MovieControllerTest {
         movieTwo.setYearOfRelease("1990");
         movieTwo.setRating(8.00);
         movieTwo.setPrice(120.55);
-        movieTwo.setDescription("Действие фильма происходит в США во времена Гражданской войны. Лейтенант американской армии Джон Данбар после ранения в бою просит перевести его на новое место службы ближе к западной границе США.");
+        movieTwo.setDescription("Действие фильма происходит в США во времена Гражданской войны.");
         movieTwo.setPicturePath("https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg");
         movieTwo.setCountries(Arrays.asList(new Country(1, "США"), new Country(3, "Великобритания")));
         movieTwo.setGenres(Arrays.asList(new Genre(1, "драма"), new Genre(11, "приключения"), new Genre(15, "вестерн")));
-        movieTwo.setReviews(Arrays.asList(new Review(2, new User(7, "Амелия Кэннеди", "amelia.kennedy58@example.com", Role.USER), "Нетленный шедевр мирового кинематографа, который можно пересматривать десятки раз и получать все такой — же, извините за выражение, кайф от просмотра. Минусы у фильма, конечно, есть, но черт возьми. Их просто не хочется замечать! Ты настолько поглощен просмотром фильма, что просто не хочется придираться к разным мелочам. ")));
+        movieTwo.setReviews(Arrays.asList(new Review(2, new User(7, "Амелия Кэннеди", "amelia.kennedy58@example.com", Role.USER), "Нетленный шедевр мирового кинематографа")));
         movies.add(movieTwo);
     }
 
@@ -102,7 +102,7 @@ public class MovieControllerTest {
                 .andExpect(jsonPath("yearOfRelease", is("1999")))
                 .andExpect(jsonPath("rating", is(8.9)))
                 .andExpect(jsonPath("price", is(134.67)))
-                .andExpect(jsonPath("description", is("Обвиненный в страшном преступлении, Джон Коффи оказывается в блоке смертников тюрьмы «Холодная гора». Вновь прибывший обладал поразительным ростом и был пугающе спокоен, что, впрочем, никак не влияло на отношение к нему начальника блока Пола Эджкомба, привыкшего исполнять приговор.")))
+                .andExpect(jsonPath("description", is("Обвиненный в страшном преступлении, Джон Коффи оказывается в блоке смертников тюрьмы «Холодная гора».")))
                 .andExpect(jsonPath("picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg")))
 
                 .andExpect(jsonPath("countries", hasSize(1)))
@@ -121,7 +121,7 @@ public class MovieControllerTest {
 
                 .andExpect(jsonPath("reviews", hasSize(1)))
                 .andExpect(jsonPath("reviews[0].id", is(2)))
-                .andExpect(jsonPath("reviews[0].text", is("Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах. Особенно я люблю когда при экранизации литературного произведение из него в силу специфики кинематографа исчезает ирония и появляется некий сверхреализм, обязанный удерживать зрителя у экрана каждую отдельно взятую секунду. ")))
+                .andExpect(jsonPath("reviews[0].text", is("Перестал удивляться тому, что этот фильм занимает сплошь первые места во всевозможных кино рейтингах.")))
                 .andExpect(jsonPath("reviews[0].user.id", is(1)))
                 .andExpect(jsonPath("reviews[0].user.name", is("Рональд Рейнольдс")))
         ;
