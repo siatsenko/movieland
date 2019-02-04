@@ -26,8 +26,6 @@ public class JdbcGenreDao implements GenreDao {
     private String allGenresSql;
     @Value("${queries.genres.genresByMovieIdSql}")
     private String genresByMovieIdSql;
-//    @Value("${queries.genres.editGenresByMovieIdSql}")
-//    private String editGenresByMovieIdSql;
     @Value("${queries.genres.deleteGenresByMovieIdSql}")
     private String deleteGenresByMovieIdSql;
     @Value("${queries.genres.insertGenresByMovieIdSql}")
