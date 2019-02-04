@@ -4,6 +4,7 @@ import com.siatsenko.movieland.dao.GenreDao;
 import com.siatsenko.movieland.entity.common.Genre;
 import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.service.GenreService;
+import com.siatsenko.movieland.service.SlowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,5 @@ public class DefaultGenreService implements GenreService {
     public void setGenreDao(GenreDao genreDao) {
         this.genreDao = genreDao;
     }
+
 }

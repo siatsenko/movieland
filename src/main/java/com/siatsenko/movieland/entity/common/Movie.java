@@ -1,7 +1,5 @@
 package com.siatsenko.movieland.entity.common;
 
-import com.siatsenko.movieland.web.dto.CountryDto;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,9 +29,9 @@ public class Movie {
         this.rating=movie.rating;
         this.price=movie.price;
         this.picturePath=movie.picturePath;
-        this.countries  = new ArrayList(movie.countries);
-        this.genres = new ArrayList(movie.genres);
-        this.reviews = new ArrayList(movie.reviews);
+        this.countries  = (movie.getCountries() == null)? new ArrayList<>():movie.getCountries();
+        this.genres = (movie.getGenres() == null)? new ArrayList<>():movie.getGenres();
+        this.reviews = (movie.getReviews() == null)? new ArrayList<>():movie.getReviews();
     }
 
     public int getId() {
@@ -105,7 +103,7 @@ public class Movie {
     }
 
     public void setCountries(List<Country> countries) {
-        this.countries = countries;
+        this.countries = (countries == null)? new ArrayList<>():countries;
     }
 
     public List<Genre> getGenres() {
@@ -113,7 +111,7 @@ public class Movie {
     }
 
     public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+        this.genres = (genres == null)? new ArrayList<>():genres;
     }
 
     public List<Review> getReviews() {
@@ -121,7 +119,7 @@ public class Movie {
     }
 
     public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+        this.reviews = (reviews == null)? new ArrayList<>():reviews;
     }
 
     @Override

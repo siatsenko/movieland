@@ -66,17 +66,17 @@ management:
 
 # threadPool
 threadPool:
-  corePoolSize: 0
+  corePoolSize: 5
   maxPoolSize: 50
   keepAliveSec: 60
 
 # SlowService
 slowService:
-  pause: 0
+  pause: 3800
 
 # Parallel enrichment
 parallelEnrichment:
-  timeout: 5000
+  timeout: 4000
 
 # Sql queries
 queries:
@@ -90,14 +90,16 @@ queries:
   genres:
     allGenresSql: "SELECT * FROM genre;"
     genresByMovieIdSql: "SELECT g.* FROM movie_genre mg INNER JOIN genre g ON mg.genre_id = g.id WHERE movie_id = ?;"
-    editGenresByMovieIdSql: "WITH del_genres AS ( DELETE FROM movie_genre WHERE movie_id = ?) INSERT INTO movie_genre (movie_id, genre_id) SELECT ?, g.id FROM genre g where g.id IN ( SELECT UNNEST(?) );"
+    deleteGenresByMovieIdSql: "DELETE FROM movie_genre WHERE movie_id = ?;"
+    insertGenresByMovieIdSql: "INSERT INTO movie_genre (movie_id, genre_id) values (?, ?);"
   reviews:
     reviewsByMovieIdSql: "SELECT r.* FROM review r INNER JOIN users u ON r.user_id = u.id WHERE r.movie_id = ?;"
     addReviewSql: "INSERT INTO review (movie_id, user_id, text) VALUES (?, ?, ?);"
   users:
-    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id IN ( SELECT UNNEST(?) );"
+    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id in (:ids);"
     userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));"
   countries:
     allCountriesSql: "SELECT * FROM country;"
     countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
-    editCountriesByMovieIdSql: "WITH del_countries AS (DELETE FROM movie_country WHERE movie_id = ?)  INSERT INTO movie_country (movie_id, country_id) SELECT ?, c.id FROM country c where c.id IN ( SELECT UNNEST(?) );"
+    deleteCountriesByMovieIdSql: "DELETE FROM movie_country WHERE movie_id = ?;"
+    insertCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) values (?, ?);"

@@ -15,18 +15,14 @@ public class DefaultSlowService implements SlowService {
     private int pauseMillis;
 
     @Override
-    public void slow(long millis) {
-        logger.debug("SlowService({}): start", millis);
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            logger.debug("SlowService: InterruptedException {}", e);
-        }
-        logger.debug("SlowService: stop");
+    public void slow(long millis) throws InterruptedException {
+        logger.debug("SlowService.slow({}): start for thread {}", millis, Thread.currentThread().getName());
+        Thread.sleep(millis);
+        logger.debug("SlowService.slow({}): stop", millis);
     }
 
     @Override
-    public void slow() {
+    public void slow() throws InterruptedException {
         slow(pauseMillis);
     }
 }

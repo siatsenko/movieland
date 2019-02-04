@@ -2,8 +2,8 @@ package com.siatsenko.movieland.service;
 
 public interface SlowService {
 
-    void slow(long millis);
+    void slow(long millis) throws InterruptedException;
 
-    void slow();
+    void slow() throws InterruptedException;
 
 }

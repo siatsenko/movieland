@@ -7,6 +7,7 @@ import com.siatsenko.movieland.entity.common.User;
 import com.siatsenko.movieland.entity.request.ReviewRequest;
 import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.ReviewService;
+import com.siatsenko.movieland.service.SlowService;
 import com.siatsenko.movieland.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,4 +66,5 @@ public class DefaultReviewService implements ReviewService {
     public void setAuthService(AuthService authService) {
         this.authService = authService;
     }
+
 }

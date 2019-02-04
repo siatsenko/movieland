@@ -44,15 +44,12 @@ public class CachedMovieService implements MovieService {
     }
 
     @Override
-    public Movie getById(int id) {
-        Movie softMovie = getFromCache(id);
-        if (softMovie == null) {
-            Movie originalMovie = baseMovieService.getById(id);
-            Movie copyMovie = new Movie(originalMovie);
-            return putToCache(copyMovie);
+    public Movie upsert(MovieRequest movieRequest, User user) {
+        Movie movie = baseMovieService.upsert(movieRequest, user);
+        if (cachedMovies.containsKey(movie.getId())) {
+            putToCache(movie);
         }
-        logger.debug("getById({}) finished and return CACHED movies: {}", id, softMovie);
-        return softMovie;
+        return movie;
     }
 
     @Override
@@ -65,12 +62,31 @@ public class CachedMovieService implements MovieService {
     }
 
     @Override
-    public Movie upsert(MovieRequest movieRequest, User user) {
-        Movie movie = baseMovieService.upsert(movieRequest, user);
-        if (cachedMovies.containsKey(movie.getId())) {
-            putToCache(movie);
-        }
+    public Movie getById(int id) {
+        SoftReference<Movie> softMovie = cachedMovies.computeIfAbsent(id, k -> {
+                Movie originalMovie = baseMovieService.getById(k);
+                return new SoftReference(originalMovie);
+        });
+        Movie movie = softMovie.get();
+        logger.debug("getById({}) finished and return CACHED movies: {}", id, movie);
         return movie;
+    }
+
+    Movie getFromCache(int id) {
+        if (cachedMovies.containsKey(id)) {
+            SoftReference<Movie> softMovie = cachedMovies.get(id);
+            return softMovie.get();
+        }
+        return null;
+    }
+
+    SoftReference<Movie> putToCache(Movie movie) {
+        SoftReference<Movie> softMovie = new SoftReference(movie);
+        return cachedMovies.put(movie.getId(), softMovie);
+    }
+
+    void clearCache() {
+        cachedMovies.clear();
     }
 
     @Autowired
@@ -81,28 +97,6 @@ public class CachedMovieService implements MovieService {
     @Autowired
     public void setCurrencyService(CurrencyService currencyService) {
         this.currencyService = currencyService;
-    }
-
-    Movie getFromCache(int id) {
-        if (cachedMovies.containsKey(id)) {
-            SoftReference<Movie> softReference = cachedMovies.get(id);
-            Movie softCachedMovie = softReference.get();
-            if (softCachedMovie == null) {
-                cachedMovies.remove(id);
-            }
-            return softCachedMovie;
-        }
-        return null;
-    }
-
-    Movie putToCache(Movie movie) {
-        SoftReference<Movie> softMovieReference = new SoftReference(movie);
-        cachedMovies.put(movie.getId(), softMovieReference);
-        return softMovieReference.get();
-    }
-
-    void clearCache() {
-        cachedMovies = new ConcurrentHashMap<>();
     }
 
 }
