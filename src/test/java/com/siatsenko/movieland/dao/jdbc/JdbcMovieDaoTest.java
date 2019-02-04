@@ -43,12 +43,11 @@ public class JdbcMovieDaoTest {
         assertEquals("https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg", movieSecond.getPicturePath());
     }
 
-//    @Test
-//    public void getRandom() {
-//        List<Movie> movies = jdbcMovieDao.getRandom();
-//
-//        assertEquals(movies.size(), 2);
-//    }
+    @Test
+    public void getRandom() {
+        List<Movie> movies = jdbcMovieDao.getRandom();
+        assertEquals(2, movies.size());
+    }
 
     @Test
     public void getByGenreId() {
