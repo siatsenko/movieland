@@ -52,9 +52,9 @@ auth:
 # Spring logging level
 logging:
   level:
-    root: debug
+    root: info
     org:
-      springframwork: debug
+      springframwork: info
 
 #management.security.enabled: false
 # for Actuator http://localhost:8080/v1/actuator
