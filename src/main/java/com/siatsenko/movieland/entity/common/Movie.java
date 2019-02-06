@@ -10,7 +10,7 @@ public class Movie {
     @Value("@{debug.cache.movieWeight:1}")
     private int bufferWeight;
 
-    private byte[] buffer = new byte [bufferWeight];
+    private byte[] buffer = new byte[bufferWeight];
     private int id;
     private String nameRussian;
     private String nameNative;

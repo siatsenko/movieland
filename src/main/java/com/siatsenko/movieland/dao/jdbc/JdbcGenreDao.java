@@ -57,7 +57,7 @@ public class JdbcGenreDao implements GenreDao {
         logger.trace("deleteByMovieId({}) finished", movieId);
     }
 
-    void insertByMovieId(int movieId, int[] genreIds){
+    void insertByMovieId(int movieId, int[] genreIds) {
         jdbcTemplate.batchUpdate(insertGenresByMovieIdSql, new BatchPreparedStatementSetter() {
 
             public void setValues(PreparedStatement ps, int i)

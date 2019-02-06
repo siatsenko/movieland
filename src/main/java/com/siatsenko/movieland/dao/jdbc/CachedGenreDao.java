@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Primary
-@CacheConfig(cacheNames={"cacheGenres"})
+@CacheConfig(cacheNames = {"cacheGenres"})
 public class CachedGenreDao implements GenreDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

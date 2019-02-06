@@ -81,7 +81,7 @@ public class CachedMovieService implements MovieService {
         });
         Movie movie = softMovie.get();
 
-        logger.debug("cacheState() = {}",cacheState());
+        logger.debug("cacheState() = {}", cacheState());
         logger.debug("getById({}) finished and return CACHED movies: {}", id, movie);
         return movie;
     }

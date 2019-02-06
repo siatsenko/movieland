@@ -17,10 +17,11 @@ public class DefaultSlowService implements SlowService {
     private int pauseMillis;
 
     @Override
-    public void slow(long millis){
+    public void slow(long millis) {
         logger.debug("SlowService.slow({}): start for thread {}", millis, Thread.currentThread().getName());
         long start = new Date().getTime();
-        while(new Date().getTime() - start < millis){}
+        while (new Date().getTime() - start < millis) {
+        }
         logger.debug("SlowService.slow({}): stop", millis);
     }
 
