@@ -52,7 +52,7 @@ auth:
 # Spring logging level
 logging:
   level:
-    root: info
+    root: debug
     org:
       springframwork: info
 
@@ -69,10 +69,6 @@ threadPool:
   corePoolSize: 5
   maxPoolSize: 50
   keepAliveSec: 60
-
-# SlowService
-slowService:
-  pause: 3800
 
 # Parallel enrichment
 parallelEnrichment:
@@ -103,3 +99,10 @@ queries:
     countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
     deleteCountriesByMovieIdSql: "DELETE FROM movie_country WHERE movie_id = ?;"
     insertCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) values (?, ?);"
+
+debug:
+  cache:
+    # for cache testing (max heap size -Xmx28m)
+    movieWeight: 2000000
+  slowService:
+    pause: 3800

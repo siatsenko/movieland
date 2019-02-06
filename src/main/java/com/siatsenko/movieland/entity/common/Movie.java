@@ -1,10 +1,16 @@
 package com.siatsenko.movieland.entity.common;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Movie {
+    @Value("@{debug.cache.movieWeight:1}")
+    private int bufferWeight;
+
+    private byte[] buffer = new byte [bufferWeight];
     private int id;
     private String nameRussian;
     private String nameNative;
@@ -17,21 +23,21 @@ public class Movie {
     List<Genre> genres;
     List<Review> reviews;
 
-    public Movie(){
+    public Movie() {
     }
 
     public Movie(Movie movie) {
         this.id = movie.id;
-        this.nameRussian=movie.nameRussian;
-        this.nameNative=movie.nameNative;
-        this.yearOfRelease=movie.yearOfRelease;
-        this.description=movie.description;
-        this.rating=movie.rating;
-        this.price=movie.price;
-        this.picturePath=movie.picturePath;
-        this.countries  = (movie.getCountries() == null)? new ArrayList<>():movie.getCountries();
-        this.genres = (movie.getGenres() == null)? new ArrayList<>():movie.getGenres();
-        this.reviews = (movie.getReviews() == null)? new ArrayList<>():movie.getReviews();
+        this.nameRussian = movie.nameRussian;
+        this.nameNative = movie.nameNative;
+        this.yearOfRelease = movie.yearOfRelease;
+        this.description = movie.description;
+        this.rating = movie.rating;
+        this.price = movie.price;
+        this.picturePath = movie.picturePath;
+        this.countries = movie.getCountries(); //(movie.getCountries() == null)? new ArrayList<>():movie.getCountries();
+        this.genres = movie.getGenres(); //(movie.getGenres() == null)? new ArrayList<>():movie.getGenres();
+        this.reviews = movie.getReviews(); //(movie.getReviews() == null)? new ArrayList<>():movie.getReviews();
     }
 
     public int getId() {
@@ -103,7 +109,7 @@ public class Movie {
     }
 
     public void setCountries(List<Country> countries) {
-        this.countries = (countries == null)? new ArrayList<>():countries;
+        this.countries = countries;
     }
 
     public List<Genre> getGenres() {
@@ -111,7 +117,7 @@ public class Movie {
     }
 
     public void setGenres(List<Genre> genres) {
-        this.genres = (genres == null)? new ArrayList<>():genres;
+        this.genres = genres;
     }
 
     public List<Review> getReviews() {
@@ -119,7 +125,7 @@ public class Movie {
     }
 
     public void setReviews(List<Review> reviews) {
-        this.reviews = (reviews == null)? new ArrayList<>():reviews;
+        this.reviews = reviews;
     }
 
     @Override

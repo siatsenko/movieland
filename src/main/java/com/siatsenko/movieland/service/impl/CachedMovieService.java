@@ -5,6 +5,7 @@ import com.siatsenko.movieland.entity.common.User;
 import com.siatsenko.movieland.entity.request.MovieRequest;
 import com.siatsenko.movieland.entity.request.RequestParameters;
 import com.siatsenko.movieland.service.CurrencyService;
+import com.siatsenko.movieland.service.EnrichmentService;
 import com.siatsenko.movieland.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.ref.SoftReference;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -25,6 +27,7 @@ public class CachedMovieService implements MovieService {
     @Qualifier("DefaultMovieService")
     private MovieService baseMovieService;
     private CurrencyService currencyService;
+    private EnrichmentService enrichmentService;
 
     private ConcurrentHashMap<Integer, SoftReference<Movie>> cachedMovies = new ConcurrentHashMap<>();
 
@@ -47,6 +50,7 @@ public class CachedMovieService implements MovieService {
     public Movie upsert(MovieRequest movieRequest, User user) {
         Movie movie = baseMovieService.upsert(movieRequest, user);
         if (cachedMovies.containsKey(movie.getId())) {
+            enrichmentService.enrich(movie);
             putToCache(movie);
         }
         return movie;
@@ -63,11 +67,21 @@ public class CachedMovieService implements MovieService {
 
     @Override
     public Movie getById(int id) {
-        SoftReference<Movie> softMovie = cachedMovies.computeIfAbsent(id, k -> {
-                Movie originalMovie = baseMovieService.getById(k);
-                return new SoftReference(originalMovie);
+
+        SoftReference<Movie> softMovie = cachedMovies.compute(id, (Integer k, SoftReference<Movie> v) -> {
+            logger.debug("cachedMovies.compute({}, (Integer {}, SoftReference<Movie> {})", id, k, v);
+            if (v != null && v.get() != null) {
+                logger.debug("cachedMovies.compute return CACHE ({})", v);
+                return v;
+            }
+            Movie originalMovie = baseMovieService.getById(k);
+            v = new SoftReference<>(originalMovie);
+            logger.debug("cachedMovies.compute return NEW ({})", v);
+            return v;
         });
         Movie movie = softMovie.get();
+
+        logger.debug("cacheState() = {}",cacheState());
         logger.debug("getById({}) finished and return CACHED movies: {}", id, movie);
         return movie;
     }
@@ -81,12 +95,31 @@ public class CachedMovieService implements MovieService {
     }
 
     SoftReference<Movie> putToCache(Movie movie) {
-        SoftReference<Movie> softMovie = new SoftReference(movie);
+        SoftReference<Movie> softMovie = new SoftReference<>(movie);
         return cachedMovies.put(movie.getId(), softMovie);
     }
 
     void clearCache() {
         cachedMovies.clear();
+    }
+
+    String cacheState() {
+        String border = "\n cachedMovies -----------------------------------";
+        StringJoiner stringJoiner = new StringJoiner(" : ", border, border);
+        cachedMovies.forEach((Integer k, SoftReference<Movie> v) -> {
+            stringJoiner.add("\n" + k.toString());
+            if (v == null) {
+                stringJoiner.add("null : null");
+            } else {
+                Movie m = v.get();
+                if (m != null) {
+                    stringJoiner.add(m.toString());
+                } else {
+                    stringJoiner.add("null");
+                }
+            }
+        });
+        return stringJoiner.toString();
     }
 
     @Autowired
@@ -99,4 +132,8 @@ public class CachedMovieService implements MovieService {
         this.currencyService = currencyService;
     }
 
+    @Autowired
+    public void setEnrichmentService(EnrichmentService enrichmentService) {
+        this.enrichmentService = enrichmentService;
+    }
 }

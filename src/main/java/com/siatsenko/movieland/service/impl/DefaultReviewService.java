@@ -5,9 +5,7 @@ import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.entity.common.Review;
 import com.siatsenko.movieland.entity.common.User;
 import com.siatsenko.movieland.entity.request.ReviewRequest;
-import com.siatsenko.movieland.service.AuthService;
 import com.siatsenko.movieland.service.ReviewService;
-import com.siatsenko.movieland.service.SlowService;
 import com.siatsenko.movieland.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,20 +20,20 @@ public class DefaultReviewService implements ReviewService {
 
     private ReviewDao reviewDao;
     private UserService userService;
-    private AuthService authService;
 
     @Override
     public Movie enrich(Movie movie) {
-        List<Review> reviews = reviewDao.getByMovieId(movie.getId());
+        List<Review> reviews = getByMovieId(movie.getId());
         movie.setReviews(reviews);
-        userService.enrich(reviews);
         logger.trace("enrich({}) finished and enrich reviews: {}", movie.getId(), reviews);
         return movie;
     }
 
     @Override
     public List<Review> getByMovieId(int movieId) {
-        return reviewDao.getByMovieId(movieId);
+        List<Review> reviews = reviewDao.getByMovieId(movieId);
+        userService.enrich(reviews);
+        return reviews;
     }
 
     @Override
@@ -60,11 +58,6 @@ public class DefaultReviewService implements ReviewService {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
     }
 
 }
