@@ -11,19 +11,16 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @Primary
-@CacheConfig(cacheNames={"cacheGenres"})
+@CacheConfig(cacheNames = {"cacheGenres"})
 public class CachedGenreDao implements GenreDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Qualifier("jdbcGenreDao")
     private GenreDao genreDao;
-
-    private volatile List<Genre> cacheGenres = new ArrayList<>();
 
     @Cacheable
     @Override

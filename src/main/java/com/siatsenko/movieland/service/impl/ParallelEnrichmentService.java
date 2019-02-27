@@ -25,6 +25,8 @@ public class ParallelEnrichmentService implements EnrichmentService {
     private GenreService genreService;
     private CountryService countryService;
     private ReviewService reviewService;
+
+
     private ExecutorService executorService;
     private SlowService slowService;
 
@@ -37,58 +39,32 @@ public class ParallelEnrichmentService implements EnrichmentService {
         int movieId = movie.getId();
         List<Runnable> tasks = Arrays.asList(
                 () -> {
-                    try {
-                        List<Country> countries = countryService.getByMovieId(movieId);
-                        slowService.slow();
+                    List<Country> countries = countryService.getByMovieId(movieId);
+                    if (!Thread.currentThread().isInterrupted()) {
                         movie.setCountries(countries);
-                    } catch (InterruptedException e) {
-                        movie.setCountries(null);
-                        logger.debug("parallel countries enrich for movieId = {} interrupted {}", movieId, e);
                     }
                 }
                 , () -> {
-                    try {
                     List<Genre> genres = genreService.getByMovieId(movieId);
-                    slowService.slow();
-                    movie.setGenres(genres);
-                    } catch (InterruptedException e) {
-                        movie.setGenres(null);
-                        logger.debug("parallel genres enrich for movieId = {} interrupted {}", movieId, e);
+                    if (!Thread.currentThread().isInterrupted()) {
+                        movie.setGenres(genres);
                     }
                 }
                 , () -> {
-                        try {
                     List<Review> reviews = reviewService.getByMovieId(movieId);
-                    slowService.slow();
-                    movie.setReviews(reviews);
-                        } catch (InterruptedException e) {
-                            movie.setReviews(null);
-                            logger.debug("parallel reviews enrich for movieId = {} interrupted {}", movieId, e);
-                        }
+                    if (!Thread.currentThread().isInterrupted()) {
+                        movie.setReviews(reviews);
+                    }
                 }
         );
         try {
             List<Callable<Object>> callableList =
                     tasks.stream().map(r -> Executors.callable(r)).collect(Collectors.toList());
-            List<Future<Object>> futures =
-                    executorService.invokeAll(callableList, timeoutMillis, TimeUnit.MILLISECONDS);
-
-//            executorService.shutdown();
-
-            for (Future<Object> future : futures) {
-                future.cancel(true);
-            }
+            executorService.invokeAll(callableList, timeoutMillis, TimeUnit.MILLISECONDS);
 
         } catch (InterruptedException e) {
             logger.debug("parallel enrich for movieId = {} interrupted {}", movieId, e);
         }
-
-        try {
-            slowService.slow();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         return movie;
     }
 

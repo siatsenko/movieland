@@ -57,7 +57,7 @@ public class JdbcCountryDao implements CountryDao {
         logger.trace("deleteByMovieId({}) finished", movieId);
     }
 
-    void insertByMovieId(int movieId, int[] countryIds){
+    void insertByMovieId(int movieId, int[] countryIds) {
         jdbcTemplate.batchUpdate(insertCountriesByMovieIdSql, new BatchPreparedStatementSetter() {
 
             public void setValues(PreparedStatement ps, int i)

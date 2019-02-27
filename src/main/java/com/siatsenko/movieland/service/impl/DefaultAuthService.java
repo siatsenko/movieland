@@ -70,7 +70,8 @@ public class DefaultAuthService implements AuthService {
     }
 
     @PostConstruct
-    @Scheduled(fixedDelayString = "${auth.session.checkTimeout: 60000}", initialDelayString = "${auth.session.checkTimeout: 60000}") // every minute by default
+    @Scheduled(fixedDelayString = "${auth.session.checkTimeout: 60000}", initialDelayString = "${auth.session.checkTimeout: 60000}")
+    // every minute by default
     private Map<String, Session> refresh() {
         logger.debug("refresh: start");
 
