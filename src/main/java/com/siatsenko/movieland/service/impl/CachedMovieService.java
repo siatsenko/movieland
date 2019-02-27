@@ -7,6 +7,7 @@ import com.siatsenko.movieland.entity.request.RequestParameters;
 import com.siatsenko.movieland.service.CurrencyService;
 import com.siatsenko.movieland.service.EnrichmentService;
 import com.siatsenko.movieland.service.MovieService;
+import com.siatsenko.movieland.web.dto.CacheMovieDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
@@ -75,13 +77,13 @@ public class CachedMovieService implements MovieService {
                 return v;
             }
             Movie originalMovie = baseMovieService.getById(k);
-            v = new SoftReference<>(originalMovie);
-            logger.debug("cachedMovies.compute return NEW ({})", v);
-            return v;
+            SoftReference<Movie> newValue = new SoftReference<>(originalMovie);
+            logger.debug("cachedMovies.compute return NEW ({})", newValue);
+            return newValue;
         });
         Movie movie = softMovie.get();
 
-        logger.debug("cacheState() = {}", cacheState());
+        logger.debug("cacheStateLog() = {}", cacheStateLog());
         logger.debug("getById({}) finished and return CACHED movies: {}", id, movie);
         return movie;
     }
@@ -103,20 +105,29 @@ public class CachedMovieService implements MovieService {
         cachedMovies.clear();
     }
 
-    String cacheState() {
+    public List<CacheMovieDto> cacheStateWeb() {
+        List<CacheMovieDto> cacheMovieDtos = new ArrayList<>();
+        cachedMovies.forEach((Integer k, SoftReference<Movie> v) -> {
+            Movie movie = v.get();
+            if (movie != null) {
+                cacheMovieDtos.add(new CacheMovieDto(k, movie));
+            } else {
+                cacheMovieDtos.add(new CacheMovieDto(k, null));
+            }
+        });
+        return cacheMovieDtos;
+    }
+
+    public String cacheStateLog() {
         String border = "\n cachedMovies -----------------------------------";
         StringJoiner stringJoiner = new StringJoiner(" : ", border, border);
         cachedMovies.forEach((Integer k, SoftReference<Movie> v) -> {
-            stringJoiner.add("\n" + k.toString());
+            stringJoiner.add("\n" + k);
             if (v == null) {
                 stringJoiner.add("null : null");
             } else {
                 Movie m = v.get();
-                if (m != null) {
-                    stringJoiner.add(m.toString());
-                } else {
-                    stringJoiner.add("null");
-                }
+                stringJoiner.add(String.valueOf(m));
             }
         });
         return stringJoiner.toString();
