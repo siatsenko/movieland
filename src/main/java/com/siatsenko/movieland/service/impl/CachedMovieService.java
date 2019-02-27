@@ -77,9 +77,9 @@ public class CachedMovieService implements MovieService {
                 return v;
             }
             Movie originalMovie = baseMovieService.getById(k);
-            v = new SoftReference<>(originalMovie);
-            logger.debug("cachedMovies.compute return NEW ({})", v);
-            return v;
+            SoftReference<Movie> newValue = new SoftReference<>(originalMovie);
+            logger.debug("cachedMovies.compute return NEW ({})", newValue);
+            return newValue;
         });
         Movie movie = softMovie.get();
 
@@ -122,16 +122,12 @@ public class CachedMovieService implements MovieService {
         String border = "\n cachedMovies -----------------------------------";
         StringJoiner stringJoiner = new StringJoiner(" : ", border, border);
         cachedMovies.forEach((Integer k, SoftReference<Movie> v) -> {
-            stringJoiner.add("\n" + k.toString());
+            stringJoiner.add("\n" + k);
             if (v == null) {
                 stringJoiner.add("null : null");
             } else {
                 Movie m = v.get();
-                if (m != null) {
-                    stringJoiner.add(m.toString());
-                } else {
-                    stringJoiner.add("null");
-                }
+                stringJoiner.add(String.valueOf(m));
             }
         });
         return stringJoiner.toString();
