@@ -83,6 +83,12 @@ public class MovieController {
         logger.debug("edit {}:", UserHandler.getCurrentUser());
     }
 
+    @GetMapping(path = "/movie/error")
+    public String getError() {
+        logger.error("Generate error from MovieController");
+        return "Movie Error";
+    }
+
     @Autowired
     public void setMovieService(MovieService movieService) {
         this.movieService = movieService;
