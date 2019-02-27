@@ -53,13 +53,21 @@ public class MovieDto {
         this.yearOfRelease = yearOfRelease;
     }
 
-    public double getRating() { return rating; }
+    public double getRating() {
+        return rating;
+    }
 
-    public void setRating(double rating) { this.rating = rating; }
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
-    public double getPrice() { return price; }
+    public double getPrice() {
+        return price;
+    }
 
-    public void setPrice(double price) { this.price = price; }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getPicturePath() {
         return picturePath;

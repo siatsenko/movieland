@@ -1,12 +1,16 @@
 package com.siatsenko.movieland.entity.common;
 
-import com.siatsenko.movieland.web.dto.CountryDto;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Movie {
+    @Value("@{debug.cache.movieWeight:1}")
+    private int bufferWeight;
+
+    private byte[] buffer = new byte[bufferWeight];
     private int id;
     private String nameRussian;
     private String nameNative;
@@ -19,21 +23,21 @@ public class Movie {
     List<Genre> genres;
     List<Review> reviews;
 
-    public Movie(){
+    public Movie() {
     }
 
     public Movie(Movie movie) {
         this.id = movie.id;
-        this.nameRussian=movie.nameRussian;
-        this.nameNative=movie.nameNative;
-        this.yearOfRelease=movie.yearOfRelease;
-        this.description=movie.description;
-        this.rating=movie.rating;
-        this.price=movie.price;
-        this.picturePath=movie.picturePath;
-        this.countries  = new ArrayList(movie.countries);
-        this.genres = new ArrayList(movie.genres);
-        this.reviews = new ArrayList(movie.reviews);
+        this.nameRussian = movie.nameRussian;
+        this.nameNative = movie.nameNative;
+        this.yearOfRelease = movie.yearOfRelease;
+        this.description = movie.description;
+        this.rating = movie.rating;
+        this.price = movie.price;
+        this.picturePath = movie.picturePath;
+        this.countries = movie.getCountries(); //(movie.getCountries() == null)? new ArrayList<>():movie.getCountries();
+        this.genres = movie.getGenres(); //(movie.getGenres() == null)? new ArrayList<>():movie.getGenres();
+        this.reviews = movie.getReviews(); //(movie.getReviews() == null)? new ArrayList<>():movie.getReviews();
     }
 
     public int getId() {

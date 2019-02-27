@@ -1,10 +1,10 @@
 package com.siatsenko.movieland.service.impl;
 
+import com.siatsenko.movieland.entity.common.Country;
+import com.siatsenko.movieland.entity.common.Genre;
 import com.siatsenko.movieland.entity.common.Movie;
-import com.siatsenko.movieland.service.CountryService;
-import com.siatsenko.movieland.service.EnrichmentService;
-import com.siatsenko.movieland.service.GenreService;
-import com.siatsenko.movieland.service.ReviewService;
+import com.siatsenko.movieland.entity.common.Review;
+import com.siatsenko.movieland.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
@@ -26,27 +25,36 @@ public class ParallelEnrichmentService implements EnrichmentService {
     private GenreService genreService;
     private CountryService countryService;
     private ReviewService reviewService;
+
+
     private ExecutorService executorService;
+    private SlowService slowService;
 
     @Value("${parallelEnrichment.timeout:5000}")
     private long timeoutMillis;
 
     @Override
     public Movie enrich(Movie movie) {
-        movie.setGenres(new ArrayList());
-        movie.setCountries(new ArrayList());
-        movie.setReviews(new ArrayList());
 
         int movieId = movie.getId();
         List<Runnable> tasks = Arrays.asList(
                 () -> {
-                    movie.setGenres(new ArrayList<>(genreService.getByMovieId(movieId)));
+                    List<Country> countries = countryService.getByMovieId(movieId);
+                    if (!Thread.currentThread().isInterrupted()) {
+                        movie.setCountries(countries);
+                    }
                 }
                 , () -> {
-                    movie.setCountries(new ArrayList<>(countryService.getByMovieId(movieId)));
+                    List<Genre> genres = genreService.getByMovieId(movieId);
+                    if (!Thread.currentThread().isInterrupted()) {
+                        movie.setGenres(genres);
+                    }
                 }
                 , () -> {
-                    movie.setReviews(new ArrayList<>(reviewService.getByMovieId(movieId)));
+                    List<Review> reviews = reviewService.getByMovieId(movieId);
+                    if (!Thread.currentThread().isInterrupted()) {
+                        movie.setReviews(reviews);
+                    }
                 }
         );
         try {
@@ -55,9 +63,8 @@ public class ParallelEnrichmentService implements EnrichmentService {
             executorService.invokeAll(callableList, timeoutMillis, TimeUnit.MILLISECONDS);
 
         } catch (InterruptedException e) {
-            logger.debug("parallel enrich for movieId = {} failed {}", movieId, e);
+            logger.debug("parallel enrich for movieId = {} interrupted {}", movieId, e);
         }
-
         return movie;
     }
 
@@ -79,5 +86,10 @@ public class ParallelEnrichmentService implements EnrichmentService {
     @Autowired
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
+    }
+
+    @Autowired
+    public void setSlowService(SlowService slowService) {
+        this.slowService = slowService;
     }
 }

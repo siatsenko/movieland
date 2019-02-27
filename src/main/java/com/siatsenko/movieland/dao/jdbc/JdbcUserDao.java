@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class JdbcUserDao implements UserDao {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private UserRowMapper userRowMapper;
     private UserDetailRowMapper userDetailRowMapper;
 
@@ -29,8 +32,9 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public List<User> getByIds(List<Integer> userIds) {
-        int[] idList = userIds.stream().mapToInt(Integer::intValue).toArray();
-        List<User> users = jdbcTemplate.query(usersByIdsSql, userRowMapper, idList);
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("ids", userIds);
+        List<User> users = namedParameterJdbcTemplate.query(usersByIdsSql, parameters, userRowMapper);
         logger.debug("getByIds({}) finished and return users:", userIds, users);
         return users;
     }
@@ -61,5 +65,10 @@ public class JdbcUserDao implements UserDao {
     @Autowired
     public void setUserDetailRowMapper(UserDetailRowMapper userDetailRowMapper) {
         this.userDetailRowMapper = userDetailRowMapper;
+    }
+
+    @Autowired
+    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 }

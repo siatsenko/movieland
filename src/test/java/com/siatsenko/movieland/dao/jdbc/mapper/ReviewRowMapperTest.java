@@ -17,12 +17,12 @@ public class ReviewRowMapperTest {
         ResultSet resultSet = mock(ResultSet.class);
 
         when(resultSet.getInt("id")).thenReturn(1);
-        when(resultSet.getString("text")).thenReturn("Гениальное кино! Смотришь и думаешь «Так не бывает!».");
+        when(resultSet.getString("text")).thenReturn("Гениальное кино!");
 
         ReviewRowMapper reviewRowMapper = new ReviewRowMapper();
         Review review = reviewRowMapper.mapRow(resultSet, 0);
         assertEquals(1, review.getId());
-        assertEquals("Гениальное кино! Смотришь и думаешь «Так не бывает!».", review.getText());
+        assertEquals("Гениальное кино!", review.getText());
 
     }
 }

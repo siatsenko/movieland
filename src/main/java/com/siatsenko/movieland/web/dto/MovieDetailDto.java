@@ -32,23 +32,29 @@ public class MovieDetailDto {
         this.picturePath = movie.getPicturePath();
 
         List<CountryDto> countryDtos = new ArrayList<>();
-        for (Country country : movie.getCountries()) {
-            CountryDto countryDto = new CountryDto(country);
-            countryDtos.add(countryDto);
+        if (movie.getCountries() != null) {
+            for (Country country : movie.getCountries()) {
+                CountryDto countryDto = new CountryDto(country);
+                countryDtos.add(countryDto);
+            }
         }
         this.countries = countryDtos;
 
         List<GenreDto> genreDtos = new ArrayList<>();
-        for (Genre genre : movie.getGenres()) {
-            GenreDto genreDto = new GenreDto(genre);
-            genreDtos.add(genreDto);
+        if (movie.getGenres() != null) {
+            for (Genre genre : movie.getGenres()) {
+                GenreDto genreDto = new GenreDto(genre);
+                genreDtos.add(genreDto);
+            }
         }
         this.genres = genreDtos;
 
         List<ReviewDto> reviewDtos = new ArrayList<>();
-        for (Review review : movie.getReviews()) {
-            ReviewDto reviewDto = new ReviewDto(review);
-            reviewDtos.add(reviewDto);
+        if (movie.getReviews() != null) {
+            for (Review review : movie.getReviews()) {
+                ReviewDto reviewDto = new ReviewDto(review);
+                reviewDtos.add(reviewDto);
+            }
         }
         this.reviews = reviewDtos;
 

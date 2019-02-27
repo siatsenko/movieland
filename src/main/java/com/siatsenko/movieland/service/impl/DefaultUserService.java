@@ -23,7 +23,6 @@ public class DefaultUserService implements UserService {
     @Override
     public List<Review> enrich(List<Review> reviews) {
         List<Integer> userIds = new ArrayList<>();
-        // Map<UserId, ReviewId>
         Map<Integer, Integer> map = new HashMap<>();
         for (Review review : reviews) {
             int reviewId = review.getId();

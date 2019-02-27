@@ -17,7 +17,6 @@ public class DefaultCountryService implements CountryService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private CountryDao countryDao;
-    private SlowService slowService;
 
     @Override
     public Movie enrich(Movie movie) {
@@ -36,7 +35,6 @@ public class DefaultCountryService implements CountryService {
 
     @Override
     public List<Country> getByMovieId(int movieId) {
-        slowService.slow();
         return countryDao.getByMovieId(movieId);
     }
 
@@ -51,8 +49,4 @@ public class DefaultCountryService implements CountryService {
         this.countryDao = countryDao;
     }
 
-    @Autowired
-    public void setSlowService(SlowService slowService) {
-        this.slowService = slowService;
-    }
 }

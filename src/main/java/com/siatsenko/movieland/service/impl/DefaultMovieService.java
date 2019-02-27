@@ -66,7 +66,7 @@ public class DefaultMovieService implements MovieService {
     }
 
     @Override
-    @Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     public Movie upsert(MovieRequest movieRequest, User user) {
 
         Movie movie = new Movie();

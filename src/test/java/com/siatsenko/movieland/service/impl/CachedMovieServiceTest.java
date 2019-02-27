@@ -1,5 +1,6 @@
 package com.siatsenko.movieland.service.impl;
 
+import com.siatsenko.movieland.entity.common.Genre;
 import com.siatsenko.movieland.entity.common.Movie;
 import com.siatsenko.movieland.entity.common.Role;
 import com.siatsenko.movieland.entity.common.User;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,14 +28,9 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class CachedMovieServiceTest {
 
-    @Autowired
-    CachedMovieService cachedMovieService;
-
-    @Autowired
-    DefaultMovieService defaultMovieService;
-
-    @Autowired
-    RequestParamsService requestParamsService;
+    private CachedMovieService cachedMovieService;
+    private DefaultMovieService defaultMovieService;
+    private RequestParamsService requestParamsService;
 
     @Before
     public void before() {
@@ -72,6 +70,13 @@ public class CachedMovieServiceTest {
     }
 
     @Test
+    public void getByIdWithCurrency() {
+        Movie originalMovie = defaultMovieService.getById(2,"USD");
+        Movie cachedMovie = cachedMovieService.getById(2,"USD");
+        assertEquals(originalMovie,cachedMovie);
+    }
+
+    @Test
     @DirtiesContext
     public void upsert() {
         Movie firstCachedMovie = cachedMovieService.getFromCache(2);
@@ -90,6 +95,9 @@ public class CachedMovieServiceTest {
         when(movieRequest.getId()).thenReturn(2);
         when(movieRequest.getNameNative()).thenReturn("Test Name Native");
         when(movieRequest.getNameRussian()).thenReturn("Тест Наименование на русском");
+
+        when(movieRequest.getGenres()).thenReturn(new int[]{});
+        when(movieRequest.getCountries()).thenReturn(new int[]{});
 
         cachedMovieService.upsert(movieRequest,new User("admin", "admin", Role.ADMIN));
 
@@ -128,5 +136,20 @@ public class CachedMovieServiceTest {
         assertNotNull(secondCachedMovie);
         assertEquals("Зеленая миля",secondCachedMovie.getNameRussian());
         assertEquals(4,secondCachedMovie.getGenres().size());
+    }
+
+    @Autowired
+    public void setCachedMovieService(CachedMovieService cachedMovieService) {
+        this.cachedMovieService = cachedMovieService;
+    }
+
+    @Autowired
+    public void setDefaultMovieService(DefaultMovieService defaultMovieService) {
+        this.defaultMovieService = defaultMovieService;
+    }
+
+    @Autowired
+    public void setRequestParamsService(RequestParamsService requestParamsService) {
+        this.requestParamsService = requestParamsService;
     }
 }

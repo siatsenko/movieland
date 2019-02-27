@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -23,8 +26,10 @@ public class JdbcGenreDao implements GenreDao {
     private String allGenresSql;
     @Value("${queries.genres.genresByMovieIdSql}")
     private String genresByMovieIdSql;
-    @Value("${queries.genres.editGenresByMovieIdSql}")
-    private String editGenresByMovieIdSql;
+    @Value("${queries.genres.deleteGenresByMovieIdSql}")
+    private String deleteGenresByMovieIdSql;
+    @Value("${queries.genres.insertGenresByMovieIdSql}")
+    private String insertGenresByMovieIdSql;
 
     @Override
     public List<Genre> getAll() {
@@ -42,8 +47,31 @@ public class JdbcGenreDao implements GenreDao {
 
     @Override
     public void editByMovieId(int movieId, int[] genreIds) {
-        jdbcTemplate.update(editGenresByMovieIdSql, movieId, movieId, genreIds);
+        deleteByMovieId(movieId);
+        insertByMovieId(movieId, genreIds);
         logger.trace("editByMovieId({},{}) finished", movieId, genreIds);
+    }
+
+    void deleteByMovieId(int movieId) {
+        jdbcTemplate.update(deleteGenresByMovieIdSql, movieId);
+        logger.trace("deleteByMovieId({}) finished", movieId);
+    }
+
+    void insertByMovieId(int movieId, int[] genreIds) {
+        jdbcTemplate.batchUpdate(insertGenresByMovieIdSql, new BatchPreparedStatementSetter() {
+
+            public void setValues(PreparedStatement ps, int i)
+                    throws SQLException {
+                ps.setInt(1, movieId);
+                ps.setInt(2, genreIds[i]);
+            }
+
+            public int getBatchSize() {
+                return genreIds.length;
+            }
+        });
+
+        logger.trace("insertByMovieId({},{}) finished", movieId, genreIds);
     }
 
     @Autowired

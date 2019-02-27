@@ -8,11 +8,11 @@ spring:
 # H2 DB
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
+    username: sa
+    password:
 # HSQL DB
 #    url: jdbc:hsqldb:mem:testdb;shutdown=true;sql.sytax_pgs=true;DB_CLOSE_DELAY=-1
 #    driverClassName: org.hsqldb.jdbcDriver
-    username: sa
-    password:
   cache:
     type: caffeine
     cache-names: cacheGenres
@@ -27,7 +27,7 @@ server:
 # Count for random movies
 # Doesn't work as "random.count: 3" !
 randoms:
-  count: 3
+  count: 2
 
 #Common scheduler
 scheduler:
@@ -69,13 +69,13 @@ management:
 
 # threadPool
 threadPool:
-  corePoolSize: 0
+  corePoolSize: 5
   maxPoolSize: 50
   keepAliveSec: 60
 
 # SlowService
 slowService:
-  pause: 1500
+  pause: 0
 
 # Parallel enrichment
 parallelEnrichment:
@@ -94,15 +94,16 @@ queries:
   genres:
     allGenresSql: "SELECT * FROM genre;"
     genresByMovieIdSql: "SELECT g.* FROM movie_genre mg INNER JOIN genre g ON mg.genre_id = g.id WHERE movie_id = ?;"
-    editGenresByMovieIdSql: "INSERT INTO movie_genre (movie_id, genre_id) SELECT (?+?)/2, g.id FROM genre g where g.id = ?;"
+    deleteGenresByMovieIdSql: "DELETE FROM movie_genre WHERE movie_id = ?;"
+    insertGenresByMovieIdSql: "INSERT INTO movie_genre (movie_id, genre_id) values (?, ?);"
   reviews:
     reviewsByMovieIdSql: "SELECT r.* FROM review r INNER JOIN users u ON r.user_id = u.id WHERE r.movie_id = ?;"
     addReviewSql: "INSERT INTO review (movie_id, user_id, text) VALUES (?, ?, ?);"
   users:
-    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id IN ( SELECT UNNEST(?) );"
-    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.pswhash = crypt(?, pswhash));"
+    usersByIdsSql: "SELECT u.* FROM users u WHERE u.id in (:ids);"
+    userByAuthSql: "SELECT u.* FROM users u WHERE (u.email = ?) AND (u.password = ?);"
   countries:
     allCountriesSql: "SELECT * FROM country;"
     countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
-    editCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) SELECT (?+?)/2, c.id FROM country c where c.id = ?;"
-
+    deleteCountriesByMovieIdSql: "DELETE FROM movie_country WHERE movie_id = ?;"
+    insertCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) values (?, ?);"
