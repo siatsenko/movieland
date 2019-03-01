@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.sql.DataSource;
 import java.util.concurrent.*;
 
+@EnableMBeanExport
 @EnableCaching
 @Configuration
 public class ApplicationConfig implements SchedulingConfigurer {
