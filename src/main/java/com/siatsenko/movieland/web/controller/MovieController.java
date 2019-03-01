@@ -83,10 +83,10 @@ public class MovieController {
         logger.debug("edit {}:", UserHandler.getCurrentUser());
     }
 
-    @GetMapping(path = "/movie/error")
-    public String getError() {
-        logger.error("Generate error from MovieController");
-        return "Movie Error";
+    @GetMapping(path = "/exception")
+    public void getException() {
+        logger.error("Generate exception from MovieController");
+        throw new RuntimeException("Ops...");
     }
 
     @Autowired
