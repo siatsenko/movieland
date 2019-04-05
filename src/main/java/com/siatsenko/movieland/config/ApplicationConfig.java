@@ -42,7 +42,6 @@ public class ApplicationConfig implements SchedulingConfigurer {
     }
 
     @Bean
-//    @Scope(scopeName = "prototype")
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
         return new NamedParameterJdbcTemplate(dataSource);
     }
