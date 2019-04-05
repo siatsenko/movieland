@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 
 @Repository
 public class MovieRowMapper implements RowMapper<Movie> {
@@ -23,6 +24,8 @@ public class MovieRowMapper implements RowMapper<Movie> {
         movie.setRating(resultSet.getDouble("rating"));
         movie.setPrice(resultSet.getDouble("price"));
         movie.setPicturePath(resultSet.getString("picture_path"));
+        movie.setCreatedDate(resultSet.getDate("created_date").toLocalDate());
+        movie.setModifiedDate(resultSet.getDate("modified_date").toLocalDate());
 
         logger.trace("mapRow finished and return movie: {}", movie);
         return movie;

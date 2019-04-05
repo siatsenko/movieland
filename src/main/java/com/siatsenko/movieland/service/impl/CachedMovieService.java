@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Service;
 
 import java.lang.ref.SoftReference;
@@ -21,6 +24,8 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 
+@ManagedResource(objectName = "com.siatsenko.movieland.service:type=JMX,name=CachedMovieService",
+        description = "You can invalidate cache for movies")
 @Service
 @Primary
 public class CachedMovieService implements MovieService {
@@ -118,6 +123,7 @@ public class CachedMovieService implements MovieService {
         return cacheMovieDtos;
     }
 
+    @ManagedOperation(description = "Get Cache State")
     public String cacheStateLog() {
         String border = "\n cachedMovies -----------------------------------";
         StringJoiner stringJoiner = new StringJoiner(" : ", border, border);
@@ -131,6 +137,11 @@ public class CachedMovieService implements MovieService {
             }
         });
         return stringJoiner.toString();
+    }
+
+    @ManagedOperation(description = "Invalidate movies cache")
+    public void invalidateCache() {
+        clearCache();
     }
 
     @Autowired
@@ -147,4 +158,5 @@ public class CachedMovieService implements MovieService {
     public void setEnrichmentService(EnrichmentService enrichmentService) {
         this.enrichmentService = enrichmentService;
     }
+
 }

@@ -10,6 +10,18 @@ spring:
       auto-commit: true
       minimum-idle: 5
       maximum-pool-size: 20
+
+  mail:
+    host: ${LOG_MAIL_HOST}
+    port: ${LOG_MAIL_PORT}
+    username: ${LOG_MAIL_USER}
+    password: ${LOG_MAIL_PASS}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  jpa:
+    database: postgresql
   cache:
     type: caffeine
     cache-names: cacheGenres
@@ -35,6 +47,9 @@ scheduled:
   # 08 and 16 o'clock of every weekday
   currency:
     cron: "0 0 8,18 * * MON-FRI"
+  reports:
+    cleanDone: "15 15 15 * 7 MON"
+    checkQueueTimeout: 600000
 
 # Currency
 currency:
@@ -99,6 +114,23 @@ queries:
     countriesByMovieIdSql: "SELECT c.* FROM movie_country mc INNER JOIN country c ON mc.country_id = c.id WHERE movie_id = ?;"
     deleteCountriesByMovieIdSql: "DELETE FROM movie_country WHERE movie_id = ?;"
     insertCountriesByMovieIdSql: "INSERT INTO movie_country (movie_id, country_id) values (?, ?);"
+  reports:
+    activeReportsSql: "SELECT * FROM report WHERE deleted = 0;"
+    addReportSql: "INSERT INTO report (deleted,status,file,link,type,output_type,user_id,date_from,date_to) VALUES (:deleted,:status,:file,:link,:type,:output_type,:user_id,:date_from,:date_to);"
+    editReportSql: "INSERT INTO report (id,deleted,status,file,link,type,output_type,user_id,date_from,date_to) VALUES (:id,:deleted,:status,:file,:link,:type,:output_type,:user_id,:date_from,:date_to) ON CONFLICT ON CONSTRAINT report_pkey DO UPDATE SET deleted = EXCLUDED.deleted,status = EXCLUDED.status,link = EXCLUDED.link,type = EXCLUDED.type,output_type = EXCLUDED.output_type, user_id = EXCLUDED.user_id, date_from = EXCLUDED.date_to;"
+    allReportMovieDetailSql: "select m.id movie_id, m.name_russian title, m.description, gn.genre_names genre, m.price, m.created_date add_date, m.modified_date, m.rating, count(r.id)  reviews_count from movie m LEFT JOIN ( SELECT mg.movie_id, string_agg(g.name, ',' ORDER BY g.id) AS genre_names FROM movie_genre mg JOIN genre g ON mg.genre_id = g.id GROUP BY mg.movie_id) gn ON m.id = gn.movie_id left join review r on m.id = r.movie_id group by m.id, m.name_russian, m.description, gn.genre_names, m.price, m.created_date, m.modified_date, m.rating"
+    periodReportMovieDetailSql: "select m.id movie_id, m.name_russian title, m.description, gn.genre_names genre, m.price, m.created_date add_date, m.modified_date, m.rating, count(r.id)  reviews_count from movie m LEFT JOIN ( SELECT mg.movie_id, string_agg(g.name, ',' ORDER BY g.id) AS genre_names FROM movie_genre mg JOIN genre g ON mg.genre_id = g.id GROUP BY mg.movie_id) gn ON m.id = gn.movie_id left join review r on m.id = r.movie_id where m.created_date >= :date_from and m.created_date <= :date_to group by m.id, m.name_russian, m.description, gn.genre_names, m.price, m.created_date, m.modified_date, m.rating"
+    top5UserDetailSql: "select r.user_id, u.email, count(r.id) as reviews_count, avg(m.rating) as average_rate from review r inner join users u on r.user_id = u.id	inner join movie m on r.movie_id = m.id group by r.user_id, u.email order by 3 desc, 4 desc limit 5"
+    cleanReportSql: "select * from report r where r.status = 'DONE'"
+
+reports:
+  dir: ${TEMP}
+  ftp:
+    url: ${FTP_URL}
+    port: ${FTP_PORT}
+    username: ${FTP_USERNAME}
+    password: ${FTP_PASSWORD}
+  mailList: ${REPORT_MAIL_LIST}
 
 debug:
   cache:

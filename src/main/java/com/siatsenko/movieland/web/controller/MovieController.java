@@ -83,6 +83,12 @@ public class MovieController {
         logger.debug("edit {}:", UserHandler.getCurrentUser());
     }
 
+    @GetMapping(path = "/exception")
+    public void getException() {
+        logger.error("Generate exception from MovieController");
+        throw new RuntimeException("Ops...");
+    }
+
     @Autowired
     public void setMovieService(MovieService movieService) {
         this.movieService = movieService;

@@ -2,7 +2,9 @@ package com.siatsenko.movieland.entity.common;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,6 +21,8 @@ public class Movie {
     private double rating;
     private double price;
     private String picturePath;
+    private LocalDate createdDate;
+    private LocalDate modifiedDate;
     List<Country> countries;
     List<Genre> genres;
     List<Review> reviews;
@@ -35,6 +39,8 @@ public class Movie {
         this.rating = movie.rating;
         this.price = movie.price;
         this.picturePath = movie.picturePath;
+        this.createdDate = movie.createdDate;
+        this.modifiedDate = movie.modifiedDate;
         this.countries = movie.getCountries(); //(movie.getCountries() == null)? new ArrayList<>():movie.getCountries();
         this.genres = movie.getGenres(); //(movie.getGenres() == null)? new ArrayList<>():movie.getGenres();
         this.reviews = movie.getReviews(); //(movie.getReviews() == null)? new ArrayList<>():movie.getReviews();
@@ -104,6 +110,22 @@ public class Movie {
         this.picturePath = picturePath;
     }
 
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDate getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDate modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
     public List<Country> getCountries() {
         return countries;
     }
@@ -131,7 +153,9 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "id=" + id +
+                "bufferWeight=" + bufferWeight +
+                ", buffer=" + Arrays.toString(buffer) +
+                ", id=" + id +
                 ", nameRussian='" + nameRussian + '\'' +
                 ", nameNative='" + nameNative + '\'' +
                 ", yearOfRelease='" + yearOfRelease + '\'' +
@@ -139,6 +163,8 @@ public class Movie {
                 ", rating=" + rating +
                 ", price=" + price +
                 ", picturePath='" + picturePath + '\'' +
+                ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
                 ", countries=" + countries +
                 ", genres=" + genres +
                 ", reviews=" + reviews +
@@ -150,14 +176,18 @@ public class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return id == movie.id &&
+        return bufferWeight == movie.bufferWeight &&
+                id == movie.id &&
                 Double.compare(movie.rating, rating) == 0 &&
                 Double.compare(movie.price, price) == 0 &&
+                Arrays.equals(buffer, movie.buffer) &&
                 Objects.equals(nameRussian, movie.nameRussian) &&
                 Objects.equals(nameNative, movie.nameNative) &&
                 Objects.equals(yearOfRelease, movie.yearOfRelease) &&
                 Objects.equals(description, movie.description) &&
                 Objects.equals(picturePath, movie.picturePath) &&
+                Objects.equals(createdDate, movie.createdDate) &&
+                Objects.equals(modifiedDate, movie.modifiedDate) &&
                 Objects.equals(countries, movie.countries) &&
                 Objects.equals(genres, movie.genres) &&
                 Objects.equals(reviews, movie.reviews);
@@ -165,6 +195,8 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameRussian, nameNative, yearOfRelease, description, rating, price, picturePath, countries, genres, reviews);
+        int result = Objects.hash(bufferWeight, id, nameRussian, nameNative, yearOfRelease, description, rating, price, picturePath, createdDate, modifiedDate, countries, genres, reviews);
+        result = 31 * result + Arrays.hashCode(buffer);
+        return result;
     }
 }
