@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -18,6 +19,7 @@ import java.util.concurrent.*;
 @EnableMBeanExport
 @EnableCaching
 @Configuration
+@EnableScheduling
 public class ApplicationConfig implements SchedulingConfigurer {
 
     private DataSource dataSource;
@@ -40,6 +42,7 @@ public class ApplicationConfig implements SchedulingConfigurer {
     }
 
     @Bean
+    @Scope(scopeName = "prototype")
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
         return new NamedParameterJdbcTemplate(dataSource);
     }

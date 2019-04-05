@@ -28,9 +28,9 @@ public class DtoConverter {
     }
 
     public MovieDetailDto asMovieDetailDto(Movie movie) {
-        MovieDetailDto movieDetailDto = new MovieDetailDto(movie);
-        movieDetailDto.setPrice(new BigDecimal(movie.getPrice()).setScale(2, RoundingMode.UP).doubleValue());
-        return movieDetailDto;
+        MovieDetailDto reportMovieDetailDto = new MovieDetailDto(movie);
+        reportMovieDetailDto.setPrice(new BigDecimal(movie.getPrice()).setScale(2, RoundingMode.UP).doubleValue());
+        return reportMovieDetailDto;
     }
 
     public LoginUserDto asLoginUserDto(Session session) {
